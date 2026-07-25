@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ziddi | Less Noise. More Results.</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Home-specific Premium Styles */
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 100px 40px 60px 40px;
+      min-height: calc(100vh - 80px);
+      position: relative;
+    }
+
+    .hero-content {
+      flex: 1.1;
+      max-width: 650px;
+    }
+
+    .hero-tagline {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(124, 58, 237, 0.1);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      border-radius: 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 58px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 50%, #A78BFA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .hero-content p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .hero-download-buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .store-badge {
+      height: 50px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .store-badge:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    /* Showcase Mockups Row */
+    .hero-showcase {
+      flex: 0.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 600px;
+    }
+
+    .phone-mockup-wrapper {
+      position: relative;
+      width: 280px;
+      height: 570px;
+      z-index: 2;
+    }
+
+    .phone-mockup {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border: 10px solid #1E1E24;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.15);
+      position: relative;
+    }
+
+    /* Screen Image */
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    /* Left offset mockup */
+    .mockup-left {
+      position: absolute;
+      left: 10px;
+      top: 50px;
+      transform: rotate(-4deg);
+      z-index: 1;
+    }
+
+    /* Right offset mockup */
+    .mockup-right {
+      position: absolute;
+      right: 10px;
+      bottom: 50px;
+      transform: rotate(4deg);
+      z-index: 3;
+    }
+
+    .founder-tease-btn {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+    }
+
+    .founder-tease-btn:hover {
+      border-bottom-color: var(--primary);
+      color: var(--primary-hover);
+    }
+
+    /* Double Feature Section (Health & Healing) */
+    .features-section {
+      background: #060608;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 100px 40px;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .features-header h2 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .features-header p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .dual-showcase-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .showcase-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .showcase-block h3 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .showcase-block .accent-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+    }
+
+    .bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bullet-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .bullet-icon {
+      font-size: 20px;
+      min-width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--primary-glow);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary);
+    }
+
+    .bullet-text h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .bullet-text p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Download QR Banner section */
+    .download-banner {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(13, 13, 16, 0.8) 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin: 100px auto;
+      max-width: 1200px;
+    }
+
+    .download-banner-content h2 {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .download-banner-content p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+
+    .qr-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 20px;
+    }
+
+    .qr-code {
+      width: 110px;
+      height: 110px;
+      background: #FFF;
+      border-radius: 12px;
+      padding: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .qr-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .qr-text strong {
+      color: var(--text-primary);
+    }
+
+    /* Hashtags block */
+    .hashtag-container {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hashtag {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .hashtag:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-container {
+        flex-direction: column;
+        padding-top: 140px;
+        text-align: center;
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+      .hero-download-buttons {
+        justify-content: center;
+      }
+      .hero-showcase {
+        height: auto;
+        margin-top: 40px;
+        width: 100%;
+      }
+      .mockup-left, .mockup-right {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        transform: none;
+        margin: 10px;
+      }
+      .dual-showcase-container {
+        grid-template-columns: 1fr;
+      }
+      .download-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .qr-container {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Accents -->
+  <div class="gradient-accent glow-top-right"></div>
+  <div class="gradient-accent glow-bottom-left"></div>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <a href="index.html" class="logo-container">
+      <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+    </a>
+    <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Side Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <a href="index.html" style="color: var(--text-primary);">Home</a>
+    <a href="founders.html">Meet the Founders</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="#download" class="drawer-login-btn">Download App</a>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-tagline">Less Noise. More Results.</span>
+        <h1>Refuse to Settle.<br>Choose Ziddi.</h1>
+        <p>Ziddi is a dedicated training and recovery ecosystem built to get you fit. Log workouts on our interactive 3D model, access customized cookbooks, manage physical recovery programs, and earn Ziddi Coins to redeem for premium gear and supplements in our store.</p>
+        
+        <div class="hero-download-buttons">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store" class="store-badge">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
+        </div>
+        
+        <p style="font-size: 14px; color: var(--text-muted);">
+          Looking for the creators? <a href="founders.html" class="founder-tease-btn">Meet the Founders →</a>
+        </p>
+      </div>
+
+      <!-- Mockup Grid Showcase -->
+      <div class="hero-showcase">
+        <!-- Gym screen mockup -->
+        <div class="phone-mockup-wrapper mockup-left">
+          <div class="phone-mockup">
+            <img src="assets/health.png" alt="Ziddi Health Screen" class="phone-screen">
+          </div>
+        </div>
+        <!-- Mind screen mockup -->
+        <div class="phone-mockup-wrapper mockup-right">
+          <div class="phone-mockup">
+            <img src="assets/healing.png" alt="Ziddi Healing Screen" class="phone-screen">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Platform Features -->
+    <div class="features-section">
+      <div class="features-header">
+        <h2>Built For The Obstinate</h2>
+        <p>Command your training, set target goals, manage recovery milestones, and redeem sweat equity in our wellness store.</p>
+      </div>
+
+      <div class="dual-showcase-container">
+        
+        <!-- Health Section -->
+        <div class="showcase-block">
+          <h3>The Ziddi Health Tab 🏋️</h3>
+          <div class="accent-subtitle">Strength & Accountability Hub</div>
+          <div class="bullet-list">
+            
+            <div class="bullet-item">
+              <div class="bullet-icon">👤</div>
+              <div class="bullet-text">
+                <h4>3D Map Logging & Recall</h4>
+                <p>Log sets by tapping muscle groups directly on an interactive 3D model. Review previous parameters and target your gold 🏆 personal records (PR).</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">⚡</div>
+              <div class="bullet-text">
+                <h4>Smart Set Builder</h4>
+                <p>Auto-fills your previous weights and reps dynamically, allowing you to log workouts in just two taps.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🎖️</div>
+              <div class="bullet-text">
+                <h4>Coins & Progressive Rankings</h4>
+                <p>Rise from Noob to Olympia tiers as you train. Smashing PRs and keeping streaks yields Ziddi Coins to purchase store merch.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">📊</div>
+              <div class="bullet-text">
+                <h4>Planners & Community Charts</h4>
+                <p>Map weekly logs, review progression charts, export histories to CSV format, and compete against friends on the Leaderboard.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Healing Section -->
+        <div class="showcase-block">
+          <h3>The Ziddi Healing Tab 🧘</h3>
+          <div class="accent-subtitle">Mental & Physical Recovery Engine</div>
+          <div class="bullet-list">
+            
+            <div class="bullet-item">
+              <div class="bullet-icon">🧠</div>
+              <div class="bullet-text">
+                <h4>Meditation & Yoga Plans</h4>
+                <p>Quiet the noise, calm your nervous system, and reset focus. Guided, structured splits are ready for both beginners and veterans.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🩺</div>
+              <div class="bullet-text">
+                <h4>Physical Rehab & Consults</h4>
+                <p>Active recovery routines for body rehabilitation, and direct access to consult professional medical guidance for nagging injuries.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🥗</div>
+              <div class="bullet-text">
+                <h4>Healing Through Nutrition</h4>
+                <p>True recovery starts from within. Access cookbooks and personalized diets loaded with nutrition facts that repair muscle and combat inflammation.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🛡️</div>
+              <div class="bullet-text">
+                <h4>Biomechanics Guides & Logs</h4>
+                <p>In-depth manuals covering sleep hygiene, stress controls, and injury-specific logs (like ACL/MCL recovery) synced inside a unified logbook.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Store Section -->
+        <div class="showcase-block">
+          <h3>The Ziddi Store Tab 🪙</h3>
+          <div class="accent-subtitle">Sweat Equity Marketplace</div>
+          <div class="bullet-list">
+            
+            <div class="bullet-item">
+              <div class="bullet-icon">🪙</div>
+              <div class="bullet-text">
+                <h4>Ziddi Coin Redemptions</h4>
+                <p>Earn coins automatically for every workout logged, streak maintained, and personal record smashed, and use them as real currency.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🛍️</div>
+              <div class="bullet-text">
+                <h4>Whey, Creatine & Gears</h4>
+                <p>Purchase top-tier supplements (whey protein, creatine, recovery pre-workouts) and physical gears (belts, bands, wrist wraps, chalk).</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🏷️</div>
+              <div class="bullet-text">
+                <h4>Wellness Tier Discounts</h4>
+                <p>Unlock massive tier-based discount coupons for physical store items by leveling up your physical rank from Noob to Olympia.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">💳</div>
+              <div class="bullet-text">
+                <h4>Secure Order Management</h4>
+                <p>Enter your shipping address, track deliveries, and complete orders using industry-standard secure gateway integrations (Razorpay).</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Target Section -->
+        <div class="showcase-block">
+          <h3>The Ziddi Target Tab 🎯</h3>
+          <div class="accent-subtitle">Personalized Milestones & Trackers</div>
+          <div class="bullet-list">
+            
+            <div class="bullet-item">
+              <div class="bullet-icon">🎯</div>
+              <div class="bullet-text">
+                <h4>Custom Goals & Trackers</h4>
+                <p>Set custom targets for diverse objectives ranging from "Government physical exams" to "weight loss at home," "sports performance," and "Powerlifting."</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">📈</div>
+              <div class="bullet-text">
+                <h4>Goal-Specific Tests & Plans</h4>
+                <p>Each target is divided into multiple benchmark tests. You will receive customized training plans to push you towards your goal, whether it is clearing physicals, playing great football, or fat loss.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">🥑</div>
+              <div class="bullet-text">
+                <h4>Personalized Diet Plans</h4>
+                <p>Receive tailored dietary recommendations and meal plans to fuel your specific goals and optimize performance.</p>
+              </div>
+            </div>
+
+            <div class="bullet-item">
+              <div class="bullet-icon">👥</div>
+              <div class="bullet-text">
+                <h4>Expert Consults & Progress Guides</h4>
+                <p>Access direct progress guides and consult with specialized experts in your fields to get professional insights and feedback.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Download QR Section -->
+    <section id="download" style="padding: 0 40px;">
+      <div class="download-banner">
+        <div class="download-banner-content">
+          <h2>Ready to lock it in?</h2>
+          <p>Scan the code or click below to install Ziddi on your device and begin earning coins for your effort today.</p>
+          <div class="hero-download-buttons" style="margin-bottom: 0;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store" class="store-badge">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
+          </div>
+        </div>
+
+        <div class="qr-container">
+          <div class="qr-code">
+            <!-- Inline SVG representing standard QR pattern -->
+            <svg class="qr-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="25" height="25" fill="#0D0D11" />
+              <rect x="5" y="5" width="15" height="15" fill="#FFF" />
+              <rect x="8" y="8" width="9" height="9" fill="#0D0D11" />
+              
+              <rect x="75" y="0" width="25" height="25" fill="#0D0D11" />
+              <rect x="80" y="5" width="15" height="15" fill="#FFF" />
+              <rect x="83" y="8" width="9" height="9" fill="#0D0D11" />
+              
+              <rect x="0" y="75" width="25" height="25" fill="#0D0D11" />
+              <rect x="5" y="80" width="15" height="15" fill="#FFF" />
+              <rect x="8" y="83" width="9" height="9" fill="#0D0D11" />
+              
+              <!-- Random QR bits -->
+              <rect x="35" y="5" width="5" height="10" fill="#0D0D11" />
+              <rect x="45" y="15" width="10" height="5" fill="#0D0D11" />
+              <rect x="60" y="5" width="5" height="5" fill="#0D0D11" />
+              <rect x="35" y="35" width="15" height="15" fill="#0D0D11" />
+              <rect x="40" y="40" width="5" height="5" fill="#FFF" />
+              <rect x="60" y="45" width="10" height="5" fill="#0D0D11" />
+              <rect x="80" y="40" width="5" height="10" fill="#0D0D11" />
+              <rect x="35" y="70" width="10" height="5" fill="#0D0D11" />
+              <rect x="50" y="80" width="5" height="15" fill="#0D0D11" />
+              <rect x="65" y="70" width="15" height="5" fill="#0D0D11" />
+              <rect x="80" y="80" width="15" height="15" fill="#0D0D11" />
+            </svg>
+          </div>
+          <div class="qr-text">
+            <strong>Scan to Download</strong><br>
+            Point your camera at this code to install Ziddi on iOS or Android directly.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-container" style="padding:0;">
+          <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+        </a>
+        <p>A full comprehensive platform designed to challenge your limits, track your progress, and get you fit.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Hashtags Row -->
+    <div class="hashtag-container">
+      <span class="hashtag">#BeZiddi</span>
+      <span class="hashtag">#ZiddiBan</span>
+      <span class="hashtag">#gen-Z</span>
+      <span class="hashtag">#Obstinate</span>
+      <span class="hashtag">#Stubborn</span>
+      <span class="hashtag">#Relentless</span>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ziddi App. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#">𝕏</a>
+        <a href="#">💼</a>
+        <a href="#">🐙</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header styling on scroll
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Side Drawer toggle logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    function toggleMenu() {
+      menuToggle.classList.toggle('open');
+      sideDrawer.classList.toggle('open');
+      backdrop.classList.toggle('open');
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    backdrop.addEventListener('click', toggleMenu);
+  </script>
+</body>
+</html>

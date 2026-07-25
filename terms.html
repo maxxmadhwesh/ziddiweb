@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions | Ziddi</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <!-- Background glows -->
+  <div class="gradient-accent glow-top-right"></div>
+  <div class="gradient-accent glow-bottom-left"></div>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <a href="index.html" class="logo-container">
+      <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+    </a>
+    <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Side Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <a href="index.html">Home</a>
+    <a href="founders.html">Meet the Founders</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html" style="color: var(--text-primary);">Terms & Conditions</a>
+    <a href="index.html#download" class="drawer-login-btn">Download App</a>
+  </div>
+
+  <main>
+    <section>
+      <div class="legal-container">
+        <h1 class="legal-title">Terms & Conditions</h1>
+        <div class="legal-meta">Last Updated: July 26, 2026</div>
+
+        <div class="legal-content">
+          <p>Welcome to Ziddi. These Terms and Conditions ("Terms") govern your access to and use of our mobile application and website (www.ziddiapp.com). By downloading the app, accessing our services, or making store purchases, you agree to be bound by these Terms. If you do not agree, please do not use our services.</p>
+
+          <h2>1. User Accounts & Security</h2>
+          <p>To use most features of Ziddi, you must register for an account. You agree to provide accurate, complete information and to keep it up to date. You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your account.</p>
+
+          <h2>2. Medical & Fitness Disclaimer (Crucial)</h2>
+          <p><strong>PLEASE READ CAREFULLY:</strong> Ziddi provides strength tracking, yoga programs, meditation guides, cardiovascular workout calculators, and recipes. We are <strong>not</strong> medical professionals, and our services do not constitute medical advice or diagnosis. </p>
+          <ul>
+            <li>You should consult with a qualified medical physician before starting any training, exercise program, or modifying your diet.</li>
+            <li>All exercises, yoga programs, and dietary adjustments are performed <strong>at your own risk</strong>. Ziddi, its co-founders, and partners shall not be held liable for any physical injuries, health conditions, or damages resulting from the use of our guides.</li>
+          </ul>
+
+          <h2>3. Subscriptions & Billing</h2>
+          <p>Ziddi offers premium feature tiers ("Ziddi Premium") which can be purchased on a subscription basis (monthly or annually). </p>
+          <ul>
+            <li>Subscriptions are billed in advance on a recurring schedule and will automatically renew under the same conditions unless canceled.</li>
+            <li>You may cancel your subscription at any time through the app account settings or your app store subscription settings. Cancellations apply to the next billing cycle; no partial refunds are provided.</li>
+            <li>Pricing and features are subject to change. Any price changes will be communicated to you in advance.</li>
+          </ul>
+
+          <h2>4. Ziddi Store & Shipping Policies</h2>
+          <p>By placing an order in the Ziddi Store, you agree to provide complete shipping and billing information. All payments are processed securely through authorized partners (e.g. Razorpay).</p>
+          <ul>
+            <li><strong>Delivery:</strong> We ship physical items to addresses within India. Shipping timelines and fees vary by product and delivery location and will be calculated at checkout.</li>
+            <li><strong>Returns & Refunds:</strong> Unopened and undamaged physical store products may be returned within 7 days of delivery for a refund or replacement. Custom products, discount redemptions, and digital subscription plan tiers are non-refundable.</li>
+          </ul>
+
+          <h2>5. Intellectual Property</h2>
+          <p>The design, content, code, custom illustrations, and logos on the Ziddi app and website are the exclusive property of Ziddi and are protected by copyright and intellectual property laws. You may not copy, reproduce, scrape, distribute, or modify any portion of our assets without express written consent from the founders.</p>
+
+          <h2>6. Limitation of Liability</h2>
+          <p>To the maximum extent permitted by law, Ziddi shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or personal injuries arising out of your use of the app or products purchased from the store.</p>
+
+          <h2>7. Contact Information</h2>
+          <p>For questions or feedback regarding these Terms, please contact us at: <strong>legal@ziddiapp.com</strong>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-container" style="padding:0;">
+          <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+        </a>
+        <p>A full comprehensive platform designed to challenge your limits, track your progress, and get you fit.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ziddi App. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#">𝕏</a>
+        <a href="#">💼</a>
+        <a href="#">🐙</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header styling on scroll
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Side Drawer toggle logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    function toggleMenu() {
+      menuToggle.classList.toggle('open');
+      sideDrawer.classList.toggle('open');
+      backdrop.classList.toggle('open');
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    backdrop.addEventListener('click', toggleMenu);
+  </script>
+</body>
+</html>
