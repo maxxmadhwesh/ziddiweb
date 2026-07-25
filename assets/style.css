@@ -396,6 +396,15 @@ footer {
   transform: translateY(-3px);
 }
 
+.footer-socials a svg {
+  fill: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.footer-socials a:hover svg {
+  fill: #FFFFFF;
+}
+
 /* Mobile responsive adjustments */
 @media (max-width: 900px) {
   .footer-grid {
