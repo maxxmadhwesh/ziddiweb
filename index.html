@@ -90,6 +90,8 @@
       align-items: center;
       position: relative;
       height: 600px;
+      width: 100%;
+      max-width: 500px;
     }
 
     .phone-mockup-wrapper {
@@ -344,23 +346,45 @@
       }
       .hero-download-buttons {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
       }
       .hero-showcase {
-        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-top: 40px;
         width: 100%;
+        padding-bottom: 50px;
       }
-      .mockup-left, .mockup-right {
+      .mockup-left {
         position: relative;
         left: auto;
-        right: auto;
         top: auto;
+        right: auto;
         bottom: auto;
-        transform: none;
-        margin: 10px;
+        transform: rotate(-6deg) scale(0.8);
+        margin-right: -70px;
+        z-index: 1;
+      }
+      .mockup-right {
+        position: relative;
+        left: auto;
+        top: 30px;
+        right: auto;
+        bottom: auto;
+        transform: rotate(6deg) scale(0.8);
+        margin-left: -70px;
+        z-index: 3;
+      }
+      .features-section {
+        padding: 60px 20px;
       }
       .dual-showcase-container {
         grid-template-columns: 1fr;
+      }
+      #download {
+        padding: 0 20px !important;
       }
       .download-banner {
         flex-direction: column;
@@ -370,6 +394,38 @@
       .qr-container {
         flex-direction: column;
         width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-showcase {
+        padding-bottom: 30px;
+      }
+      .mockup-left {
+        transform: rotate(-6deg) scale(0.65);
+        margin-right: -100px;
+      }
+      .mockup-right {
+        transform: rotate(6deg) scale(0.65);
+        margin-left: -100px;
+        top: 20px;
+      }
+      .showcase-block {
+        padding: 24px;
+      }
+      .showcase-block h3 {
+        font-size: 22px;
+      }
+      .bullet-icon {
+        min-width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+      .download-banner {
+        padding: 30px 16px;
+      }
+      .download-banner-content h2 {
+        font-size: 28px;
       }
     }
   </style>
