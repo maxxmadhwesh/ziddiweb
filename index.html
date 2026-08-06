@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQ1TR0W003"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QQ1TR0W003');
+</script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ziddi | Less Noise. More Results.</title>
+  <link rel="icon" type="image/svg+xml" href="assets/z_vector_logo.svg">
   <link rel="stylesheet" href="assets/style.css">
   <style>
     /* Home-specific Premium Styles */
@@ -439,7 +449,10 @@
   <!-- Header -->
   <header id="mainHeader">
     <a href="index.html" class="logo-container">
-      <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/z_vector_logo.svg">
+        <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+      </picture>
     </a>
     <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
       <span></span>
@@ -451,10 +464,14 @@
   <!-- Side Navigation Drawer -->
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <div class="side-drawer" id="sideDrawer">
+    <div style="margin-bottom: 20px;">
+      <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 60px; width: auto;">
+    </div>
     <a href="index.html" style="color: var(--text-primary);">Home</a>
     <a href="founders.html">Meet the Founders</a>
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms & Conditions</a>
+    <a href="data-deletion.html">Data Deletion</a>
     <a href="#download" class="drawer-login-btn">Download App</a>
   </div>
 
@@ -725,7 +742,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo-container" style="padding:0;">
-          <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+          <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" class="logo-img" style="height: 60px;">
         </a>
         <p>A full comprehensive platform designed to challenge your limits, track your progress, and get you fit.</p>
       </div>
@@ -741,6 +758,7 @@
         <ul>
           <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="data-deletion.html">Data Deletion</a></li>
         </ul>
       </div>
     </div>

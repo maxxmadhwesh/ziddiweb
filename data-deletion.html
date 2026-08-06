@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQ1TR0W003"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -9,12 +9,48 @@
 
   gtag('config', 'G-QQ1TR0W003');
 </script>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms & Conditions | Ziddi</title>
+  <title>Account & Data Deletion Request | Ziddi App</title>
   <link rel="icon" type="image/svg+xml" href="assets/z_vector_logo.svg">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Specific styles for form */
+    .deletion-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .form-group input {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      font-size: 16px;
+      font-family: var(--font);
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .submit-btn {
+      margin-top: 10px;
+      align-self: flex-start;
+    }
+  </style>
 </head>
 <body>
 
@@ -46,53 +82,53 @@
     <a href="index.html">Home</a>
     <a href="founders.html">Meet the Founders</a>
     <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html" style="color: var(--text-primary);">Terms & Conditions</a>
-    <a href="data-deletion.html">Data Deletion</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="data-deletion.html" style="color: var(--text-primary);">Data Deletion</a>
     <a href="index.html#download" class="drawer-login-btn">Download App</a>
   </div>
 
   <main>
     <section>
       <div class="legal-container">
-        <h1 class="legal-title">Terms & Conditions</h1>
-        <div class="legal-meta">Last Updated: July 26, 2026</div>
+        <h1 class="legal-title">Account & Data Deletion Request – Ziddi App</h1>
+        <div class="legal-meta">Submit a request to permanently remove your data from our systems.</div>
 
         <div class="legal-content">
-          <p>Welcome to Ziddi. These Terms and Conditions ("Terms") govern your access to and use of our mobile application and website (www.ziddiapp.com). By downloading the app, accessing our services, or making store purchases, you agree to be bound by these Terms. If you do not agree, please do not use our services.</p>
+          <p>If you wish to delete your account and all associated data, please fill out the form below. Once submitted, your request will be processed, and your data will be permanently deleted within <strong>30 days</strong>.</p>
+          
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: 30px 0;">
 
-          <h2>1. User Accounts & Security</h2>
-          <p>To use most features of Ziddi, you must register for an account. You agree to provide accurate, complete information and to keep it up to date. You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your account.</p>
-
-          <h2>2. Medical & Fitness Disclaimer (Crucial)</h2>
-          <p><strong>PLEASE READ CAREFULLY:</strong> Ziddi provides strength tracking, yoga programs, meditation guides, cardiovascular workout calculators, and recipes. We are <strong>not</strong> medical professionals, and our services do not constitute medical advice or diagnosis. </p>
+          <h3>What happens to your data?</h3>
+          <p><strong>Data that will be permanently deleted:</strong></p>
           <ul>
-            <li>You should consult with a qualified medical physician before starting any training, exercise program, or modifying your diet.</li>
-            <li>All exercises, yoga programs, and dietary adjustments are performed <strong>at your own risk</strong>. Ziddi, its co-founders, and partners shall not be held liable for any physical injuries, health conditions, or damages resulting from the use of our guides.</li>
+            <li>User data (profile details)</li>
+            <li>Created exercises</li>
+            <li>Workout logs and history</li>
+            <li>Targets subscribed to</li>
+            <li>Self-created workout and diet plans</li>
+            <li>Store orders and transaction info</li>
+            <li>Doctor searches</li>
+            <li>All other associated personal activity logs</li>
           </ul>
 
-          <h2>3. Subscriptions & Billing</h2>
-          <p>Ziddi offers premium feature tiers ("Ziddi Premium") which can be purchased on a subscription basis (monthly or annually). </p>
+          <p><strong>Data that will be retained:</strong></p>
           <ul>
-            <li>Subscriptions are billed in advance on a recurring schedule and will automatically renew under the same conditions unless canceled.</li>
-            <li>You may cancel your subscription at any time through the app account settings or your app store subscription settings. Cancellations apply to the next billing cycle; no partial refunds are provided.</li>
-            <li>Pricing and features are subject to change. Any price changes will be communicated to you in advance.</li>
+            <li>Invoices and transaction records necessary for accounting and tax purposes.</li>
           </ul>
+          
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: 30px 0;">
 
-          <h2>4. Ziddi Store & Shipping Policies</h2>
-          <p>By placing an order in the Ziddi Store, you agree to provide complete shipping and billing information. All payments are processed securely through authorized partners (e.g. Razorpay).</p>
-          <ul>
-            <li><strong>Delivery:</strong> We ship physical items to addresses within India. Shipping timelines and fees vary by product and delivery location and will be calculated at checkout.</li>
-            <li><strong>Returns & Refunds:</strong> Unopened and undamaged physical store products may be returned within 7 days of delivery for a refund or replacement. Custom products, discount redemptions, and digital subscription plan tiers are non-refundable.</li>
-          </ul>
+          <h3>Submit Deletion Request</h3>
+          <p>Please enter your registered Email or Phone Number below to initiate the deletion process.</p>
+          
+          <form class="deletion-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Your deletion request has been submitted. We will process it within 30 days.');">
+            <div class="form-group">
+              <label for="identifier">Registered Email / Phone Number</label>
+              <input type="text" id="identifier" name="identifier" required placeholder="Enter your email or phone number">
+            </div>
+            <button type="submit" class="btn-primary submit-btn">Submit Request</button>
+          </form>
 
-          <h2>5. Intellectual Property</h2>
-          <p>The design, content, code, custom illustrations, and logos on the Ziddi app and website are the exclusive property of Ziddi and are protected by copyright and intellectual property laws. You may not copy, reproduce, scrape, distribute, or modify any portion of our assets without express written consent from the founders.</p>
-
-          <h2>6. Limitation of Liability</h2>
-          <p>To the maximum extent permitted by law, Ziddi shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or personal injuries arising out of your use of the app or products purchased from the store.</p>
-
-          <h2>7. Contact Information</h2>
-          <p>For questions or feedback regarding these Terms, please contact us at: <strong>legal@ziddiapp.com</strong>.</p>
         </div>
       </div>
     </section>
@@ -143,7 +179,6 @@
   </footer>
 
   <script>
-    // Header styling on scroll
     const header = document.getElementById('mainHeader');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) {
@@ -153,7 +188,6 @@
       }
     });
 
-    // Side Drawer toggle logic
     const menuToggle = document.getElementById('menuToggle');
     const sideDrawer = document.getElementById('sideDrawer');
     const backdrop = document.getElementById('drawerBackdrop');
