@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ziddi Store — Official Gear, Apparel & Supplements</title>
+  <meta name="description" content="Shop official Ziddi gym apparel, lifting gear, and premium supplements. Earn and redeem Ziddi Coins at checkout.">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Ziddi Store — Official Gear & Apparel">
+  <meta property="og:description" content="Shop official Ziddi gear and supplements. Redeem Ziddi Coins at checkout.">
+  <meta property="og:image" content="assets/favicon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/z_vector_logo.svg">
+  <link rel="stylesheet" href="assets/style.css">
+
+  <script src="assets/auth.js"></script>
+  <script src="assets/store.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    body {
+      background: #08080A;
+      color: #FFF;
+      font-family: 'Inter', -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .store-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 80px 20px;
+    }
+
+    /* Store Header Topbar */
+    .store-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(18, 17, 29, 0.85);
+      border: 1px solid rgba(236, 72, 153, 0.25);
+      border-radius: 24px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .back-btn {
+      color: #F472B6;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s;
+    }
+    .back-btn:hover {
+      transform: translateX(-4px);
+    }
+
+    .icon-badge-btn {
+      background: rgba(236, 72, 153, 0.12);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      color: #FFF;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .icon-badge-btn:hover {
+      background: rgba(236, 72, 153, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .bubble-count {
+      background: #EF4444;
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 10px;
+      padding: 2px 6px;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    /* Address & Incentive Strips */
+    .store-address-bar {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(236, 72, 153, 0.15);
+      border-radius: 16px;
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #E5E7EB;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .store-coin-strip {
+      background: rgba(236, 72, 153, 0.12);
+      border: 1px solid rgba(236, 72, 153, 0.25);
+      border-radius: 16px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #F472B6;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Category Tabs */
+    .tabs-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      scrollbar-width: none;
+    }
+    .tabs-row::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #9CA3AF;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: #EC4899;
+      border-color: #EC4899;
+      color: #FFF;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="store-container">
+    <!-- Topbar -->
+    <header class="store-header">
+      <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+        <img src="assets/logo.svg" alt="Ziddi Logo" style="height: 32px; width: auto;">
+      </a>
+
+      <div style="text-align: center;">
+        <img src="assets/z_vector_logo_pink.svg" alt="Ziddi Logo" style="height: 36px; width: auto;">
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: 3px; color: #EC4899; text-transform: uppercase;">ZIDDI STORE</div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="icon-badge-btn" style="cursor: default;">
+          <img src="assets/ziddi_coin.png" alt="Coin" style="height: 20px; width: 20px;">
+          <span id="storeUserCoinsTxt">0 Coins</span>
+        </div>
+
+        <button onclick="ZiddiStore.openCart()" class="icon-badge-btn">
+          <span>🛒 Cart</span>
+          <span id="cartCountBubble" class="bubble-count" style="display: none;">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Address Bar -->
+    <div id="storeAddressBar" class="store-address-bar">
+      <span>📍 Deliver to: <span style="color: #9CA3AF;">Loading address...</span></span>
+    </div>
+
+    <!-- Coin Strip -->
+    <div class="store-coin-strip">
+      <img src="assets/ziddi_coin.png" alt="Coin" style="height: 20px; width: 20px;">
+      <span>Use Ziddi Coins at checkout for extra discounts on gear and apparel!</span>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="tabs-row">
+      <button onclick="switchCategory('all')" id="tab-all" class="tab-btn active">🛍️ All</button>
+      <button onclick="switchCategory('apparel')" id="tab-apparel" class="tab-btn">👕 Apparel</button>
+      <button onclick="switchCategory('accessories')" id="tab-accessories" class="tab-btn">🏋️ Accessories</button>
+      <button onclick="switchCategory('supplements')" id="tab-supplements" class="tab-btn">🧪 Supplements</button>
+      <button onclick="switchCategory('gear')" id="tab-gear" class="tab-btn">🎒 Gear</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="storeGrid" class="product-grid"></div>
+  </div>
+
+  <script>
+    function switchCategory(cat) {
+      window.currentCategory = cat;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`tab-${cat}`);
+      if (activeBtn) activeBtn.classList.add('active');
+      ZiddiStore.renderCatalog(cat);
+    }
+  </script>
+</body>
+</html>

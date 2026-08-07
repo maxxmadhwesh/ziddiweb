@@ -163,23 +163,20 @@ const ZiddiAuth = {
   },
 
   loginWithApple() {
-    alert("Apple Sign-In on web requires Apple Developer Services ID setup. Use Google Sign-In or Email/Password.");
+    alert("Apple Sign-In is currently available on the iOS App Store build. Web support is coming soon!");
   },
 
   /**
-   * Calculate exact 7-day weekly stats for logged in user
+   * Calculate exact actual stats for logged in user
    */
-  async fetchWeeklyStats(userId) {
-    const defaultStats = { exercisesThisWeek: 18, mindThisWeek: 5, streakDays: 14, prsThisWeek: 4 };
+  async fetchUserStats(userId) {
+    const defaultStats = { totalWorkouts: 0, mindSessions: 0, streakDays: 0 };
     if (!userId || userId.startsWith("google-") || userId.startsWith("apple-")) {
       return defaultStats;
     }
 
     try {
-      const now = new Date();
-      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-      // Fetch strength logs, cardio logs, yoga logs
+      // Fetch strength logs, cardio logs, yoga logs, streak
       const [strengthRes, cardioRes, yogaRes, streakRes] = await Promise.all([
         fetch(`${ZIDDI_API_BASE}/api/v1/strength-logs/user/${userId}`),
         fetch(`${ZIDDI_API_BASE}/api/v1/cardio-logs/user/${userId}`),
@@ -190,22 +187,22 @@ const ZiddiAuth = {
       let strengthCount = 0;
       let cardioCount = 0;
       let yogaCount = 0;
-      let streakDays = 14;
+      let streakDays = 0;
 
       if (strengthRes.ok) {
         const json = await strengthRes.json();
         const logs = json.data || json || [];
-        strengthCount = logs.filter(l => new Date(l.createdAt || l.created_at) >= sevenDaysAgo).length;
+        strengthCount = Array.isArray(logs) ? logs.length : 0;
       }
       if (cardioRes.ok) {
         const json = await cardioRes.json();
         const logs = json.data || json || [];
-        cardioCount = logs.filter(l => new Date(l.createdAt || l.created_at) >= sevenDaysAgo).length;
+        cardioCount = Array.isArray(logs) ? logs.length : 0;
       }
       if (yogaRes.ok) {
         const json = await yogaRes.json();
         const logs = json.data || json || [];
-        yogaCount = logs.filter(l => new Date(l.createdAt || l.created_at) >= sevenDaysAgo).length;
+        yogaCount = Array.isArray(logs) ? logs.length : 0;
       }
       if (streakRes.ok) {
         const json = await streakRes.json();
@@ -214,12 +211,10 @@ const ZiddiAuth = {
         }
       }
 
-      const totalExercises = strengthCount + cardioCount;
       return {
-        exercisesThisWeek: totalExercises > 0 ? totalExercises : 18,
-        mindThisWeek: yogaCount > 0 ? yogaCount : 5,
-        streakDays: streakDays,
-        prsThisWeek: 4
+        totalWorkouts: strengthCount + cardioCount,
+        mindSessions: yogaCount,
+        streakDays: streakDays
       };
     } catch (e) {
       return defaultStats;

@@ -420,3 +420,66 @@ footer {
     padding: 0 20px;
   }
 }
+
+/* ── Pink Glassy 3D Lifted Store Button ────────────────────── */
+.pink-store-btn {
+  background: linear-gradient(135deg, #EC4899 0%, #E11D48 100%);
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.pink-store-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.pink-store-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── Pink Circular Radial Burst Transition ─────────────────── */
+#pinkStoreBurstOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, #FFF1F6 0%, #EC4899 70%, #90134E 100%);
+  z-index: 99999;
+  pointer-events: none;
+  clip-path: circle(0% at var(--burst-x, 50%) var(--burst-y, 50%));
+  transition: clip-path 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#pinkStoreBurstOverlay.active {
+  clip-path: circle(150% at var(--burst-x, 50%) var(--burst-y, 50%));
+}
+
+@keyframes dropInItem {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.drop-in-item {
+  animation: dropInItem 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+

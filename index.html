@@ -55,6 +55,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/z_vector_logo.svg">
   <link rel="stylesheet" href="assets/style.css">
   <script src="assets/auth.js"></script>
+  <script src="assets/store.js"></script>
   <style>
     /* Home-specific Premium Styles */
     .hero-container {
@@ -494,6 +495,7 @@
         <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
       </picture>
     </a>
+    <a href="store.html" onclick="ZiddiStore.launchStoreBurst(event)" class="pink-store-btn" style="margin-right: 12px;"><span>🛍️ Store</span></a>
     <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
       <span></span>
       <span></span>
@@ -508,6 +510,7 @@
       <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 60px; width: auto;">
     </div>
     <a href="index.html" style="color: var(--text-primary);">Home</a>
+    <a href="store.html" onclick="ZiddiStore.launchStoreBurst(event)" class="pink-store-btn" style="margin: 8px 0 12px 0; justify-content: center;"><span>🛍️ Ziddi Store</span></a>
     <a href="founders.html">Meet the Founders</a>
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms & Conditions</a>
@@ -897,8 +900,8 @@
       const avatarPic = user.profile_picture_url || user.profilePictureUrl;
       const avatarInitial = name.charAt(0).toUpperCase();
 
-      // Fetch 7-day weekly stats
-      const stats = await ZiddiAuth.fetchWeeklyStats(user.id);
+      // Fetch exact actual user stats
+      const stats = await ZiddiAuth.fetchUserStats(user.id);
 
       const thanksMsg = isPremium 
         ? "👑 <strong>Extra Special Thanks!</strong> You are a valued Ziddi Premium subscriber — powering the future of dedicated fitness."
@@ -942,15 +945,15 @@
             ${thanksMsg}
           </div>
 
-          <!-- Weekly 7-Day Stats Grid -->
+          <!-- Real Actual User Stats Grid -->
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px;">
             <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px;">
-              <div style="font-size: 11px; font-weight: 600; color: #8F97B3; text-transform: uppercase;">Workouts (This Week)</div>
-              <div style="font-size: 20px; font-weight: 800; color: #FFF; margin-top: 4px;">🏋️ ${stats.exercisesThisWeek} Exercises</div>
+              <div style="font-size: 11px; font-weight: 600; color: #8F97B3; text-transform: uppercase;">Total Workouts</div>
+              <div style="font-size: 20px; font-weight: 800; color: #FFF; margin-top: 4px;">🏋️ ${stats.totalWorkouts} Exercises</div>
             </div>
             <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px;">
               <div style="font-size: 11px; font-weight: 600; color: #8F97B3; text-transform: uppercase;">Mind & Yoga</div>
-              <div style="font-size: 20px; font-weight: 800; color: #FFF; margin-top: 4px;">🧘 ${stats.mindThisWeek} Sessions</div>
+              <div style="font-size: 20px; font-weight: 800; color: #FFF; margin-top: 4px;">🧘 ${stats.mindSessions} Sessions</div>
             </div>
             <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px;">
               <div style="font-size: 11px; font-weight: 600; color: #8F97B3; text-transform: uppercase;">Active Streak</div>
