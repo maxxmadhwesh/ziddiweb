@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQ1TR0W003"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QQ1TR0W003');
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provide Feedback | Ziddi App</title>
+  <meta name="description" content="Send your feedback, feature requests, and support enquiries directly to the Ziddi founding team.">
+
+  <!-- Google reCAPTCHA v3 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdlqnotAAAAALDmKrMmJ0zEXKO_YDEiAABCsHci"></script>
+
+  <!-- Favicon for Google Search & Browsers -->
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/z_vector_logo.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/auth.js"></script>
+
+  <style>
+    .feedback-hero {
+      text-align: center;
+      padding: 100px 20px 30px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .feedback-hero h1 {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feedback-hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .feedback-card {
+      max-width: 640px;
+      margin: 0 auto 80px auto;
+      background: rgba(18, 17, 29, 0.75);
+      border: 1px solid rgba(157, 107, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #FFF;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25);
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A78BFA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      cursor: pointer;
+    }
+
+    select.form-control option {
+      background: #12111d;
+      color: #FFF;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .captcha-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(124, 58, 237, 0.08);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+    }
+
+    .captcha-question {
+      font-weight: 700;
+      color: #A78BFA;
+      font-size: 16px;
+      min-width: 110px;
+    }
+
+    .captcha-input {
+      width: 90px;
+      text-align: center;
+    }
+
+    .refresh-captcha {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.2s;
+    }
+
+    .refresh-captcha:hover {
+      color: #FFF;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, #9D6BFF 100%);
+      color: #FFF;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+    }
+
+    .status-alert {
+      display: none;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .status-success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #4ADE80;
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #FCA5A5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background glows -->
+  <div class="gradient-accent glow-top-right"></div>
+  <div class="gradient-accent glow-bottom-left"></div>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <a href="index.html" class="logo-container">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/z_vector_logo.svg">
+        <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+      </picture>
+    </a>
+    <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Side Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div style="margin-bottom: 20px;">
+      <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 60px; width: auto;">
+    </div>
+    <a href="index.html">Home</a>
+    <a href="founders.html">Meet the Founders</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="data-deletion.html">Data Deletion</a>
+    <a href="feedback.html" style="color: var(--text-primary);">Provide Feedback</a>
+    <a href="index.html#download" class="drawer-login-btn">Coming Soon - August</a>
+  </div>
+
+  <main>
+    <div class="feedback-hero">
+      <h1>We Value Your Feedback</h1>
+      <p>Have a suggestion, feature request, or spotted a bug? Send a message directly to our founding team.</p>
+    </div>
+
+    <div class="feedback-card">
+      <div id="statusAlert" class="status-alert"></div>
+
+      <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+        <div class="form-group">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" class="form-control" placeholder="e.g. Madhwesh Anand" required>
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail">Email Address</label>
+          <input type="email" id="userEmail" class="form-control" placeholder="e.g. user@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" class="form-control" required>
+            <option value="General Feedback">General Feedback</option>
+            <option value="Feature Request">Feature Request</option>
+            <option value="Bug Report">Bug Report</option>
+            <option value="App Support">App Support</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Feedback Message</label>
+          <textarea id="message" class="form-control" placeholder="Tell us how we can make Ziddi better for you..." required></textarea>
+        </div>
+
+        <!-- reCAPTCHA v3 Protection Notice -->
+        <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 20px;">
+          🛡️ Form protected by Google reCAPTCHA v3 &amp; Ziddi Security
+        </div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">
+          <span>Send Feedback to Founders 🚀</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-container" style="padding:0;">
+          <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" class="logo-img" style="height: 60px;">
+        </a>
+        <p>A full comprehensive platform designed to challenge your limits, track your progress, and get you fit.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+          <li><a href="feedback.html">Provide Feedback</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="data-deletion.html">Data Deletion</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ziddi App. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // Backend API Base URL
+    // Change "http://localhost:8080" to "https://api.ziddiapp.com" when your backend is live!
+    // ─────────────────────────────────────────────────────────────
+    const API_BASE_URL = "http://localhost:8080";
+
+    // Drawer Menu Logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+    if (menuToggle && sideDrawer && drawerBackdrop) {
+      menuToggle.addEventListener('click', () => {
+        sideDrawer.classList.toggle('active');
+        drawerBackdrop.classList.toggle('active');
+      });
+      drawerBackdrop.addEventListener('click', () => {
+        sideDrawer.classList.remove('active');
+        drawerBackdrop.classList.remove('active');
+      });
+    }
+
+    const RECAPTCHA_SITE_KEY = "6LdlqnotAAAAALDmKrMmJ0zEXKO_YDEiAABCsHci";
+
+    async function handleFeedbackSubmit(event) {
+      event.preventDefault();
+      const statusAlert = document.getElementById('statusAlert');
+      const submitBtn = document.getElementById('submitBtn');
+
+      const name = document.getElementById('userName').value.trim();
+      const email = document.getElementById('userEmail').value.trim();
+      const category = document.getElementById('category').value;
+      const message = document.getElementById('message').value.trim();
+
+      statusAlert.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Verifying & Sending... ⏳';
+
+      try {
+        // Execute reCAPTCHA v3 to get token
+        let recaptchaToken = "";
+        if (typeof grecaptcha !== "undefined") {
+          recaptchaToken = await new Promise((resolve) => {
+            grecaptcha.ready(function() {
+              grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit_feedback' })
+                .then(resolve)
+                .catch(() => resolve(""));
+            });
+          });
+        }
+
+        const response = await fetch(`${API_BASE_URL}/api/v1/feedback`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            category: category,
+            message: message,
+            recaptchaToken: recaptchaToken
+          })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.status === 'success') {
+          statusAlert.className = 'status-alert status-success';
+          statusAlert.textContent = '🎉 Thank you! Your feedback has been sent directly to founders@ziddiapp.com.';
+          statusAlert.style.display = 'block';
+          document.getElementById('feedbackForm').reset();
+        } else {
+          throw new Error(result.message || 'Server error occurred');
+        }
+
+      } catch (err) {
+        statusAlert.className = 'status-alert status-error';
+        statusAlert.textContent = `⚠️ Could not send feedback: ${err.message}. Ensure backend is running at ${API_BASE_URL}.`;
+        statusAlert.style.display = 'block';
+        console.error('Feedback submit error:', err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Send Feedback to Founders 🚀</span>';
+      }
+    }
+  </script>
+</body>
+</html>
