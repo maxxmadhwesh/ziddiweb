@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ziddi Store — Official Gear, Apparel & Supplements</title>
+  <link rel="canonical" href="https://www.ziddiapp.com/store.html">
   <meta name="description" content="Shop official Ziddi gym apparel, lifting gear, and premium supplements. Earn and redeem Ziddi Coins at checkout.">
 
   <!-- OpenGraph -->
@@ -164,6 +165,25 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 20px;
     }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      .store-container {
+        padding: 16px 12px 60px 12px;
+      }
+      .store-header {
+        padding: 12px 14px;
+        border-radius: 18px;
+      }
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+      }
+      .icon-badge-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -217,7 +237,50 @@
     <div id="storeGrid" class="product-grid"></div>
   </div>
 
+  <!-- Locked Store Overlay for Logged-Out Visitors -->
+  <div id="storeLockOverlay" style="
+    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(8, 8, 10, 0.92); backdrop-filter: blur(16px); z-index: 9999;
+    align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
+  ">
+    <div style="
+      background: #12111D; border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 24px;
+      padding: 40px 32px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      font-family: 'Inter', sans-serif; color: #FFF;
+    ">
+      <div style="font-size: 56px; margin-bottom: 12px;">🔒</div>
+      <h2 style="font-size: 24px; font-weight: 800; color: #FFF; margin: 0 0 10px 0;">Ziddi Store is Locked</h2>
+      
+      <div style="
+        background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.3);
+        border-radius: 14px; padding: 14px; font-size: 13px; color: #F472B6; font-weight: 600;
+        line-height: 1.5; margin-bottom: 24px; text-align: center;
+      ">
+        🚀 <strong>Ziddi App & Store are launching in August 2026!</strong><br>
+        Please sign in or create an account to unlock early store items, gear, and redeem your Ziddi Coins.
+      </div>
+
+      <button onclick="ZiddiAuth.openModal()" style="
+        width: 100%; background: linear-gradient(135deg, #EC4899 0%, #E11D48 100%);
+        color: #FFF; border: none; border-radius: 12px; padding: 14px; font-weight: 700;
+        font-size: 15px; cursor: pointer; box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4); margin-bottom: 14px;
+      ">🔑 Sign In / Register to Unlock</button>
+
+      <a href="index.html" style="color: #9CA3AF; text-decoration: none; font-size: 13px; font-weight: 600;">← Return to Main Site</a>
+    </div>
+  </div>
+
   <script>
+    function checkStoreLock() {
+      const lockOverlay = document.getElementById("storeLockOverlay");
+      if (!lockOverlay) return;
+      if (!ZiddiAuth.isLoggedIn()) {
+        lockOverlay.style.display = "flex";
+      } else {
+        lockOverlay.style.display = "none";
+      }
+    }
+
     function switchCategory(cat) {
       window.currentCategory = cat;
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -225,6 +288,22 @@
       if (activeBtn) activeBtn.classList.add('active');
       ZiddiStore.renderCatalog(cat);
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      checkStoreLock();
+    });
+
+    // Listen for auth state changes
+    const originalSaveUser = ZiddiAuth.saveUser;
+    ZiddiAuth.saveUser = function(user) {
+      originalSaveUser.call(ZiddiAuth, user);
+      checkStoreLock();
+    };
+    const originalLogout = ZiddiAuth.logout;
+    ZiddiAuth.logout = function() {
+      originalLogout.call(ZiddiAuth);
+      checkStoreLock();
+    };
   </script>
 </body>
 </html>

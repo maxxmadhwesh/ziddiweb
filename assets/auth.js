@@ -322,10 +322,18 @@ const ZiddiAuth = {
           color: #8F97B3; font-size: 24px; cursor: pointer;
         ">&times;</button>
 
-        <div style="text-align: center; margin-bottom: 24px;">
+        <div style="text-align: center; margin-bottom: 20px;">
           <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 48px; width: auto; margin-bottom: 8px;">
           <h2 style="font-size: 22px; font-weight: 800; margin: 0;">Welcome to Ziddi</h2>
-          <p style="font-size: 13px; color: #8F97B3; margin-top: 4px;">Train Smarter. Track Better.</p>
+          <p style="font-size: 13px; color: #8F97B3; margin-top: 4px; margin-bottom: 12px;">Train Smarter. Track Better.</p>
+          
+          <div style="
+            background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(157, 107, 255, 0.3);
+            border-radius: 12px; padding: 10px 14px; text-align: center; font-size: 13px; font-weight: 600;
+            color: #C084FC; line-height: 1.4;
+          ">
+            🚀 <strong>Ziddi App is launching in August 2026!</strong><br>Sign in or create an account to get early access & reserve your handle.
+          </div>
         </div>
 
         <!-- Error Alert -->
