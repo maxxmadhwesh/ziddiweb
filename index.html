@@ -65,8 +65,9 @@
       justify-content: space-between;
       gap: 40px;
       padding: 100px 40px 60px 40px;
-      min-height: calc(100vh - 80px);
       position: relative;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .hero-content {
@@ -198,14 +199,16 @@
       z-index: 1;
     }
 
-    .hero-showcase:hover .mockup-left {
-      transform: rotate(-14deg) translateX(-10px);
-    }
-    .hero-showcase:hover .mockup-right {
-      transform: rotate(14deg) translateX(10px);
-    }
-    .hero-showcase:hover .mockup-center {
-      transform: translateX(-50%) translateY(-10px) scale(1.02);
+    @media (min-width: 1101px) {
+      .hero-showcase:hover .mockup-left {
+        transform: rotate(-14deg) translateX(-10px);
+      }
+      .hero-showcase:hover .mockup-right {
+        transform: rotate(14deg) translateX(10px);
+      }
+      .hero-showcase:hover .mockup-center {
+        transform: translateX(-50%) translateY(-10px) scale(1.02);
+      }
     }
 
     .founder-tease-btn {
@@ -223,9 +226,7 @@
 
     /* Double Feature Section (Health & Healing) */
     .features-section {
-      background: #060608;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      background: transparent;
       padding: 100px 40px;
     }
 
@@ -408,9 +409,11 @@
     @media (max-width: 1100px) {
       .hero-container {
         flex-direction: column;
-        padding-top: 110px;
+        padding-top: 100px;
+        padding-bottom: 30px;
         text-align: center;
         overflow-x: hidden;
+        min-height: auto;
       }
       .hero-content {
         max-width: 100%;
@@ -424,16 +427,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 25px auto 0 auto;
+        margin: 20px auto 0 auto;
         width: 100%;
         max-width: 100vw;
-        height: 380px;
+        height: 360px;
         position: relative;
         overflow: visible;
       }
       .phone-mockup-wrapper {
-        width: 175px;
-        height: 360px;
+        width: 170px;
+        height: 350px;
       }
       .phone-mockup {
         border-width: 6px;
@@ -463,7 +466,7 @@
         z-index: 1;
       }
       .features-section {
-        padding: 60px 20px;
+        padding: 50px 20px;
       }
       .dual-showcase-container {
         grid-template-columns: 1fr;
@@ -484,12 +487,12 @@
 
     @media (max-width: 480px) {
       .hero-showcase {
-        height: 310px;
-        margin-top: 15px;
+        height: 300px;
+        margin-top: 10px;
       }
       .phone-mockup-wrapper {
-        width: 135px;
-        height: 280px;
+        width: 130px;
+        height: 270px;
       }
       .phone-mockup {
         border-width: 5px;
@@ -500,11 +503,11 @@
       }
       .mockup-left {
         top: 10px;
-        transform: translateX(-106%) rotate(-8deg) scale(0.9);
+        transform: translateX(-104%) rotate(-8deg) scale(0.9);
       }
       .mockup-right {
         top: 10px;
-        transform: translateX(6%) rotate(8deg) scale(0.9);
+        transform: translateX(4%) rotate(8deg) scale(0.9);
       }
       .showcase-block {
         padding: 24px;
