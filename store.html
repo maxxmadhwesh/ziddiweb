@@ -237,50 +237,38 @@
     <div id="storeGrid" class="product-grid"></div>
   </div>
 
-  <!-- Locked Store Overlay for Logged-Out Visitors -->
+  <!-- Locked Store Overlay (Launching August 2026) -->
   <div id="storeLockOverlay" style="
-    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(8, 8, 10, 0.92); backdrop-filter: blur(16px); z-index: 9999;
+    display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(8, 8, 10, 0.94); backdrop-filter: blur(16px); z-index: 9999;
     align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
   ">
     <div style="
-      background: #12111D; border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 24px;
-      padding: 40px 32px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      font-family: 'Inter', sans-serif; color: #FFF;
+      background: #12111D; border: 1px solid rgba(236, 72, 153, 0.35); border-radius: 24px;
+      padding: 44px 36px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+      font-family: 'Inter', -apple-system, sans-serif; color: #FFF;
     ">
-      <div style="font-size: 56px; margin-bottom: 12px;">🔒</div>
-      <h2 style="font-size: 24px; font-weight: 800; color: #FFF; margin: 0 0 10px 0;">Ziddi Store is Locked</h2>
+      <div style="font-size: 56px; margin-bottom: 12px;">🛍️</div>
+      <h2 style="font-size: 24px; font-weight: 800; color: #FFF; margin: 0 0 10px 0;">Ziddi Store Launching August 2026</h2>
       
       <div style="
         background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.3);
-        border-radius: 14px; padding: 14px; font-size: 13px; color: #F472B6; font-weight: 600;
+        border-radius: 14px; padding: 16px; font-size: 14px; color: #F472B6; font-weight: 600;
         line-height: 1.5; margin-bottom: 24px; text-align: center;
       ">
-        🚀 <strong>Ziddi App & Store are launching in August 2026!</strong><br>
-        Please sign in or create an account to unlock early store items, gear, and redeem your Ziddi Coins.
+        🚀 <strong>Official Ziddi Store is under preparation!</strong><br>
+        Our official apparel, lifting gear, and supplement store will open in August 2026. Stay tuned!
       </div>
 
-      <button onclick="ZiddiAuth.openModal()" style="
-        width: 100%; background: linear-gradient(135deg, #EC4899 0%, #E11D48 100%);
-        color: #FFF; border: none; border-radius: 12px; padding: 14px; font-weight: 700;
-        font-size: 15px; cursor: pointer; box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4); margin-bottom: 14px;
-      ">🔑 Sign In / Register to Unlock</button>
-
-      <a href="index.html" style="color: #9CA3AF; text-decoration: none; font-size: 13px; font-weight: 600;">← Return to Main Site</a>
+      <a href="index.html" style="
+        display: block; width: 100%; background: linear-gradient(135deg, #EC4899 0%, #E11D48 100%);
+        color: #FFF; text-decoration: none; border-radius: 14px; padding: 14px; font-weight: 700;
+        font-size: 15px; box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4); box-sizing: border-box;
+      ">← Return to Main Site</a>
     </div>
   </div>
 
   <script>
-    function checkStoreLock() {
-      const lockOverlay = document.getElementById("storeLockOverlay");
-      if (!lockOverlay) return;
-      if (!ZiddiAuth.isLoggedIn()) {
-        lockOverlay.style.display = "flex";
-      } else {
-        lockOverlay.style.display = "none";
-      }
-    }
-
     function switchCategory(cat) {
       window.currentCategory = cat;
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -288,22 +276,6 @@
       if (activeBtn) activeBtn.classList.add('active');
       ZiddiStore.renderCatalog(cat);
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      checkStoreLock();
-    });
-
-    // Listen for auth state changes
-    const originalSaveUser = ZiddiAuth.saveUser;
-    ZiddiAuth.saveUser = function(user) {
-      originalSaveUser.call(ZiddiAuth, user);
-      checkStoreLock();
-    };
-    const originalLogout = ZiddiAuth.logout;
-    ZiddiAuth.logout = function() {
-      originalLogout.call(ZiddiAuth);
-      checkStoreLock();
-    };
   </script>
 </body>
 </html>
