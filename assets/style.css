@@ -27,8 +27,10 @@ html, body {
   background-color: var(--bg);
   color: var(--text-primary);
   font-family: var(--font);
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+  max-width: 100vw;
   width: 100%;
+  position: relative;
   line-height: 1.6;
 }
 

@@ -134,37 +134,36 @@
       filter: brightness(1.1);
     }
 
-    /* Showcase Mockups Row */
+    /* Showcase Mockups Row (3 Phone Fan Layout \ | /) */
     .hero-showcase {
-      flex: 0.9;
+      flex: 1.1;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      height: 600px;
+      height: 560px;
       width: 100%;
-      max-width: 500px;
+      max-width: 580px;
     }
 
     .phone-mockup-wrapper {
       position: relative;
-      width: 280px;
-      height: 570px;
-      z-index: 2;
+      width: 250px;
+      height: 510px;
+      transition: var(--transition);
     }
 
     .phone-mockup {
       width: 100%;
       height: 100%;
       background: #000;
-      border: 10px solid #1E1E24;
-      border-radius: 40px;
+      border: 9px solid #1E1E24;
+      border-radius: 38px;
       overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.15);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(124, 58, 237, 0.2);
       position: relative;
     }
 
-    /* Screen Image */
     .phone-screen {
       width: 100%;
       height: 100%;
@@ -172,22 +171,41 @@
       transition: var(--transition);
     }
 
-    /* Left offset mockup */
+    /* Center mockup: Straight upright | */
+    .mockup-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      z-index: 3;
+    }
+
+    /* Left mockup: Tilted left \ */
     .mockup-left {
       position: absolute;
-      left: 10px;
-      top: 50px;
-      transform: rotate(-4deg);
+      left: 20px;
+      top: 30px;
+      transform: rotate(-10deg);
+      z-index: 2;
+    }
+
+    /* Right mockup: Tilted right / */
+    .mockup-right {
+      position: absolute;
+      right: 20px;
+      top: 30px;
+      transform: rotate(10deg);
       z-index: 1;
     }
 
-    /* Right offset mockup */
-    .mockup-right {
-      position: absolute;
-      right: 10px;
-      bottom: 50px;
-      transform: rotate(4deg);
-      z-index: 3;
+    .hero-showcase:hover .mockup-left {
+      transform: rotate(-14deg) translateX(-10px);
+    }
+    .hero-showcase:hover .mockup-right {
+      transform: rotate(14deg) translateX(10px);
+    }
+    .hero-showcase:hover .mockup-center {
+      transform: translateX(-50%) translateY(-10px) scale(1.02);
     }
 
     .founder-tease-btn {
@@ -390,8 +408,9 @@
     @media (max-width: 1100px) {
       .hero-container {
         flex-direction: column;
-        padding-top: 140px;
+        padding-top: 120px;
         text-align: center;
+        overflow-x: hidden;
       }
       .hero-content {
         max-width: 100%;
@@ -405,29 +424,39 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 40px;
+        margin: 30px auto 0 auto;
         width: 100%;
-        padding-bottom: 50px;
+        max-width: 100vw;
+        height: 440px;
+        position: relative;
+        overflow: hidden;
+      }
+      .phone-mockup-wrapper {
+        width: 200px;
+        height: 410px;
+      }
+      .mockup-center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        z-index: 3;
       }
       .mockup-left {
-        position: relative;
-        left: auto;
-        top: auto;
+        position: absolute;
+        left: 50%;
         right: auto;
-        bottom: auto;
-        transform: rotate(-6deg) scale(0.8);
-        margin-right: -70px;
-        z-index: 1;
+        top: 20px;
+        transform: translateX(-120%) rotate(-10deg) scale(0.88);
+        z-index: 2;
       }
       .mockup-right {
-        position: relative;
-        left: auto;
-        top: 30px;
+        position: absolute;
+        left: 50%;
         right: auto;
-        bottom: auto;
-        transform: rotate(6deg) scale(0.8);
-        margin-left: -70px;
-        z-index: 3;
+        top: 20px;
+        transform: translateX(20%) rotate(10deg) scale(0.88);
+        z-index: 1;
       }
       .features-section {
         padding: 60px 20px;
@@ -451,16 +480,23 @@
 
     @media (max-width: 480px) {
       .hero-showcase {
-        padding-bottom: 30px;
+        height: 350px;
+        margin-top: 20px;
+      }
+      .phone-mockup-wrapper {
+        width: 155px;
+        height: 320px;
+      }
+      .mockup-center {
+        top: 0;
       }
       .mockup-left {
-        transform: rotate(-6deg) scale(0.65);
-        margin-right: -100px;
+        top: 12px;
+        transform: translateX(-112%) rotate(-10deg) scale(0.85);
       }
       .mockup-right {
-        transform: rotate(6deg) scale(0.65);
-        margin-left: -100px;
-        top: 20px;
+        top: 12px;
+        transform: translateX(12%) rotate(10deg) scale(0.85);
       }
       .showcase-block {
         padding: 24px;
@@ -540,18 +576,26 @@
         </p>
       </div>
 
-      <!-- Mockup Grid Showcase -->
+      <!-- Mockup Grid Showcase (3 Phone Fan Layout \ | /) -->
       <div class="hero-showcase">
-        <!-- Gym screen mockup -->
+        <!-- Left: Mind / Healing screen mockup -->
         <div class="phone-mockup-wrapper mockup-left">
+          <div class="phone-mockup">
+            <img src="assets/healing.png" alt="Ziddi Mind Screen" class="phone-screen">
+          </div>
+        </div>
+
+        <!-- Center: Gym / Health screen mockup -->
+        <div class="phone-mockup-wrapper mockup-center">
           <div class="phone-mockup">
             <img src="assets/health.png" alt="Ziddi Health Screen" class="phone-screen">
           </div>
         </div>
-        <!-- Mind screen mockup -->
+
+        <!-- Right: Target screen mockup -->
         <div class="phone-mockup-wrapper mockup-right">
           <div class="phone-mockup">
-            <img src="assets/healing.png" alt="Ziddi Healing Screen" class="phone-screen">
+            <img src="assets/Target.png" alt="Ziddi Target Screen" class="phone-screen">
           </div>
         </div>
       </div>
