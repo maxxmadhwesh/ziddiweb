@@ -3,7 +3,7 @@
  * Connects to ziddi-backend (/api/v1/users) and handles Sign In, Sign Up, Google OAuth, and UI state.
  */
 
-const ZIDDI_API_BASE = window.ZIDDI_API_URL || "http://localhost:8080";
+const ZIDDI_API_BASE = window.ZIDDI_API_URL || (typeof window !== 'undefined' && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:8080" : "https://api.ziddiapp.com");
 const GOOGLE_CLIENT_ID = "511364796454-utbr1ciqcjcu1mk6niv3tevje6727qsg.apps.googleusercontent.com";
 
 // Dynamically load Google Identity Services SDK

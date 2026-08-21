@@ -13,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Provide Feedback | Ziddi App</title>
+  <title>Provide Feedback — Ziddi | Human Performance & Preventive Health Platform</title>
   <link rel="canonical" href="https://www.ziddiapp.com/feedback.html">
   <meta name="description" content="Send your feedback, feature requests, and support enquiries directly to the Ziddi founding team.">
 
@@ -309,11 +309,8 @@
   </footer>
 
   <script>
-    // ─────────────────────────────────────────────────────────────
-    // Backend API Base URL
-    // Change "http://localhost:8080" to "https://api.ziddiapp.com" when your backend is live!
-    // ─────────────────────────────────────────────────────────────
-    const API_BASE_URL = "http://localhost:8080";
+    // Backend API Base URL (Live on AWS: api.ziddiapp.com)
+    const API_BASE_URL = window.ZIDDI_API_URL || (typeof window !== 'undefined' && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:8080" : "https://api.ziddiapp.com");
 
     // Drawer Menu Logic
     const menuToggle = document.getElementById('menuToggle');
