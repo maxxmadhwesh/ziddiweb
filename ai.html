@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zidd AI — Your 24/7 Personal AI Strength, Recovery & Target Coach</title>
+  <meta name="description" content="Chat with Zidd AI — the context-grounded AI coach connected to your live workout logs, PR progression, injury history, and target exam cutoffs.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/auth.js"></script>
+  <script src="/assets/subscription-modal.js"></script>
+  <script src="/assets/ai-chat.js"></script>
+  <style>
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    body {
+      background: #0A0A0E;
+      color: #FFF;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .ai-wrapper {
+      flex: 1;
+      padding-top: 90px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: calc(100vh - 90px);
+    }
+
+    .ai-bg-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(10, 10, 14, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-top { top: 10%; right: -100px; }
+    .glow-bottom { bottom: 10%; left: -100px; }
+
+    #athleteContextHud {
+      padding: 10px 20px;
+      background: rgba(18, 18, 24, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+
+    #chatMainContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      z-index: 5;
+      overflow: hidden;
+      padding: 0 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Glows -->
+  <div class="ai-bg-glow glow-top"></div>
+  <div class="ai-bg-glow glow-bottom"></div>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <a href="https://ziddiapp.com/" class="logo-container">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/z_vector_logo.svg">
+        <img src="/assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+      </picture>
+    </a>
+
+    <!-- Center Nav Badge -->
+    <div style="display: flex; align-items: center; gap: 8px; background: rgba(155, 92, 255, 0.12); border: 1px solid rgba(155, 92, 255, 0.25); border-radius: 20px; padding: 4px 12px;">
+      <span style="font-size: 13px;">🤖</span>
+      <span style="font-size: 13px; font-weight: 800; color: #FFF;">Zidd AI</span>
+      <span style="width: 7px; height: 7px; border-radius: 4px; background: #10B981;"></span>
+    </div>
+
+    <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Side Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div style="margin-bottom: 20px;">
+      <img src="/assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 60px; width: auto;">
+    </div>
+    <a href="https://ziddiapp.com/">Home</a>
+    <a href="ai.html" style="color: var(--primary); font-weight: 700;">Zidd AI Coach 🤖</a>
+    <a href="https://ziddiapp.com/store.html">Ziddi Store 🛍️</a>
+    <a href="https://ziddiapp.com/founders.html">Meet the Founders</a>
+    <a href="https://ziddiapp.com/privacy.html">Privacy Policy</a>
+    <a href="https://ziddiapp.com/terms.html">Terms & Conditions</a>
+    <a href="https://ziddiapp.com/feedback.html">Provide Feedback</a>
+  </div>
+
+  <div class="ai-wrapper">
+    <!-- Athlete Context HUD Bar -->
+    <div id="athleteContextHud" style="display: none;"></div>
+
+    <!-- Main Dynamic Chat Area -->
+    <div id="chatMainContainer"></div>
+  </div>
+
+  <script>
+    // Menu Drawer Toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const sideDrawer = document.getElementById("sideDrawer");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
+
+    function toggleDrawer() {
+      const isOpen = sideDrawer.classList.toggle("open");
+      drawerBackdrop.classList.toggle("open", isOpen);
+      menuToggle.classList.toggle("open", isOpen);
+      document.body.style.overflow = isOpen ? "hidden" : "auto";
+    }
+
+    if (menuToggle) menuToggle.addEventListener("click", toggleDrawer);
+    if (drawerBackdrop) drawerBackdrop.addEventListener("click", toggleDrawer);
+
+    // Initialize Zidd AI Web App
+    document.addEventListener("DOMContentLoaded", () => {
+      ZiddAIChat.init();
+    });
+  </script>
+</body>
+</html>

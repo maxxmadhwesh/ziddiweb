@@ -226,6 +226,9 @@ const ZiddiAuth = {
     if (typeof renderHeroDashboard === "function") {
       renderHeroDashboard();
     }
+    if (typeof ZiddAIChat !== "undefined" && typeof ZiddAIChat.checkAccessAndRender === "function") {
+      ZiddAIChat.checkAccessAndRender();
+    }
   },
 
   renderSidebar() {
