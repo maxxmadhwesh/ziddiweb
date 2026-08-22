@@ -1,6 +1,7 @@
 /**
  * Zidd AI Web Chat Stream Engine
  * High-performance streaming with smooth token typewriter animation,
+ * Multimodal image attachment support, voice input (Speech-to-Text),
  * Markdown rendering, tool badges, and cross-subdomain session support.
  */
 
@@ -10,6 +11,9 @@ const ZiddAIChat = {
   sessionId: null,
   activeTool: null,
   abortController: null,
+  attachedImageBase64: null,
+  isRecordingVoice: false,
+  recognition: null,
 
   init() {
     this.sessionId = "web_session_" + Date.now();
@@ -178,24 +182,43 @@ const ZiddAIChat = {
           <div id="dynamicMessagesArea" style="display: flex; flex-direction: column; gap: 16px;"></div>
         </div>
 
-        <!-- Pinned Bottom Input Bar -->
-        <div style="flex-shrink: 0; padding: 14px 12px 20px 12px; border-top: 1px solid rgba(255,255,255,0.08); background: #0A0A0E;">
+        <!-- Pinned Bottom Input Bar Area -->
+        <div style="flex-shrink: 0; padding: 12px 16px 20px 16px; border-top: 1px solid rgba(255,255,255,0.08); background: #0A0A0E;">
+          
+          <!-- Image Attachment Preview Chip -->
+          <div id="imagePreviewContainer" style="display: none; align-items: center; gap: 10px; margin-bottom: 8px; background: rgba(155,92,255,0.15); border: 1px solid rgba(155,92,255,0.3); border-radius: 12px; padding: 6px 12px; width: fit-content;">
+            <img id="imagePreviewThumb" src="" alt="Attachment" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
+            <span style="font-size: 12px; color: #C4B5FD; font-weight: 600;">Image attached</span>
+            <button type="button" onclick="ZiddAIChat.removeAttachedImage()" style="background: none; border: none; color: #EF4444; font-size: 14px; font-weight: 800; cursor: pointer; padding: 0 4px;">✕</button>
+          </div>
+
           <form id="chatInputForm" onsubmit="ZiddAIChat.handleFormSubmit(event)" style="display: flex; gap: 10px; align-items: center;">
             <div style="
               flex: 1; display: flex; align-items: center; background: #181820; border: 1.5px solid rgba(155, 92, 255, 0.3);
-              border-radius: 16px; padding: 4px 8px 4px 14px; gap: 8px;
+              border-radius: 16px; padding: 4px 8px 4px 12px; gap: 8px;
             ">
+              <!-- Hidden File Input for Images -->
+              <input type="file" id="chatImageInput" accept="image/*" onchange="ZiddAIChat.handleImageSelected(event)" style="display: none;">
+              
+              <!-- Attach Image Button -->
+              <button type="button" onclick="document.getElementById('chatImageInput').click()" title="Attach exercise/form photo" style="
+                background: none; border: none; color: #94A3B8; font-size: 18px; cursor: pointer; padding: 4px; border-radius: 8px;
+                display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+              ">📎</button>
+
+              <!-- Text Input -->
               <input id="chatTextInput" type="text" placeholder="Ask Zidd AI anything about training, PRs, injuries, or nutrition..." autocomplete="off" style="
                 flex: 1; background: transparent; border: none; padding: 10px 0; font-size: 14px; color: #FFF; outline: none;
               ">
               
-              <!-- Voice Input Button -->
+              <!-- Voice Input Button (Speech-to-Text) -->
               <button type="button" id="chatVoiceBtn" onclick="ZiddAIChat.toggleVoiceRecording()" title="Speak to Zidd AI" style="
-                background: none; border: none; color: #94A3B8; font-size: 18px; cursor: pointer; padding: 6px; border-radius: 8px;
+                background: none; border: none; color: #94A3B8; font-size: 18px; cursor: pointer; padding: 4px; border-radius: 8px;
                 display: flex; align-items: center; justify-content: center; transition: all 0.2s;
               ">🎙️</button>
             </div>
 
+            <!-- Send Button -->
             <button id="chatSendBtn" type="submit" style="
               background: linear-gradient(135deg, #9B5CFF, #7C3AED); border: none; border-radius: 16px;
               padding: 14px 22px; color: #FFF; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;
@@ -209,6 +232,31 @@ const ZiddAIChat = {
     `;
 
     this.renderMessages();
+  },
+
+  handleImageSelected(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.attachedImageBase64 = e.target.result;
+      const previewCont = document.getElementById("imagePreviewContainer");
+      const previewThumb = document.getElementById("imagePreviewThumb");
+      if (previewCont && previewThumb) {
+        previewThumb.src = this.attachedImageBase64;
+        previewCont.style.display = "inline-flex";
+      }
+    };
+    reader.readAsDataURL(file);
+  },
+
+  removeAttachedImage() {
+    this.attachedImageBase64 = null;
+    const previewCont = document.getElementById("imagePreviewContainer");
+    const fileInput = document.getElementById("chatImageInput");
+    if (previewCont) previewCont.style.display = "none";
+    if (fileInput) fileInput.value = "";
   },
 
   toggleVoiceRecording() {
@@ -281,10 +329,12 @@ const ZiddAIChat = {
     const input = document.getElementById("chatTextInput");
     if (!input) return;
     const text = input.value.trim();
-    if (!text || this.isGenerating) return;
+    if ((!text && !this.attachedImageBase64) || this.isGenerating) return;
 
+    const img = this.attachedImageBase64;
     input.value = "";
-    this.sendMessage(text);
+    this.removeAttachedImage();
+    this.sendMessage(text || "Please analyze this exercise image.", img);
   },
 
   sanitizeOutput(text) {
@@ -351,6 +401,10 @@ const ZiddAIChat = {
               ? 'background: #161620; border: 1px solid rgba(255,255,255,0.08); color: #E2E8F0; border-top-left-radius: 4px;' 
               : 'background: linear-gradient(135deg, #7C3AED, #6D28D9); color: #FFF; border-top-right-radius: 4px; box-shadow: 0 4px 15px rgba(124,58,237,0.3);'}
           ">
+            ${msg.image ? `
+              <img src="${msg.image}" alt="Attached" style="max-width: 220px; border-radius: 12px; margin-bottom: 8px; display: block; border: 1px solid rgba(255,255,255,0.2);">
+            ` : ''}
+
             ${msg.toolStatus ? `
               <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(155,92,255,0.15); border: 1px solid rgba(155,92,255,0.3); border-radius: 10px; padding: 4px 10px; font-size: 11.5px; color: #C4B5FD; margin-bottom: 8px;">
                 <span style="display: inline-block; animation: pulse-glow 1.2s infinite;">⚡</span>
@@ -376,16 +430,16 @@ const ZiddAIChat = {
     }
   },
 
-  async sendMessage(promptText) {
+  async sendMessage(promptText, imageBase64 = null) {
     const user = ZiddiAuth.getUser();
     if (!user) return;
 
     this.messages.push({
       sender: "user",
       text: promptText,
+      image: imageBase64,
     });
 
-    const aiMsgIndex = this.messages.length;
     const aiMessage = {
       sender: "ai",
       text: "",
@@ -404,7 +458,6 @@ const ZiddAIChat = {
 
     const typewriterInterval = setInterval(() => {
       if (aiMessage.displayedText.length < fullTargetText.length) {
-        // Type 1-3 characters dynamically to keep up smoothly
         const diff = fullTargetText.length - aiMessage.displayedText.length;
         const step = diff > 30 ? 4 : diff > 10 ? 2 : 1;
         aiMessage.displayedText = fullTargetText.substring(0, aiMessage.displayedText.length + step);
@@ -423,16 +476,21 @@ const ZiddAIChat = {
       this.abortController = new AbortController();
       const endpoint = `${ZIDDI_API_BASE}/api/v1/ai/chat/stream?userId=${encodeURIComponent(user.id)}`;
       
+      const payload = {
+        message: promptText,
+        sessionId: this.sessionId,
+      };
+      if (imageBase64) {
+        payload.imageBase64 = imageBase64;
+      }
+
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "text/event-stream, application/json, text/plain",
         },
-        body: JSON.stringify({
-          message: promptText,
-          sessionId: this.sessionId,
-        }),
+        body: JSON.stringify(payload),
         signal: this.abortController.signal,
       });
 
@@ -520,6 +578,7 @@ const ZiddAIChat = {
   clearChat() {
     this.messages = [];
     this.sessionId = "web_session_" + Date.now();
+    this.removeAttachedImage();
     this.renderMessages();
   },
 };

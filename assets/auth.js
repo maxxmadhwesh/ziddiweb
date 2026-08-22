@@ -50,21 +50,26 @@ const ZiddiAuth = {
 
   getUser() {
     try {
-      const stored = localStorage.getItem("ziddi_user");
+      const isZiddiDomain = window.location.hostname.includes("ziddiapp.com");
       const cookieVal = this.getCookie("ziddi_user");
+      const stored = localStorage.getItem("ziddi_user");
 
-      if (stored) {
+      if (isZiddiDomain) {
+        // On ziddiapp.com domains, root cookie is the single shared source of truth
         if (!cookieVal) {
-          this.setCookie("ziddi_user", stored, 30);
+          if (stored) {
+            localStorage.removeItem("ziddi_user");
+          }
+          return null;
         }
-        return JSON.parse(stored);
-      }
-
-      if (cookieVal) {
         const parsed = JSON.parse(cookieVal);
         localStorage.setItem("ziddi_user", JSON.stringify(parsed));
         return parsed;
       }
+
+      // Localhost / development environments
+      if (stored) return JSON.parse(stored);
+      if (cookieVal) return JSON.parse(cookieVal);
       return null;
     } catch (e) {
       return null;
