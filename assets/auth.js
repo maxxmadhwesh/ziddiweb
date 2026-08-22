@@ -32,23 +32,34 @@ const ZiddiAuth = {
 
   setCookie(name, value, days = 30) {
     const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    const isProd = window.location.hostname.endsWith("ziddiapp.com");
-    const domainStr = isProd ? "; domain=.ziddiapp.com" : "";
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/${domainStr}; SameSite=Lax`;
+    const hostname = window.location.hostname;
+    if (hostname.includes("ziddiapp.com")) {
+      document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; domain=.ziddiapp.com; SameSite=Lax`;
+    } else {
+      document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+    }
   },
 
   deleteCookie(name) {
-    const isProd = window.location.hostname.endsWith("ziddiapp.com");
-    const domainStr = isProd ? "; domain=.ziddiapp.com" : "";
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainStr}`;
+    const hostname = window.location.hostname;
+    if (hostname.includes("ziddiapp.com")) {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.ziddiapp.com`;
+    }
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
   },
 
   getUser() {
     try {
       const stored = localStorage.getItem("ziddi_user");
-      if (stored) return JSON.parse(stored);
-
       const cookieVal = this.getCookie("ziddi_user");
+
+      if (stored) {
+        if (!cookieVal) {
+          this.setCookie("ziddi_user", stored, 30);
+        }
+        return JSON.parse(stored);
+      }
+
       if (cookieVal) {
         const parsed = JSON.parse(cookieVal);
         localStorage.setItem("ziddi_user", JSON.stringify(parsed));

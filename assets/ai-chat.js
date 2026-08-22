@@ -1,13 +1,15 @@
 /**
  * Zidd AI Web Chat Stream Engine
- * Real-time SSE communication with Ziddi Backend (/api/v1/ai/chat/stream)
+ * High-performance streaming with smooth token typewriter animation,
+ * Markdown rendering, tool badges, and cross-subdomain session support.
  */
 
 const ZiddAIChat = {
   messages: [],
   isGenerating: false,
   sessionId: null,
-  xhr: null,
+  activeTool: null,
+  abortController: null,
 
   init() {
     this.sessionId = "web_session_" + Date.now();
@@ -44,13 +46,6 @@ const ZiddAIChat = {
     const name = user.first_name || user.name || user.username || "Athlete";
     const coins = user.ziddi_coins ?? user.ziddiCoins ?? 0;
     const streak = user.login_streak ?? user.longest_streak ?? 0;
-
-    let stats = { totalWorkouts: 0 };
-    try {
-      if (typeof ZiddiAuth.fetchUserStats === "function") {
-        stats = await ZiddiAuth.fetchUserStats(user.id);
-      }
-    } catch (e) {}
 
     container.innerHTML = `
       <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 900px; margin: 0 auto; gap: 12px; flex-wrap: wrap;">
@@ -100,7 +95,7 @@ const ZiddAIChat = {
           padding: 16px; color: #FFF; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
         ">Sign In with Ziddi Account</button>
         <div style="margin-top: 18px;">
-          <a href="index.html" style="color: #94A3B8; font-size: 13px; text-decoration: none;">← Back to Home</a>
+          <a href="https://ziddiapp.com/" style="color: #94A3B8; font-size: 13px; text-decoration: none;">← Back to Home</a>
         </div>
       </div>
     `;
@@ -124,7 +119,7 @@ const ZiddAIChat = {
           margin-bottom: 14px;
         ">View Premium Plans (From ₹49)</button>
         <div>
-          <a href="index.html" style="color: #94A3B8; font-size: 13px; text-decoration: none;">← Back to Home</a>
+          <a href="https://ziddiapp.com/" style="color: #94A3B8; font-size: 13px; text-decoration: none;">← Back to Home</a>
         </div>
       </div>
     `;
@@ -284,8 +279,14 @@ const ZiddAIChat = {
               ? 'background: #161620; border: 1px solid rgba(255,255,255,0.08); color: #E2E8F0; border-top-left-radius: 4px;' 
               : 'background: linear-gradient(135deg, #7C3AED, #6D28D9); color: #FFF; border-top-right-radius: 4px; box-shadow: 0 4px 15px rgba(124,58,237,0.3);'}
           ">
-            ${isAi ? this.formatMarkdown(msg.text) : msg.text}
-            ${msg.isStreaming ? '<span style="display: inline-block; width: 6px; height: 14px; background: #9B5CFF; margin-left: 4px; vertical-align: middle; animation: blink 1s infinite;"></span>' : ''}
+            ${msg.toolStatus ? `
+              <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(155,92,255,0.15); border: 1px solid rgba(155,92,255,0.3); border-radius: 10px; padding: 4px 10px; font-size: 11.5px; color: #C4B5FD; margin-bottom: 8px;">
+                <span style="display: inline-block; animation: pulse-glow 1.2s infinite;">⚡</span>
+                <span>${msg.toolStatus}</span>
+              </div><br>
+            ` : ''}
+            <span>${isAi ? this.formatMarkdown(msg.displayedText || msg.text || "") : msg.text}</span>
+            ${msg.isStreaming ? '<span style="display: inline-block; width: 8px; height: 8px; border-radius: 4px; background: #9B5CFF; margin-left: 6px; vertical-align: middle; box-shadow: 0 0 8px #9B5CFF; animation: pulse-glow 1s infinite;"></span>' : ''}
           </div>
 
           ${!isAi ? `
@@ -313,76 +314,135 @@ const ZiddAIChat = {
     });
 
     const aiMsgIndex = this.messages.length;
-    this.messages.push({
+    const aiMessage = {
       sender: "ai",
       text: "",
+      displayedText: "",
       isStreaming: true,
-    });
+      toolStatus: null,
+    };
+    this.messages.push(aiMessage);
 
     this.isGenerating = true;
     this.renderMessages();
 
-    let accumulatedText = "";
-    let processedIndex = 0;
+    // Setup Typewriter smooth streaming interval
+    let fullTargetText = "";
+    let isStreamDone = false;
 
-    const xhr = new XMLHttpRequest();
-    this.xhr = xhr;
+    const typewriterInterval = setInterval(() => {
+      if (aiMessage.displayedText.length < fullTargetText.length) {
+        // Type 1-3 characters dynamically to keep up smoothly
+        const diff = fullTargetText.length - aiMessage.displayedText.length;
+        const step = diff > 30 ? 4 : diff > 10 ? 2 : 1;
+        aiMessage.displayedText = fullTargetText.substring(0, aiMessage.displayedText.length + step);
+        this.renderMessages();
+      } else if (isStreamDone && aiMessage.displayedText.length >= fullTargetText.length) {
+        clearInterval(typewriterInterval);
+        aiMessage.isStreaming = false;
+        aiMessage.text = fullTargetText;
+        aiMessage.displayedText = fullTargetText;
+        this.isGenerating = false;
+        this.renderMessages();
+      }
+    }, 18);
 
-    const endpoint = `${ZIDDI_API_BASE}/api/v1/ai/chat/stream?userId=${encodeURIComponent(user.id)}`;
-    xhr.open("POST", endpoint, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Accept", "text/event-stream, application/json, text/plain");
+    try {
+      this.abortController = new AbortController();
+      const endpoint = `${ZIDDI_API_BASE}/api/v1/ai/chat/stream?userId=${encodeURIComponent(user.id)}`;
+      
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "text/event-stream, application/json, text/plain",
+        },
+        body: JSON.stringify({
+          message: promptText,
+          sessionId: this.sessionId,
+        }),
+        signal: this.abortController.signal,
+      });
 
-    xhr.onprogress = () => {
-      const fullResponse = xhr.responseText;
-      const newContent = fullResponse.substring(processedIndex);
-      processedIndex = fullResponse.length;
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
 
-      const lines = newContent.split("\n");
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (trimmed.startsWith("data:")) {
-          const payload = trimmed.substring(5).trim();
-          if (payload === "[DONE]") {
-            continue;
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let buffer = "";
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split(/\r?\n/);
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+
+          if (trimmed.startsWith("data:")) {
+            const dataPayload = trimmed.slice(5).trim();
+            if (dataPayload === "[DONE]") {
+              isStreamDone = true;
+              continue;
+            }
+
+            try {
+              const parsed = JSON.parse(dataPayload);
+              if (parsed.status === "tool_start") {
+                aiMessage.toolStatus = parsed.toolName ? `Executing ${parsed.toolName}...` : "Analyzing workout context...";
+                this.renderMessages();
+                continue;
+              }
+              if (parsed.status === "tool_end") {
+                aiMessage.toolStatus = null;
+                this.renderMessages();
+                continue;
+              }
+
+              let textChunk = "";
+              if (parsed.chunk !== undefined) textChunk = parsed.chunk;
+              else if (parsed.content !== undefined) textChunk = parsed.content;
+              else if (parsed.text !== undefined) textChunk = parsed.text;
+              else if (typeof parsed === "string") textChunk = parsed;
+
+              if (textChunk) {
+                fullTargetText += textChunk;
+              }
+            } catch {
+              fullTargetText += dataPayload;
+            }
+          } else if (!trimmed.startsWith("event:") && !trimmed.startsWith("id:")) {
+            try {
+              const parsed = JSON.parse(trimmed);
+              if (parsed.chunk) fullTargetText += parsed.chunk;
+              else if (parsed.message) fullTargetText += parsed.message;
+            } catch {
+              fullTargetText += trimmed;
+            }
           }
-          try {
-            const parsed = JSON.parse(payload);
-            if (parsed.chunk) accumulatedText += parsed.chunk;
-            else if (parsed.content) accumulatedText += parsed.content;
-            else if (parsed.text) accumulatedText += parsed.text;
-          } catch (e) {
-            accumulatedText += payload;
-          }
-        } else if (trimmed && !trimmed.startsWith("event:") && !trimmed.startsWith("id:")) {
-          accumulatedText += trimmed;
         }
       }
 
-      this.messages[aiMsgIndex].text = accumulatedText;
-      this.renderMessages();
-    };
+      isStreamDone = true;
+      if (!fullTargetText) {
+        fullTargetText = "I've reviewed your training data. How else can I help optimize your next session?";
+      }
 
-    xhr.onload = () => {
+    } catch (err) {
+      clearInterval(typewriterInterval);
       this.isGenerating = false;
-      this.messages[aiMsgIndex].isStreaming = false;
-      if (!this.messages[aiMsgIndex].text) {
-        this.messages[aiMsgIndex].text = "I've reviewed your training data. How else can I help optimize your next session?";
+      aiMessage.isStreaming = false;
+      if (err.name !== "AbortError") {
+        aiMessage.text = "⚠️ Network connection issue. Please make sure the Ziddi backend is running and try again.";
+        aiMessage.displayedText = aiMessage.text;
       }
       this.renderMessages();
-    };
-
-    xhr.onerror = () => {
-      this.isGenerating = false;
-      this.messages[aiMsgIndex].isStreaming = false;
-      this.messages[aiMsgIndex].text = "⚠️ Network connection issue. Please make sure the Ziddi backend is running and try again.";
-      this.renderMessages();
-    };
-
-    xhr.send(JSON.stringify({
-      message: promptText,
-      sessionId: this.sessionId,
-    }));
+    }
   },
 
   clearChat() {
