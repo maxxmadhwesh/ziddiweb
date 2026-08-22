@@ -131,10 +131,10 @@ const ZiddAIChat = {
     const name = user.first_name || user.name || user.username || "Athlete";
 
     container.innerHTML = `
-      <div style="display: flex; flex-direction: column; height: 100%; max-width: 900px; margin: 0 auto; width: 100%;">
+      <div style="display: flex; flex-direction: column; height: 100%; width: 100%; max-width: 900px; margin: 0 auto; overflow: hidden;">
         <!-- Messages Scroll Box -->
         <div id="chatMessagesList" style="
-          flex: 1; overflow-y: auto; padding: 20px 12px; display: flex; flex-direction: column; gap: 16px;
+          flex: 1; min-height: 0; overflow-y: auto; padding: 20px 12px 16px 12px; display: flex; flex-direction: column; gap: 16px;
           scroll-behavior: smooth;
         ">
           <!-- Welcome Greeting Card -->
@@ -178,17 +178,28 @@ const ZiddAIChat = {
           <div id="dynamicMessagesArea" style="display: flex; flex-direction: column; gap: 16px;"></div>
         </div>
 
-        <!-- Input Bar -->
-        <div style="padding: 16px 8px 24px 8px; border-top: 1px solid rgba(255,255,255,0.08); background: #0A0A0C;">
+        <!-- Pinned Bottom Input Bar -->
+        <div style="flex-shrink: 0; padding: 14px 12px 20px 12px; border-top: 1px solid rgba(255,255,255,0.08); background: #0A0A0E;">
           <form id="chatInputForm" onsubmit="ZiddAIChat.handleFormSubmit(event)" style="display: flex; gap: 10px; align-items: center;">
-            <input id="chatTextInput" type="text" placeholder="Ask Zidd AI anything about training, PRs, injuries, or nutrition..." autocomplete="off" style="
-              flex: 1; background: #181820; border: 1.5px solid rgba(155, 92, 255, 0.3); border-radius: 16px;
-              padding: 14px 18px; font-size: 14px; color: #FFF; outline: none; transition: border-color 0.2s;
+            <div style="
+              flex: 1; display: flex; align-items: center; background: #181820; border: 1.5px solid rgba(155, 92, 255, 0.3);
+              border-radius: 16px; padding: 4px 8px 4px 14px; gap: 8px;
             ">
+              <input id="chatTextInput" type="text" placeholder="Ask Zidd AI anything about training, PRs, injuries, or nutrition..." autocomplete="off" style="
+                flex: 1; background: transparent; border: none; padding: 10px 0; font-size: 14px; color: #FFF; outline: none;
+              ">
+              
+              <!-- Voice Input Button -->
+              <button type="button" id="chatVoiceBtn" onclick="ZiddAIChat.toggleVoiceRecording()" title="Speak to Zidd AI" style="
+                background: none; border: none; color: #94A3B8; font-size: 18px; cursor: pointer; padding: 6px; border-radius: 8px;
+                display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+              ">🎙️</button>
+            </div>
+
             <button id="chatSendBtn" type="submit" style="
               background: linear-gradient(135deg, #9B5CFF, #7C3AED); border: none; border-radius: 16px;
               padding: 14px 22px; color: #FFF; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;
-              box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+              box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); flex-shrink: 0;
             ">
               <span>Send</span> <span>🚀</span>
             </button>
@@ -198,6 +209,65 @@ const ZiddAIChat = {
     `;
 
     this.renderMessages();
+  },
+
+  toggleVoiceRecording() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Voice recognition is not supported in this browser. Please use Chrome, Safari, or Edge.");
+      return;
+    }
+
+    const voiceBtn = document.getElementById("chatVoiceBtn");
+    const textInput = document.getElementById("chatTextInput");
+
+    if (this.recognition && this.isRecordingVoice) {
+      this.recognition.stop();
+      this.isRecordingVoice = false;
+      if (voiceBtn) voiceBtn.style.color = "#94A3B8";
+      return;
+    }
+
+    this.recognition = new SpeechRecognition();
+    this.recognition.lang = "en-IN";
+    this.recognition.interimResults = true;
+
+    this.recognition.onstart = () => {
+      this.isRecordingVoice = true;
+      if (voiceBtn) {
+        voiceBtn.style.color = "#EF4444";
+        voiceBtn.style.animation = "pulse-glow 1s infinite";
+      }
+      if (textInput) textInput.placeholder = "Listening... Speak now 🎙️";
+    };
+
+    this.recognition.onresult = (event) => {
+      let transcript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      if (textInput) textInput.value = transcript;
+    };
+
+    this.recognition.onerror = () => {
+      this.isRecordingVoice = false;
+      if (voiceBtn) {
+        voiceBtn.style.color = "#94A3B8";
+        voiceBtn.style.animation = "none";
+      }
+      if (textInput) textInput.placeholder = "Ask Zidd AI anything about training, PRs, injuries, or nutrition...";
+    };
+
+    this.recognition.onend = () => {
+      this.isRecordingVoice = false;
+      if (voiceBtn) {
+        voiceBtn.style.color = "#94A3B8";
+        voiceBtn.style.animation = "none";
+      }
+      if (textInput) textInput.placeholder = "Ask Zidd AI anything about training, PRs, injuries, or nutrition...";
+    };
+
+    this.recognition.start();
   },
 
   sendQuickPrompt(promptText) {

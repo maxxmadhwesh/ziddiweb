@@ -19,9 +19,9 @@
       const main = document.querySelector("main");
       if (main) {
         main.innerHTML = `
-          <div class="ai-wrapper" style="padding-top: 90px; height: calc(100vh - 90px); display: flex; flex-direction: column; position: relative;">
-            <div id="athleteContextHud" style="display: none; padding: 10px 20px; background: rgba(18, 18, 24, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); z-index: 10;"></div>
-            <div id="chatMainContainer" style="flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; z-index: 5; overflow: hidden; padding: 0 16px;"></div>
+          <div class="ai-wrapper" style="position: fixed; top: 80px; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column; overflow: hidden; background: #0A0A0E; z-index: 100;">
+            <div id="athleteContextHud" style="display: none; flex-shrink: 0; padding: 10px 20px; background: rgba(18, 18, 24, 0.85); border-bottom: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); z-index: 10;"></div>
+            <div id="chatMainContainer" style="flex: 1; min-height: 0; display: flex; flex-direction: column; height: 100%; position: relative; z-index: 5; overflow: hidden;"></div>
           </div>
         `;
         if (typeof ZiddAIChat !== "undefined") {
