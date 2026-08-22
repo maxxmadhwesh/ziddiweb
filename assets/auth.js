@@ -17,10 +17,44 @@ if (!document.getElementById("googleGsiScript")) {
 }
 
 const ZiddiAuth = {
+  getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      try {
+        return decodeURIComponent(parts.pop().split(";").shift());
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  },
+
+  setCookie(name, value, days = 30) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    const isProd = window.location.hostname.endsWith("ziddiapp.com");
+    const domainStr = isProd ? "; domain=.ziddiapp.com" : "";
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/${domainStr}; SameSite=Lax`;
+  },
+
+  deleteCookie(name) {
+    const isProd = window.location.hostname.endsWith("ziddiapp.com");
+    const domainStr = isProd ? "; domain=.ziddiapp.com" : "";
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainStr}`;
+  },
+
   getUser() {
     try {
       const stored = localStorage.getItem("ziddi_user");
-      return stored ? JSON.parse(stored) : null;
+      if (stored) return JSON.parse(stored);
+
+      const cookieVal = this.getCookie("ziddi_user");
+      if (cookieVal) {
+        const parsed = JSON.parse(cookieVal);
+        localStorage.setItem("ziddi_user", JSON.stringify(parsed));
+        return parsed;
+      }
+      return null;
     } catch (e) {
       return null;
     }
@@ -32,11 +66,13 @@ const ZiddiAuth = {
 
   saveUser(userData) {
     localStorage.setItem("ziddi_user", JSON.stringify(userData));
+    this.setCookie("ziddi_user", JSON.stringify(userData), 30);
     this.updateUI();
   },
 
   logout() {
     localStorage.removeItem("ziddi_user");
+    this.deleteCookie("ziddi_user");
     this.updateUI();
   },
 
