@@ -269,12 +269,24 @@ const ZiddiAuth = {
   },
 
   updateUI() {
-    this.renderSidebar();
+    try {
+      this.renderSidebar();
+    } catch (e) {
+      console.warn("Sidebar render warning:", e);
+    }
     if (typeof renderHeroDashboard === "function") {
-      renderHeroDashboard();
+      try {
+        renderHeroDashboard();
+      } catch (e) {
+        console.warn("Hero dashboard render warning:", e);
+      }
     }
     if (typeof ZiddAIChat !== "undefined" && typeof ZiddAIChat.checkAccessAndRender === "function") {
-      ZiddAIChat.checkAccessAndRender();
+      try {
+        ZiddAIChat.checkAccessAndRender();
+      } catch (e) {
+        console.warn("AI Chat render warning:", e);
+      }
     }
   },
 
@@ -377,13 +389,7 @@ const ZiddiAuth = {
           <h2 style="font-size: 22px; font-weight: 800; margin: 0;">Welcome to Ziddi</h2>
           <p style="font-size: 13px; color: #8F97B3; margin-top: 4px; margin-bottom: 12px;">Train Smarter. Track Better.</p>
           
-          <div style="
-            background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(157, 107, 255, 0.3);
-            border-radius: 12px; padding: 10px 14px; text-align: center; font-size: 13px; font-weight: 600;
-            color: #C084FC; line-height: 1.4;
-          ">
-            🚀 <strong>Ziddi App is launching in August 2026!</strong><br>Sign in or create an account to get early access & reserve your handle.
-          </div>
+
         </div>
 
         <!-- Error Alert -->

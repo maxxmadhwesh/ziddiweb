@@ -17,8 +17,10 @@ const ZiddAIChat = {
   },
 
   checkAccessAndRender() {
-    const user = ZiddiAuth.getUser();
     const chatContainer = document.getElementById("chatMainContainer");
+    if (!chatContainer) return;
+
+    const user = ZiddiAuth.getUser();
     const hudContainer = document.getElementById("athleteContextHud");
 
     if (!user) {
