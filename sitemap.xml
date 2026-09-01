@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Primary Clean URLs -->
   <url>
     <loc>https://www.ziddiapp.com/</loc>
     <changefreq>daily</changefreq>
@@ -33,38 +32,6 @@
   </url>
   <url>
     <loc>https://www.ziddiapp.com/data-deletion</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Legacy HTML URLs for seamless crawler discovery -->
-  <url>
-    <loc>https://www.ziddiapp.com/store.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.ziddiapp.com/founders.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.ziddiapp.com/feedback.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.ziddiapp.com/privacy.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.ziddiapp.com/terms.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.ziddiapp.com/data-deletion.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
