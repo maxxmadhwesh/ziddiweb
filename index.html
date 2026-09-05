@@ -76,6 +76,56 @@
   }
   </script>
 
+  <!-- FAQ Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Ziddi and how is it different from other fitness apps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ziddi is an all-in-one Indian human performance super-app consolidating 5 core pillars into one platform: 3D-assisted Gym workout logging, Zidd AI coaching, Mind & physical recovery guided flows, government exam physical prep (SSC GD, UP Police, NDA, CDS), and an integrated wellness Store where staying fit earns you redeemable Ziddi Coins."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Zidd AI coach me on my workouts and recovery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zidd AI is a 24/7 sports-science AI assistant powered by LLMs and vector RAG grounding. It is dynamically connected to your personal workout logs, PRs, split routines, and active injury history to provide hyper-personalized training, recovery, and exam pacing guidance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What physical exams are covered in the Target (Exams) pillar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ziddi provides structured physical fitness benchmarks, training plans, and progress tracking for India's toughest government recruitment physical exams — including SSC GD, UP Police, NDA, CDS, BSF GD, and state police physical standards."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Ziddi Coins and how do I earn and spend them?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ziddi Coins are our in-app loyalty currency earned automatically by logging daily workouts, meditating, and building consistency streaks (3, 7, 14, 30, 60 & 100 days). Redeem coins in the Ziddi Store for flat cash discounts (25 Coins = ₹25 off) on apparel, supplements, and lifting gear."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Ziddi live right now and how can I get early access?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Ziddi is currently live in Open Beta on both Android (via Google Play Store) and iPhone (via Apple TestFlight). You can download and test it right now for free before our full official v1.0 launch in September 2026."
+        }
+      }
+    ]
+  }
+  </script>
+
       <!-- Favicon for Google Search & Browsers -->
   <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
@@ -1122,6 +1172,103 @@
 
       </div>
     </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" style="padding: 80px 40px; max-width: 1000px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 50px;">
+        <span class="hero-tagline" style="margin-bottom: 12px;">Got Questions? We Have Answers</span>
+        <h2 style="font-size: 38px; font-weight: 800; background: linear-gradient(135deg, #FFFFFF 50%, #A78BFA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px;">Frequently Asked Questions</h2>
+        <p style="color: var(--text-secondary); font-size: 16px; max-width: 600px; margin: 0 auto;">Everything you need to know about Ziddi, Zidd AI coaching, Ziddi Coins, and our 5 core pillars.</p>
+      </div>
+
+      <div class="faq-accordion-list" style="display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item" style="background: rgba(18, 18, 22, 0.75); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.3s ease;">
+          <button class="faq-header" onclick="toggleFaq(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: none; border: none; color: #FFF; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; font-family: var(--font);">
+            <span>1. What is Ziddi and how is it different from other fitness apps?</span>
+            <span class="faq-icon" style="font-size: 14px; transition: transform 0.3s ease; color: #A78BFA;">▼</span>
+          </button>
+          <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
+              Ziddi (ज़िद्दी — meaning <em>determined</em> or <em>stubborn-willed</em>) is an all-in-one Indian human performance super-app. Instead of forcing you to use 4 separate apps for gym tracking, meditation, exam prep, and supplements, Ziddi consolidates 5 core pillars into one unified platform: 3D Gym workout logging, Zidd AI coaching, Mind &amp; physical recovery guided flows, government exam physical prep (SSC GD, UP Police, NDA, CDS), and an integrated wellness Store where staying fit earns you redeemable Ziddi Coins.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" style="background: rgba(18, 18, 22, 0.75); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.3s ease;">
+          <button class="faq-header" onclick="toggleFaq(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: none; border: none; color: #FFF; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; font-family: var(--font);">
+            <span>2. How does Zidd AI coach me on my workouts and recovery?</span>
+            <span class="faq-icon" style="font-size: 14px; transition: transform 0.3s ease; color: #A78BFA;">▼</span>
+          </button>
+          <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
+              Zidd AI is a 24/7 sports-science AI assistant powered by LLMs and vector RAG grounding. Unlike generic chatbots, Zidd AI is dynamically grounded in your personal training data — including your personal records (PRs), recent workout logs, split routines, and active injury history. It delivers hyper-personalized guidance on progressive overload, exercise substitutions, recovery protocols, and exam pacing strategies.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" style="background: rgba(18, 18, 22, 0.75); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.3s ease;">
+          <button class="faq-header" onclick="toggleFaq(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: none; border: none; color: #FFF; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; font-family: var(--font);">
+            <span>3. What physical exams are covered in the Target (Exams) pillar?</span>
+            <span class="faq-icon" style="font-size: 14px; transition: transform 0.3s ease; color: #A78BFA;">▼</span>
+          </button>
+          <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
+              The Exams pillar is built specifically for Indian government recruitment exams with physical endurance benchmarks — such as SSC GD (1.6km / 5km runs), UP Police Constable &amp; Sub-Inspector physicals, NDA, CDS, BSF GD, and state police recruitment standards. Ziddi provides official cutoff tracking, mock attempt logging, pacing calculators, and downloadable exam prep guides.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" style="background: rgba(18, 18, 22, 0.75); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.3s ease;">
+          <button class="faq-header" onclick="toggleFaq(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: none; border: none; color: #FFF; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; font-family: var(--font);">
+            <span>4. What are Ziddi Coins and how do I earn and spend them?</span>
+            <span class="faq-icon" style="font-size: 14px; transition: transform 0.3s ease; color: #A78BFA;">▼</span>
+          </button>
+          <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
+              Ziddi Coins bridge your daily fitness discipline with real shopping rewards. You earn coins automatically by logging workouts, completing yoga sessions, and reaching streak milestones (3, 7, 14, 30, 60, and 100 days). You can redeem your coins directly at checkout in the Ziddi Store for flat cash discounts (25 Coins = ₹25 off) or percentage-based product discounts on apparel, lifting gear, and supplements.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item" style="background: rgba(18, 18, 22, 0.75); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.3s ease;">
+          <button class="faq-header" onclick="toggleFaq(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: none; border: none; color: #FFF; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; font-family: var(--font);">
+            <span>5. Is Ziddi live right now and how can I get early access?</span>
+            <span class="faq-icon" style="font-size: 14px; transition: transform 0.3s ease; color: #A78BFA;">▼</span>
+          </button>
+          <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
+              Yes! Ziddi is currently live in <strong>Open Beta</strong>. Android users can download the app directly from the Google Play Store, and iOS users can join via Apple TestFlight. Our full public v1.0 release is scheduled for September 2026. All Open Beta users keep their earned Ziddi Coins, streak ranks, and workout history upon official launch!
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <script>
+      function toggleFaq(btn) {
+        const item = btn.parentElement;
+        const body = item.querySelector('.faq-body');
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+        document.querySelectorAll('.faq-body').forEach(b => b.style.maxHeight = '0px');
+        document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+        document.querySelectorAll('.faq-item').forEach(el => el.style.borderColor = 'var(--border)');
+
+        if (!isOpen) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+          item.style.borderColor = 'rgba(124, 58, 237, 0.4)';
+        }
+      }
+    </script>
 
     <!-- Download QR Section -->
     <section id="download" style="padding: 0 40px;">
