@@ -187,7 +187,23 @@
     }
   </style>
 </head>
-<body>
+<body class="has-top-banner">
+
+  <!-- Top Announcement Banner -->
+  <div class="top-announcement-banner">
+    <div class="banner-content">
+      <span class="banner-badge">🔥 OPEN BETA LIVE</span>
+      <span class="banner-text">Ziddi is live on Open Beta! Official launch coming September 2026.</span>
+    </div>
+    <div class="banner-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="banner-cta android-cta">
+        🤖 Google Play
+      </a>
+      <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer" class="banner-cta ios-cta">
+        🍏 iOS TestFlight
+      </a>
+    </div>
+  </div>
 
   <div class="store-container">
     <!-- Topbar -->
@@ -238,7 +254,7 @@
     <div id="storeGrid" class="product-grid"></div>
   </div>
 
-  <!-- Locked Store Overlay (Launching August 2026) -->
+  <!-- Locked Store Overlay (Launching September 2026) -->
   <div id="storeLockOverlay" style="
     display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(8, 8, 10, 0.94); backdrop-filter: blur(16px); z-index: 9999;
@@ -250,15 +266,20 @@
       font-family: 'Inter', -apple-system, sans-serif; color: #FFF;
     ">
       <div style="font-size: 56px; margin-bottom: 12px;">🛍️</div>
-      <h2 style="font-size: 24px; font-weight: 800; color: #FFF; margin: 0 0 10px 0;">Ziddi Store Launching August 2026</h2>
+      <h2 style="font-size: 24px; font-weight: 800; color: #FFF; margin: 0 0 10px 0;">Ziddi Store Launching September 2026</h2>
       
       <div style="
         background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.3);
         border-radius: 14px; padding: 16px; font-size: 14px; color: #F472B6; font-weight: 600;
-        line-height: 1.5; margin-bottom: 24px; text-align: center;
+        line-height: 1.5; margin-bottom: 20px; text-align: center;
       ">
         🚀 <strong>Official Ziddi Store is under preparation!</strong><br>
-        Our official apparel, lifting gear, and supplement store will open in August 2026. Stay tuned!
+        Our official apparel, lifting gear, and supplement store will open in September 2026. Stay tuned!
+      </div>
+
+      <div style="margin-bottom: 16px; display: flex; gap: 8px; justify-content: center;">
+        <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #34D399; text-decoration: none; border-radius: 12px; padding: 10px 14px; font-weight: 700; font-size: 13px;">🤖 Android Beta</a>
+        <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; color: #60A5FA; text-decoration: none; border-radius: 12px; padding: 10px 14px; font-weight: 700; font-size: 13px;">🍏 iOS TestFlight</a>
       </div>
 
       <a href="index.html" style="
