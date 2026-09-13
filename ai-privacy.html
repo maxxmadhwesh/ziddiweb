@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQ1TR0W003"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QQ1TR0W003');
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zidd AI Privacy & Data Safety Disclosure — Ziddi</title>
+  <meta name="description" content="Detailed privacy & data safety disclosure for Zidd AI, RAG architecture, and backend tool calls. Learn what data is accessed and how user privacy is protected.">
+  <link rel="canonical" href="https://www.ziddiapp.com/ai-privacy">
+  <!-- Favicon for Google Search & Browsers -->
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/auth.js"></script>
+  <script src="assets/store.js"></script>
+  <script src="assets/subscription-modal.js"></script>
+</head>
+<body class="has-top-banner">
+
+  <!-- Top Announcement Banner -->
+  <div class="top-announcement-banner">
+    <div class="banner-content">
+      <span class="banner-badge">🔥 OPEN BETA LIVE</span>
+      <span class="banner-text">Ziddi is live on Open Beta! Official launch coming September 2026.</span>
+    </div>
+    <div class="banner-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="banner-cta android-cta">
+        🤖 Google Play
+      </a>
+      <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer" class="banner-cta ios-cta">
+        🍏 iOS TestFlight
+      </a>
+    </div>
+  </div>
+
+  <!-- Background glows -->
+  <div class="gradient-accent glow-top-right"></div>
+  <div class="gradient-accent glow-bottom-left"></div>
+
+  <!-- Header -->
+  <header id="mainHeader">
+    <a href="index.html" class="logo-container">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/z_vector_logo.svg">
+        <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+      </picture>
+    </a>
+    <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Side Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div style="margin-bottom: 20px;">
+      <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 60px; width: auto;">
+    </div>
+    <a href="index.html">Home</a>
+    <a href="ai.html">Zidd AI Coach 🤖</a>
+    <a href="founders.html">Meet the Founders</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="ai-privacy.html" style="color: var(--text-primary);">Zidd AI Data Safety</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="data-deletion.html">Data Deletion</a>
+    <a href="feedback.html">Provide Feedback</a>
+    <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); margin-bottom: 6px;">🤖 Android Open Beta</a>
+    <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);">🍏 iPhone TestFlight</a>
+  </div>
+
+  <main>
+    <section>
+      <div class="legal-container">
+        <h1 class="legal-title">Zidd AI Privacy & Data Safety Disclosure</h1>
+        <div class="legal-meta">Last Updated: September 14, 2026 | Apple & Google Store Safety Compliance</div>
+
+        <div class="legal-content">
+          <p>This document outlines the exact data privacy, retrieval architecture, tool call permissions, and safety guardrails governing <strong>Zidd AI</strong> — the 24/7 AI sports science and human performance coach inside the Ziddi platform.</p>
+
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: 30px 0;">
+
+          <h3>1. What Data Does Zidd AI Access?</h3>
+          <p>Zidd AI utilizes an agentic retrieval-augmented generation (RAG) architecture. Rather than storing your personal training history inside generic AI models, data is accessed <strong>ephemerally on demand</strong> via backend tool calls strictly when you submit a query. Zidd AI accesses the following data types:</p>
+          <ul>
+            <li><strong>Workout Logs & Personal Records (PRs):</strong> Past exercise names, sets, reps, weight lifted, and personal record milestones to provide progressive overload advice.</li>
+            <li><strong>Weekly Split & Routine Planner:</strong> Scheduled workout days and exercise sequences to help design balanced training routines.</li>
+            <li><strong>Active Injury History:</strong> Injury locations (e.g., knee, shoulder, lower back) and pain scores. This is checked by safety guardrail tools like <code>getUserInjuries</code> to explicitly prevent recommending exercises that could aggravate an active injury.</li>
+            <li><strong>Government Exam Fitness Targets:</strong> Exam benchmarks (SSC GD, UP Police, NDA, CDS) and mock test times to calculate target cutoffs and pacing.</li>
+            <li><strong>Mindfulness & Yoga Logs:</strong> Session frequency and meditation streak metrics to recommend appropriate recovery flows.</li>
+          </ul>
+
+          <h3>2. How Tool Calls & Vector RAG Function</h3>
+          <p>When you ask Zidd AI a question (e.g., <em>"What should I train today?"</em>), the request is processed through a secure 16-tool agentic architecture:</p>
+          <ol>
+            <li><strong>Intent Recognition:</strong> The backend determines if your question requires specific personal context (e.g., pulling your last leg day log).</li>
+            <li><strong>Tool Execution:</strong> Specific data tools (e.g., <code>getUserPRs</code>, <code>getUserInjuries</code>) fetch only the minimal required data parameters from your encrypted database session.</li>
+            <li><strong>Vector Knowledge Retrieval:</strong> Titan Embeddings v2 retrieves sports-science principles and verified exercise technique guides.</li>
+            <li><strong>Token Streaming:</strong> Responses are generated in real-time using AWS Bedrock Converse API over TLS-encrypted Server-Sent Events (SSE).</li>
+          </ol>
+
+          <h3>3. Data Protection & Privacy Guarantees</h3>
+          <ul>
+            <li><strong>No Data Sale:</strong> We do <strong>NOT</strong> sell, rent, or monetize your health, workout, or AI prompt data to third-party ad networks or data brokers under any circumstances.</li>
+            <li><strong>Encryption in Transit & at Rest:</strong> All communications between the app, backend servers, and AI processing pipelines use industry-standard HTTPS/TLS encryption.</li>
+            <li><strong>No Third-Party Model Training:</strong> Your personal workout logs and chat history are <strong>never used to train public foundation models</strong>.</li>
+            <li><strong>Domain Isolation:</strong> Zidd AI is domain-scoped strictly to human performance, sports science, recovery, and exam fitness. Non-fitness or off-topic queries are politely declined.</li>
+          </ul>
+
+          <h3>4. Proactive Safety & Medical Disclaimer</h3>
+          <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 14px; padding: 20px; color: #FCA5A5; font-size: 14px; margin: 20px 0; line-height: 1.6;">
+            ⚠️ <strong>Non-Medical Disclaimer:</strong> Zidd AI is a sports science and physical performance assistant, NOT a certified medical practitioner. Zidd AI does not provide medical diagnoses, emergency care, or drug prescriptions. If severe pain, acute injury, or distress occurs, Zidd AI automatically advises users to stop training immediately and consult an orthopaedic doctor, physiotherapist, or emergency healthcare service.
+          </div>
+
+          <h3>5. User Controls & Data Deletion</h3>
+          <p>You maintain 100% ownership and control over your data:</p>
+          <ul>
+            <li><strong>Clear Chat History:</strong> You can reset and erase your Zidd AI conversation context at any time with one tap in-app.</li>
+            <li><strong>Account & Log Deletion:</strong> You have the right to permanently delete your account and all associated fitness/AI logs. Visit our <a href="data-deletion.html" style="color: var(--primary); font-weight: 700;">Account & Data Deletion Page</a> or email <strong>support@ziddiapp.com</strong>.</li>
+          </ul>
+
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: 30px 0;">
+
+          <h3>Contact & Developer Information</h3>
+          <p>If you have questions regarding Zidd AI privacy or data processing:<br>
+          🏢 <strong>Ziddi Fitness and Wellness LLP</strong> (LLPIN: ADA-7087 | DPIIT: DIPP276573)<br>
+          📧 <strong>privacy@ziddiapp.com</strong> / <strong>support@ziddiapp.com</strong><br>
+          🌐 <a href="https://www.ziddiapp.com">www.ziddiapp.com</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo-container" style="padding:0;">
+          <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" class="logo-img" style="height: 60px;">
+        </a>
+        <p>A full comprehensive platform designed to challenge your limits, track your progress, and get you fit.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+          <li><a href="feedback.html">Provide Feedback</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Legal & Safety</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="ai-privacy.html">Zidd AI Data Safety</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="data-deletion.html">Data Deletion</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ziddi Fitness and Wellness LLP. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+    function toggleMenu() {
+      menuToggle.classList.toggle('open');
+      sideDrawer.classList.toggle('open');
+      drawerBackdrop.classList.toggle('open');
+    }
+
+    if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
+    if (drawerBackdrop) drawerBackdrop.addEventListener('click', toggleMenu);
+  </script>
+</body>
+</html>
