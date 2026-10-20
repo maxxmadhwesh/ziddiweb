@@ -173,10 +173,33 @@ header.scrolled {
   display: flex;
   flex-direction: column;
   padding: 100px 30px 40px 30px;
-  gap: 24px;
+  gap: 22px;
   transform: translateX(100%);
   visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+.side-drawer::-webkit-scrollbar {
+  width: 5px;
+}
+.side-drawer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.side-drawer::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.3);
+  border-radius: 4px;
+}
+.side-drawer::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.6);
+}
+
+.side-drawer a, .side-drawer button, .side-drawer div {
+  flex-shrink: 0;
 }
 
 .side-drawer.open {
@@ -650,6 +673,79 @@ body.has-top-banner .ai-wrapper {
   body.has-top-banner .hero-container {
     padding-top: 130px !important;
   }
+}
+
+/* ── Typography & Title Spacing ────────────────────────────── */
+h1, h2, h3, .section-title, .hero-content h1, .features-header h2, .founders-hero h1, .feedback-hero h1 {
+  word-spacing: 0.16em;
+  letter-spacing: -0.3px;
+}
+
+/* ── Interactive Color Glow for Tabs & AI Pillar Cards ─────── */
+.glow-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Purple Glow (Health & Live PR) */
+.glow-purple {
+  border: 1px solid rgba(155, 92, 255, 0.22) !important;
+}
+.glow-purple:hover,
+.glow-purple:active,
+.glow-purple:focus-visible {
+  border-color: #A78BFA !important;
+  box-shadow: 0 12px 35px rgba(124, 58, 237, 0.35), 0 0 20px rgba(167, 139, 250, 0.25) !important;
+  transform: translateY(-4px);
+}
+
+/* Green Glow (Healing & TDEE Nutrition) */
+.glow-green {
+  border: 1px solid rgba(16, 185, 129, 0.22) !important;
+}
+.glow-green:hover,
+.glow-green:active,
+.glow-green:focus-visible {
+  border-color: #34D399 !important;
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.35), 0 0 20px rgba(52, 211, 153, 0.25) !important;
+  transform: translateY(-4px);
+}
+
+/* Orange/Red Glow (Target & Injury Guardrails) */
+.glow-orange {
+  border: 1px solid rgba(249, 115, 22, 0.22) !important;
+}
+.glow-orange:hover,
+.glow-orange:active,
+.glow-orange:focus-visible {
+  border-color: #FB923C !important;
+  box-shadow: 0 12px 35px rgba(249, 115, 22, 0.35), 0 0 20px rgba(251, 146, 60, 0.25) !important;
+  transform: translateY(-4px);
+}
+
+/* Amber/Gold Glow (Exam Cutoff Pacing) */
+.glow-amber {
+  border: 1px solid rgba(245, 158, 11, 0.22) !important;
+}
+.glow-amber:hover,
+.glow-amber:active,
+.glow-amber:focus-visible {
+  border-color: #FBBF24 !important;
+  box-shadow: 0 12px 35px rgba(245, 158, 11, 0.35), 0 0 20px rgba(251, 191, 36, 0.25) !important;
+  transform: translateY(-4px);
+}
+
+/* Pink Glow (Store) */
+.glow-pink {
+  border: 1px solid rgba(236, 72, 153, 0.22) !important;
+}
+.glow-pink:hover,
+.glow-pink:active,
+.glow-pink:focus-visible {
+  border-color: #F472B6 !important;
+  box-shadow: 0 12px 35px rgba(236, 72, 153, 0.35), 0 0 20px rgba(244, 114, 182, 0.25) !important;
+  transform: translateY(-4px);
 }
 
 
