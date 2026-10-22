@@ -603,6 +603,49 @@ footer {
   white-space: nowrap;
 }
 
+/* ── Top Banner Live Countdown Timer ───────────────────────── */
+.banner-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.35);
+  margin-left: 4px;
+}
+
+.banner-timer .timer-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.banner-timer .t-val {
+  font-family: 'Outfit', -apple-system, monospace, sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  color: #FFFFFF;
+  min-width: 16px;
+  text-align: center;
+  letter-spacing: -0.2px;
+}
+
+.banner-timer .t-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #C4B5FD;
+  text-transform: lowercase;
+}
+
+.banner-timer .timer-colon {
+  font-weight: 800;
+  font-size: 12px;
+  color: #A78BFA;
+  opacity: 0.85;
+}
+
 .top-announcement-banner .banner-actions {
   display: flex;
   align-items: center;
@@ -746,6 +789,335 @@ h1, h2, h3, .section-title, .hero-content h1, .features-header h2, .founders-her
   border-color: #F472B6 !important;
   box-shadow: 0 12px 35px rgba(236, 72, 153, 0.35), 0 0 20px rgba(244, 114, 182, 0.25) !important;
   transform: translateY(-4px);
+}
+
+/* ── Launch Highlight Hero Pill ────────────────────────────── */
+.launch-announcement-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(236, 72, 153, 0.18) 100%);
+  border: 1px solid rgba(167, 139, 250, 0.55);
+  border-radius: 30px;
+  padding: 8px 18px;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35), 0 0 12px rgba(236, 72, 153, 0.2);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.launch-announcement-highlight:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: #C4B5FD;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5), 0 0 20px rgba(236, 72, 153, 0.35);
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse-dot 1.8s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ── Opening Launch Modal Popup ─────────────────────────────── */
+.launch-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 8, 12, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease;
+}
+
+.launch-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.launch-modal {
+  background: #12111D;
+  border: 1.5px solid rgba(167, 139, 250, 0.45);
+  border-radius: 28px;
+  padding: 40px 36px;
+  max-width: 540px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(124, 58, 237, 0.3);
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.launch-modal-backdrop.active .launch-modal {
+  transform: translateY(0) scale(1);
+}
+
+.launch-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #7C3AED 0%, #EC4899 50%, #3B82F6 100%);
+}
+
+.launch-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94A3B8;
+  font-size: 24px;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.launch-modal-close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #EF4444;
+  color: #FFF;
+  transform: rotate(90deg);
+}
+
+.launch-modal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #C4B5FD;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.launch-modal-pill .pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  animation: pulse-dot 1.8s infinite;
+}
+
+.launch-modal-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.launch-highlight-date {
+  background: linear-gradient(135deg, #FFF 20%, #A78BFA 60%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-size: 36px;
+}
+
+.launch-modal-subtitle {
+  font-size: 14.5px;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+/* 4-Column Modal Countdown Grid */
+.launch-countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.countdown-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 16px;
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  min-width: 65px;
+}
+
+.countdown-num {
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+  color: #FFFFFF;
+  background: linear-gradient(180deg, #FFFFFF 40%, #A78BFA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+
+.countdown-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #94A3B8;
+  text-transform: uppercase;
+}
+
+.countdown-divider {
+  font-size: 24px;
+  font-weight: 800;
+  color: #A78BFA;
+  opacity: 0.7;
+}
+
+.launch-info-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.launch-info-box .info-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.launch-info-box .info-text {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #DDD6FE;
+}
+
+.launch-info-box .info-text strong {
+  color: #FFF;
+}
+
+.launch-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.launch-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.launch-btn.btn-android {
+  background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+  color: #FFF;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+.launch-btn.btn-android:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+}
+
+.launch-btn.btn-ios {
+  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+  color: #FFF;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
+.launch-btn.btn-ios:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+}
+
+.launch-modal-dismiss-wrapper {
+  margin-top: 6px;
+}
+
+.launch-dismiss-btn {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: color 0.2s ease;
+  font-family: inherit;
+}
+
+.launch-dismiss-btn:hover {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+@media (max-width: 580px) {
+  .launch-modal {
+    padding: 30px 20px;
+    border-radius: 22px;
+  }
+  .launch-modal-title {
+    font-size: 26px;
+  }
+  .launch-highlight-date {
+    font-size: 28px;
+  }
+  .countdown-card {
+    min-width: 50px;
+    padding: 10px 4px;
+  }
+  .countdown-num {
+    font-size: 26px;
+  }
+  .launch-modal-actions {
+    flex-direction: column;
+  }
 }
 
 

@@ -25,10 +25,11 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="assets/style.css?v=2.1">
+  <link rel="stylesheet" href="assets/style.css?v=2.2">
   <script src="assets/auth.js"></script>
   <script src="assets/store.js"></script>
   <script src="assets/subscription-modal.js"></script>
+  <script src="assets/launch-timer.js"></script>
 
   <style>
     .feedback-hero {
@@ -200,8 +201,17 @@
   <!-- Top Announcement Banner -->
   <div class="top-announcement-banner">
     <div class="banner-content">
-      <span class="banner-badge">🔥 OPEN BETA LIVE</span>
-      <span class="banner-text">Ziddi is live on Open Beta! Official launch coming October 2026.</span>
+      <span class="banner-badge">🚀 LAUNCHING 29TH OCT</span>
+      <span class="banner-text">Ziddi goes live on <strong>29th October 2026</strong>!</span>
+      <div class="banner-timer" id="topBannerTimer">
+        <div class="timer-box"><span class="t-val" id="topDays">00</span><span class="t-lbl">d</span></div>
+        <span class="timer-colon">:</span>
+        <div class="timer-box"><span class="t-val" id="topHours">00</span><span class="t-lbl">h</span></div>
+        <span class="timer-colon">:</span>
+        <div class="timer-box"><span class="t-val" id="topMins">00</span><span class="t-lbl">m</span></div>
+        <span class="timer-colon">:</span>
+        <div class="timer-box"><span class="t-val" id="topSecs">00</span><span class="t-lbl">s</span></div>
+      </div>
     </div>
     <div class="banner-actions">
       <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="banner-cta android-cta">

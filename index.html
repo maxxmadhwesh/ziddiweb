@@ -130,7 +130,7 @@
         "name": "Is Ziddi live right now and how can I get early access?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! Ziddi is currently live in Open Beta on both Android (via Google Play Store) and iPhone (via Apple TestFlight). You can download and test it right now for free before our full official v1.0 launch in October 2026."
+          "text": "Yes! Ziddi is currently live in Open Beta on both Android (via Google Play Store) and iPhone (via Apple TestFlight). You can download and test it right now for free before our full official v1.0 launch on 29th October 2026."
         }
       }
     ]
@@ -142,10 +142,11 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="assets/style.css?v=2.1">
+  <link rel="stylesheet" href="assets/style.css?v=2.2">
   <script src="assets/auth.js"></script>
   <script src="assets/store.js"></script>
   <script src="assets/subscription-modal.js"></script>
+  <script src="assets/launch-timer.js"></script>
   <style>
     /* Home-specific Premium Styles */
     .hero-container {
@@ -678,8 +679,17 @@
   <!-- Top Announcement Banner -->
   <div class="top-announcement-banner">
     <div class="banner-content">
-      <span class="banner-badge">🔥 OPEN BETA LIVE</span>
-      <span class="banner-text">Ziddi is live on Open Beta! Official launch coming October 2026.</span>
+      <span class="banner-badge">🚀 LAUNCHING 29TH OCT</span>
+      <span class="banner-text">Ziddi goes live on <strong>29th October 2026</strong>!</span>
+      <div class="banner-timer" id="topBannerTimer">
+        <div class="timer-box"><span class="t-val" id="topDays">00</span><span class="t-lbl">d</span></div>
+        <span class="timer-colon">:</span>
+        <div class="timer-box"><span class="t-val" id="topHours">00</span><span class="t-lbl">h</span></div>
+        <span class="timer-colon">:</span>
+        <div class="timer-box"><span class="t-val" id="topMins">00</span><span class="t-lbl">m</span></div>
+        <span class="timer-colon">:</span>
+        <div class="timer-box"><span class="t-val" id="topSecs">00</span><span class="t-lbl">s</span></div>
+      </div>
     </div>
     <div class="banner-actions">
       <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="banner-cta android-cta">
@@ -735,6 +745,11 @@
     <!-- Hero Section -->
     <div class="hero-container">
       <div id="heroLeftContainer" class="hero-content">
+        <div class="launch-announcement-highlight" onclick="window.openLaunchModal && window.openLaunchModal()">
+          <span class="live-pulse-dot"></span>
+          <span>🚀 Official Launch Date: <strong>29th October 2026</strong> • Stay Tuned!</span>
+        </div>
+        <br>
         <span class="hero-tagline">AI-Native Human Performance Platform</span>
         <h1>Refuse to Settle.<br>Choose Ziddi.</h1>
         <p style="font-size: 16px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 24px;">Ziddi bridges the execution gap between setting long-term fitness goals and taking daily, actionable steps — for beginners, athletes, professionals, and injury-recovery users alike.</p>
@@ -747,8 +762,8 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
           </a>
         </div>
-        <div style="display:inline-flex; align-items:center; gap:8px; padding: 6px 14px; background: rgba(124, 58, 237, 0.15); border: 1px solid var(--primary); border-radius: 20px; color: #A78BFA; font-weight: 600; font-size: 13px; margin-bottom: 25px;">
-          <span>⚡</span> Open Beta Live Now | Releasing October 2026
+        <div style="display:inline-flex; align-items:center; gap:8px; padding: 7px 16px; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--primary); border-radius: 20px; color: #C4B5FD; font-weight: 700; font-size: 13.5px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);">
+          <span>🚀</span> App Launching on 29th October 2026 • Stay Tuned!
         </div>
         
         <p style="font-size: 14px; color: var(--text-muted);">
@@ -1250,7 +1265,7 @@
           </button>
           <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
             <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
-              Yes! Ziddi is currently live in <strong>Open Beta</strong>. Android users can download the app directly from the Google Play Store, and iOS users can join via Apple TestFlight. Our full public v1.0 release is scheduled for October 2026. All Open Beta users keep their earned Ziddi Coins, streak ranks, and workout history upon official launch!
+              Yes! Ziddi is currently live in <strong>Open Beta</strong>. Android users can download the app directly from the Google Play Store, and iOS users can join via Apple TestFlight. Our full public v1.0 release is officially scheduled for <strong>29th October 2026</strong>. All Open Beta users keep their earned Ziddi Coins, streak ranks, and workout history upon official launch! Stay tuned!
             </p>
           </div>
         </div>
@@ -1282,9 +1297,9 @@
       <div class="download-banner">
         <div class="download-banner-content">
           <h2>Ready to lock it in?</h2>
-          <p>Ziddi is NOW LIVE on Open Beta! Download today on Android &amp; iPhone TestFlight. Full store release in October 2026.</p>
+          <p>Ziddi is NOW LIVE on Open Beta! Download today on Android &amp; iPhone TestFlight. <strong>Full official launch on 29th October 2026. Stay tuned!</strong></p>
           <div style="display:inline-flex; align-items:center; gap:8px; padding: 8px 16px; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--primary); border-radius: 20px; color: #A78BFA; font-weight: 700; font-size: 14px; margin-bottom: 16px;">
-            <span>⚡</span> Open Beta Live | Full Launch October 2026
+            <span>🚀</span> Launching 29th October 2026 • Stay Tuned!
           </div>
           <div class="hero-download-buttons" style="margin-top: 10px;">
             <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer">
@@ -1452,8 +1467,8 @@
               <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
             </a>
           </div>
-          <div style="display:inline-flex; align-items:center; gap:8px; padding: 6px 14px; background: rgba(124, 58, 237, 0.15); border: 1px solid var(--primary); border-radius: 20px; color: #A78BFA; font-weight: 600; font-size: 13px; margin-bottom: 25px;">
-            <span>⚡</span> Open Beta Live Now | Releasing October 2026
+          <div style="display:inline-flex; align-items:center; gap:8px; padding: 7px 16px; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--primary); border-radius: 20px; color: #C4B5FD; font-weight: 700; font-size: 13.5px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);">
+            <span>🚀</span> App Launching on 29th October 2026 • Stay Tuned!
           </div>
           
           <p style="font-size: 14px; color: var(--text-muted);">
@@ -1591,5 +1606,72 @@
       renderHeroDashboard();
     });
   </script>
+
+  <!-- ── Opening Launch Announcement Modal Popup ──────────────── -->
+  <div class="launch-modal-backdrop" id="launchModalBackdrop">
+    <div class="launch-modal" id="launchModal" role="dialog" aria-modal="true" aria-labelledby="launchModalTitle">
+      <button class="launch-modal-close" id="closeLaunchModalBtn" aria-label="Close Announcement">&times;</button>
+      
+      <div class="launch-modal-pill">
+        <span class="pill-dot"></span>
+        <span>Official Launch Announcement</span>
+      </div>
+      
+      <h2 class="launch-modal-title" id="launchModalTitle">
+        Ziddi Goes Live On<br>
+        <span class="launch-highlight-date">29th October 2026</span>
+      </h2>
+      
+      <p class="launch-modal-subtitle">
+        The countdown is officially on! India’s premier AI-Native Human Performance, 3D Workout Tracking &amp; Preventive Health super-app is launching everywhere on iOS &amp; Android. Stay tuned!
+      </p>
+      
+      <!-- Big Countdown Timer Display -->
+      <div class="launch-countdown-grid">
+        <div class="countdown-card">
+          <span class="countdown-num" id="popupDays">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-card">
+          <span class="countdown-num" id="popupHours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-card">
+          <span class="countdown-num" id="popupMins">00</span>
+          <span class="countdown-label">Mins</span>
+        </div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-card">
+          <span class="countdown-num" id="popupSecs">00</span>
+          <span class="countdown-label">Secs</span>
+        </div>
+      </div>
+      
+      <!-- Early Access Open Beta Callout -->
+      <div class="launch-info-box">
+        <div class="info-icon">⚡</div>
+        <div class="info-text">
+          <strong>Can’t wait until 29th October?</strong><br>
+          You don’t have to! You can test-drive the full platform on Open Beta right now:
+        </div>
+      </div>
+      
+      <!-- Modal Download Actions -->
+      <div class="launch-modal-actions">
+        <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="launch-btn btn-android">
+          <span>🤖 Android Beta</span>
+        </a>
+        <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer" class="launch-btn btn-ios">
+          <span>🍏 iOS TestFlight</span>
+        </a>
+      </div>
+      
+      <div class="launch-modal-dismiss-wrapper">
+        <button class="launch-dismiss-btn" id="dismissLaunchModal">Explore Ziddi Website →</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
