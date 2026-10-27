@@ -4,65 +4,12 @@
  * Features: Top 3 Podium, In-App Instagram Reel Player, Claim Attempts Modal.
  */
 
-const ZIDDI_CHALLENGES_API = (typeof window !== 'undefined' && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) 
-  ? "http://localhost:8080" 
-  : "https://api.ziddiapp.com";
+const ZIDDI_CHALLENGES_API = "https://api.ziddiapp.com";
 
 const ZiddiChallenges = {
   activeChallenge: null,
   allChallenges: [],
   leaderboard: [],
-
-  // Seed Data for Instant Load / Graceful Offline Fallback (Real Community Data)
-  seedChallenges: [
-    {
-      id: "e7b1a001-0000-4000-8000-000000000001",
-      title: "Ziddi Pushup Challenge",
-      slug: "ziddi-pushup-challenge",
-      description: "Do as many strict pushups as you can in 1 minute. Chest must touch the floor and elbows must lock out at the top.",
-      rules: "Chest must touch the floor, elbows locked out at the top. Full body must be visible on camera with no cuts or edits.",
-      activity_type: "EXERCISE",
-      metric_type: "REPS",
-      unit: "reps",
-      scoring_direction: "HIGHER_IS_BETTER",
-      banner_url: "assets/Ziddi_Challenges_Fitness_Logo.png",
-      video_url: "https://www.instagram.com/reel/De6saZ0pwWJ/",
-      instagram_post_url: "https://www.instagram.com/reel/De6saZ0pwWJ/",
-      reward_description: "Ziddi Merch + Founder Shoutout",
-      status: "ACTIVE",
-      date_live: "2026-10-01T00:00:00",
-      date_ended: "2026-11-30T23:59:59",
-      is_featured: true
-    }
-  ],
-
-  // Real verified community participants from database
-  seedLeaderboard: [
-    {
-      rank: 1,
-      attempt_id: "e7b1a002-0000-4000-8000-000000000002",
-      participant_name: "Namit",
-      avatar_url: null,
-      score: 42.00,
-      unit: "reps",
-      attempt_number: 1,
-      proof_url: "https://www.instagram.com/reel/DfAUmvIzFnG4tZSPFIcK9so5164IlcEOq5xqjA0/",
-      verification_status: "APPROVED",
-      is_app_user: false
-    },
-    {
-      rank: 2,
-      attempt_id: "e7b1a002-0000-4000-8000-000000000001",
-      participant_name: "Madhwesh Anand",
-      avatar_url: null,
-      score: 41.00,
-      unit: "reps",
-      attempt_number: 1,
-      proof_url: "https://www.instagram.com/reel/De6saZ0pwWJ/",
-      verification_status: "APPROVED",
-      is_app_user: true
-    }
-  ],
 
   // ── Instagram Reel Embed Extractor ──────────────────────────────────────────
   getInstagramEmbedUrl(url) {
@@ -79,7 +26,7 @@ const ZiddiChallenges = {
     return null;
   },
 
-  // ── Fetch Challenges from Backend ───────────────────────────────────────────
+  // ── Fetch Challenges directly from live API ─────────────────────────────────
   async fetchChallenges(status = "ACTIVE") {
     try {
       const res = await fetch(`${ZIDDI_CHALLENGES_API}/api/v1/challenges?status=${status}`, {
@@ -94,31 +41,32 @@ const ZiddiChallenges = {
         }
       }
     } catch (e) {
-      console.log("Using real seed challenge (backend syncing):", e.message);
+      console.error("Live challenges API request failed:", e);
     }
-    this.allChallenges = this.seedChallenges;
-    this.activeChallenge = this.seedChallenges[0];
-    return this.seedChallenges;
+    this.allChallenges = [];
+    this.activeChallenge = null;
+    return [];
   },
 
-  // ── Fetch Leaderboard for Challenge ─────────────────────────────────────────
+  // ── Fetch Leaderboard directly from live API ────────────────────────────────
   async fetchLeaderboard(challengeId) {
+    if (!challengeId) return [];
     try {
       const res = await fetch(`${ZIDDI_CHALLENGES_API}/api/v1/challenges/${challengeId}/leaderboard`, {
         headers: { "Accept": "application/json" }
       });
       if (res.ok) {
         const json = await res.json();
-        if (json && json.data && json.data.length > 0) {
+        if (json && json.data) {
           this.leaderboard = json.data;
           return json.data;
         }
       }
     } catch (e) {
-      console.log("Using real seed leaderboard:", e.message);
+      console.error("Live leaderboard API request failed:", e);
     }
-    this.leaderboard = this.seedLeaderboard;
-    return this.seedLeaderboard;
+    this.leaderboard = [];
+    return [];
   },
 
   // ── Render Top 3 Podium (Focus on Top 3 + Reels, no total counts, hide usernames) ──
