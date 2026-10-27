@@ -1120,4 +1120,629 @@ h1, h2, h3, .section-title, .hero-content h1, .features-header h2, .founders-her
   }
 }
 
+/* ─── Ziddi Community Challenges Styles ────────────────────────────────────────── */
+
+/* Sidebar Drawer Live Badge */
+.drawer-challenge-link {
+  color: #C084FC !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-left: 3px solid #A855F7;
+  padding-left: 12px !important;
+  background: rgba(168, 85, 247, 0.08);
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+.badge-live-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #F87171;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.badge-live-pulse::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #EF4444;
+  border-radius: 50%;
+  animation: pulse-dot 1.4s infinite;
+}
+
+/* Homepage Challenge Highlight Banner */
+.challenges-home-banner {
+  max-width: 1200px;
+  margin: 40px auto 20px auto;
+  padding: 0 20px;
+}
+
+.challenges-banner-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(26, 16, 46, 0.85) 0%, rgba(13, 13, 20, 0.95) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 28px;
+  padding: 40px 48px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(168, 85, 247, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.challenges-banner-card::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.challenges-banner-content {
+  flex: 1;
+  max-width: 620px;
+}
+
+.challenges-banner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #C084FC;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.challenges-banner-title {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E9D5FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.challenges-banner-desc {
+  color: #94A3B8;
+  font-size: 15.5px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.challenges-banner-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.challenges-banner-visual {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.challenges-banner-img {
+  width: 260px;
+  height: auto;
+  filter: drop-shadow(0 15px 30px rgba(168, 85, 247, 0.35));
+  transition: transform 0.3s ease;
+}
+
+.challenges-banner-card:hover .challenges-banner-img {
+  transform: scale(1.04) rotate(-1deg);
+}
+
+.btn-challenges-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
+  color: #FFF !important;
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+}
+
+.btn-challenges-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+}
+
+.btn-challenges-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #E2E8F0 !important;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-challenges-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(168, 85, 247, 0.4);
+  color: #FFF !important;
+}
+
+/* ── Top 3 Podium Section ── */
+.podium-section {
+  max-width: 1100px;
+  margin: 30px auto 60px auto;
+  padding: 0 20px;
+}
+
+.podium-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.podium-header h3 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  color: #FFF;
+}
+
+.podium-header p {
+  color: #94A3B8;
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.podium-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  align-items: flex-end;
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Individual Podium Cards */
+.podium-card {
+  position: relative;
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 28px 20px;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.podium-card:hover {
+  transform: translateY(-6px);
+}
+
+/* 1st Place (Gold) */
+.podium-card.rank-1 {
+  background: linear-gradient(180deg, rgba(38, 28, 16, 0.9) 0%, rgba(20, 18, 24, 0.95) 100%);
+  border: 2px solid #F59E0B;
+  box-shadow: 0 15px 40px rgba(245, 158, 11, 0.25), 0 0 30px rgba(245, 158, 11, 0.15);
+  padding: 38px 24px 32px 24px;
+  transform: translateY(-16px);
+}
+
+.podium-card.rank-1:hover {
+  transform: translateY(-22px);
+  box-shadow: 0 20px 50px rgba(245, 158, 11, 0.35);
+}
+
+/* 2nd Place (Silver) */
+.podium-card.rank-2 {
+  border: 1.5px solid #94A3B8;
+  box-shadow: 0 10px 30px rgba(148, 163, 184, 0.15);
+}
+
+/* 3rd Place (Bronze) */
+.podium-card.rank-3 {
+  border: 1.5px solid #D97706;
+  box-shadow: 0 10px 30px rgba(217, 119, 6, 0.15);
+}
+
+.podium-medal {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.podium-card.rank-1 .podium-medal {
+  background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+  width: 52px;
+  height: 52px;
+  font-size: 26px;
+}
+
+.podium-card.rank-2 .podium-medal {
+  background: linear-gradient(135deg, #E2E8F0 0%, #94A3B8 100%);
+}
+
+.podium-card.rank-3 .podium-medal {
+  background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+}
+
+.podium-avatar-wrapper {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  padding: 3px;
+  margin-bottom: 12px;
+}
+
+.podium-card.rank-1 .podium-avatar-wrapper {
+  width: 86px;
+  height: 86px;
+  background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+.podium-card.rank-2 .podium-avatar-wrapper {
+  background: linear-gradient(135deg, #94A3B8 0%, #CBD5E1 100%);
+}
+
+.podium-card.rank-3 .podium-avatar-wrapper {
+  background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+}
+
+.podium-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #1E1B2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  font-weight: 800;
+  font-size: 22px;
+}
+
+.podium-athlete-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFF;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.podium-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  letter-spacing: 0.4px;
+}
+
+.podium-score-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+}
+
+.podium-card.rank-1 .podium-score-pill {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.podium-score-val {
+  font-size: 22px;
+  font-weight: 900;
+  color: #FFF;
+}
+
+.podium-score-unit {
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
+.podium-reel-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(225, 48, 108, 0.15);
+  border: 1px solid rgba(225, 48, 108, 0.4);
+  color: #F43F5E;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.podium-reel-btn:hover {
+  background: rgba(225, 48, 108, 0.25);
+  border-color: #E1306C;
+  color: #FFF;
+  transform: translateY(-2px);
+}
+
+/* ── In-Page Instagram Reel Video Modal ── */
+.reel-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.reel-modal-backdrop.active {
+  display: flex;
+}
+
+.reel-modal-container {
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  animation: modal-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-pop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.reel-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.reel-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #FFF;
+}
+
+.reel-modal-close {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.reel-modal-close:hover {
+  color: #FFF;
+}
+
+.reel-modal-body {
+  position: relative;
+  flex: 1;
+  min-height: 480px;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reel-modal-iframe {
+  width: 100%;
+  height: 520px;
+  border: none;
+  overflow: hidden;
+}
+
+.reel-modal-footer {
+  padding: 14px 20px;
+  background: #161622;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reel-direct-link {
+  color: #A855F7;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reel-direct-link:hover {
+  text-decoration: underline;
+  color: #C084FC;
+}
+
+/* Claim Modal Container */
+.claim-modal-container {
+  background: #12121C;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 480px;
+  padding: 36px 32px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.2);
+}
+
+.claim-modal-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.claim-modal-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFF;
+  margin-bottom: 8px;
+}
+
+.claim-modal-desc {
+  font-size: 14px;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.claim-input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.claim-input-prefix {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.claim-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 16px 14px 34px;
+  color: #FFF;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.claim-input:focus {
+  border-color: #A855F7;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.claim-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
+  border: none;
+  color: #FFF;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.35);
+  font-family: inherit;
+}
+
+.claim-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(124, 58, 237, 0.5);
+}
+
+/* Responsiveness for Podium & Banner */
+@media (max-width: 900px) {
+  .challenges-banner-card {
+    flex-direction: column-reverse;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .challenges-banner-actions {
+    justify-content: center;
+  }
+  .challenges-banner-visual {
+    width: 100%;
+    max-width: 300px;
+  }
+  .podium-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .podium-card.rank-1 {
+    order: -1;
+    transform: none;
+  }
+  .podium-card.rank-1:hover {
+    transform: translateY(-4px);
+  }
+}
+
+
 

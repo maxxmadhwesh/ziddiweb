@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ziddi Community Challenges ⚡🏆 — Compete on Instagram & In-App</title>
+  <meta name="description" content="Join Ziddi Community Fitness Challenges. Compete with top athletes across Instagram and the Ziddi app, get verified with video reels, and climb the live podium!">
+  <link rel="canonical" href="https://www.ziddiapp.com/challenges">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.ziddiapp.com/challenges">
+  <meta property="og:title" content="Ziddi Community Challenges ⚡🏆 — Live Fitness Leaderboards">
+  <meta property="og:description" content="Compete on Instagram & in the Ziddi app. Check live leaderboards, watch verified proof reels, and win Ziddi Pro Merch!">
+  <meta property="og:image" content="https://www.ziddiapp.com/assets/Ziddi_Challenges_Fitness_Logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+
+  <!-- Stylesheets & Scripts -->
+  <link rel="stylesheet" href="assets/style.css?v=2.2">
+  <script src="assets/auth.js"></script>
+  <script src="assets/launch-timer.js"></script>
+  <script src="assets/challenges.js"></script>
+
+  <style>
+    .challenges-page-hero {
+      text-align: center;
+      padding: 120px 20px 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .challenges-brand-logo-img {
+      max-width: 480px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 15px 35px rgba(168, 85, 247, 0.35));
+    }
+
+    .challenges-hero-tagline {
+      font-size: 19px;
+      color: #94A3B8;
+      max-width: 650px;
+      margin: 0 auto 30px auto;
+      line-height: 1.6;
+    }
+
+    .challenges-tab-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .challenges-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94A3B8;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .challenges-tab-btn.active, .challenges-tab-btn:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: #A855F7;
+      color: #FFF;
+      box-shadow: 0 4px 16px rgba(168, 85, 247, 0.25);
+    }
+
+    .challenge-detail-box {
+      background: rgba(18, 18, 26, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 28px;
+      padding: 40px;
+      max-width: 1000px;
+      margin: 0 auto 50px auto;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .challenge-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 20px;
+    }
+
+    .bounty-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.1) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #FCD34D;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .rules-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .rules-card h4 {
+      color: #FFF;
+      font-size: 15px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rules-card p {
+      color: #94A3B8;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .how-it-works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 60px auto 40px auto;
+      padding: 0 20px;
+    }
+
+    .how-step-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .how-step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid #A855F7;
+      color: #C084FC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin: 0 auto 14px auto;
+    }
+
+    .how-step-card h5 {
+      color: #FFF;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .how-step-card p {
+      color: #94A3B8;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+  </style>
+</head>
+<body style="background: #0A0A0E; color: #FFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; overflow-x: hidden;">
+
+  <!-- Fixed Top Announcement Bar -->
+  <div class="top-announcement-banner">
+    <div class="banner-content">
+      <span class="banner-badge">🚀 LAUNCHING 29TH OCT</span>
+      <span class="banner-text">Ziddi is going live on 29th October 2026 — Stay tuned!</span>
+      <div class="banner-timer" id="topBannerTimer">
+        <span class="timer-box"><span class="t-val" id="topDays">00</span><span class="t-lbl">d</span></span>
+        <span class="timer-colon">:</span>
+        <span class="timer-box"><span class="t-val" id="topHours">00</span><span class="t-lbl">h</span></span>
+        <span class="timer-colon">:</span>
+        <span class="timer-box"><span class="t-val" id="topMins">00</span><span class="t-lbl">m</span></span>
+        <span class="timer-colon">:</span>
+        <span class="timer-box"><span class="t-val" id="topSecs">00</span><span class="t-lbl">s</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <a href="index.html" class="logo-container">
+      <img src="assets/logo.svg" alt="Ziddi Logo" class="logo-img">
+    </a>
+    <div class="header-right-actions">
+      <a href="challenges.html" class="header-founders-btn" style="border-color: #A855F7; color: #C084FC;">🏆 Challenges</a>
+      <a href="founders.html" class="header-founders-btn">Meet Founders 🤝</a>
+      <button class="nav-menu-btn" id="menuToggle" aria-label="Toggle Navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Side Navigation Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div style="margin-bottom: 20px;">
+      <img src="assets/z_vector_logo.svg" alt="Ziddi Logo" style="height: 60px; width: auto;">
+    </div>
+    <a href="/">Home</a>
+    <a href="/challenges.html" class="drawer-challenge-link">
+      <span>Ziddi Challenges ⚡🏆</span>
+      <span class="badge-live-pulse">LIVE</span>
+    </a>
+    <a href="/ai.html" style="color: var(--primary); font-weight: 700;">Zidd AI Coach 🤖</a>
+    <a href="/store">Ziddi Store 🛍️</a>
+    <a href="/founders">Meet the Founders</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms & Conditions</a>
+    <a href="/feedback">Contact Us</a>
+    <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); margin-bottom: 6px;">🤖 Android Open Beta</a>
+    <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);">🍏 iPhone TestFlight</a>
+  </div>
+
+  <!-- Main Content Container -->
+  <main>
+    <!-- Hero Showcase Section -->
+    <section class="challenges-page-hero">
+      <img src="assets/Ziddi_Challenges_Fitness_Logo.png" alt="Ziddi Community Challenges" class="challenges-brand-logo-img">
+      <p class="challenges-hero-tagline">
+        Where Proof Meets Performance. Compete in community fitness challenges on Instagram or directly in-app, watch verified proof reels, and climb the live podium!
+      </p>
+      
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <button onclick="ZiddiChallenges.openClaimModal()" class="btn-challenges-primary">
+          <span>Claim My Instagram Attempts ⚡</span>
+        </button>
+        <a href="https://www.instagram.com/ziddiapp/" target="_blank" rel="noopener noreferrer" class="btn-challenges-secondary">
+          <span>Follow @ziddiapp on Instagram ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Filter Tabs (Active, Upcoming, Completed) -->
+    <div class="challenges-tab-nav">
+      <button class="challenges-tab-btn active" onclick="switchChallengeTab('ACTIVE')">Active Challenges 🔥</button>
+      <button class="challenges-tab-btn" onclick="switchChallengeTab('UPCOMING')">Upcoming ⏳</button>
+      <button class="challenges-tab-btn" onclick="switchChallengeTab('COMPLETED')">Hall of Fame 🏅</button>
+    </div>
+
+    <!-- Active Challenge Details & Leaderboard Mount Container -->
+    <div id="challengeDetailsMount" style="padding: 0 20px;">
+      <div style="text-align: center; padding: 60px 20px; color: #94A3B8;">
+        <div style="font-size: 32px; animation: pulse-dot 1s infinite;">⚡</div>
+        <p>Loading live challenge standings...</p>
+      </div>
+    </div>
+
+    <!-- 4-Step Funnel: How It Works -->
+    <div style="text-align: center; margin-top: 40px;">
+      <span style="color: #A855F7; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">The Viral Playbook</span>
+      <h3 style="font-size: 28px; font-weight: 800; margin-top: 6px;">How Ziddi Challenges Work</h3>
+    </div>
+
+    <div class="how-it-works-grid">
+      <div class="how-step-card">
+        <div class="how-step-num">1</div>
+        <h5>Watch the Reel</h5>
+        <p>Follow the official form rules demonstrated by our coaches on Instagram or in the app.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="how-step-num">2</div>
+        <h5>Record &amp; Post</h5>
+        <p>Film your attempt in one continuous take and post your reel tagging <strong>@ziddiapp</strong> and <strong>#ZiddiChallenge</strong>.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="how-step-num">3</div>
+        <h5>Get Verified</h5>
+        <p>Our team verifies your reps and locks your official Personal Best on the live leaderboard podium.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="how-step-num">4</div>
+        <h5>Win Pro Merch</h5>
+        <p>Hold the podium to win premium Ziddi apparel, Ziddi Coins, and a feature in our community stories!</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 50px 20px; text-align: center; color: #64748B; font-size: 14px; margin-top: 80px;">
+    <div style="margin-bottom: 16px;">
+      <img src="assets/z_vector_logo.svg" alt="Ziddi" style="height: 36px; opacity: 0.8;">
+    </div>
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+      <a href="/" style="color: #94A3B8; text-decoration: none;">Home</a>
+      <a href="/challenges.html" style="color: #A855F7; text-decoration: none;">Challenges</a>
+      <a href="/store" style="color: #94A3B8; text-decoration: none;">Store</a>
+      <a href="/founders" style="color: #94A3B8; text-decoration: none;">Meet Founders</a>
+      <a href="/privacy" style="color: #94A3B8; text-decoration: none;">Privacy</a>
+      <a href="/terms" style="color: #94A3B8; text-decoration: none;">Terms</a>
+    </div>
+    <p>© 2026 Ziddi Fitness and Wellness LLP. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Side Drawer logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+    if (menuToggle && sideDrawer && drawerBackdrop) {
+      menuToggle.addEventListener('click', () => {
+        sideDrawer.classList.toggle('open');
+        drawerBackdrop.classList.toggle('open');
+      });
+      drawerBackdrop.addEventListener('click', () => {
+        sideDrawer.classList.remove('open');
+        drawerBackdrop.classList.remove('open');
+      });
+    }
+
+    // Dynamic Tab Switcher
+    async function switchChallengeTab(status) {
+      document.querySelectorAll('.challenges-tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (event && event.target) event.target.classList.add('active');
+
+      const mount = document.getElementById('challengeDetailsMount');
+      if (mount) {
+        mount.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: #94A3B8;">
+            <p>Loading ${status.toLowerCase()} challenges...</p>
+          </div>
+        `;
+      }
+
+      await loadChallengesPage(status);
+    }
+
+    async function loadChallengesPage(status = 'ACTIVE') {
+      const mount = document.getElementById('challengeDetailsMount');
+      if (!mount) return;
+
+      const challenges = await ZiddiChallenges.fetchChallenges(status);
+      if (!challenges || challenges.length === 0) {
+        mount.innerHTML = `
+          <div class="challenge-detail-box" style="text-align: center; padding: 60px 20px;">
+            <div style="font-size: 40px; margin-bottom: 12px;">⏳</div>
+            <h3 style="font-size: 22px;">No ${status.toLowerCase()} challenges at this moment</h3>
+            <p style="color: #94A3B8; margin-top: 8px;">Stay tuned! We drop new community challenges regularly on our Instagram.</p>
+            <a href="https://www.instagram.com/ziddiapp/" target="_blank" class="btn-challenges-primary" style="margin-top: 20px;">
+              Follow @ziddiapp for Announcements ↗
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const active = challenges[0];
+      const leaderboard = await ZiddiChallenges.fetchLeaderboard(active.id);
+
+      mount.innerHTML = `
+        <div class="challenge-detail-box">
+          <div class="challenge-meta-row">
+            <div>
+              <span class="badge-live-pulse" style="margin-bottom: 8px;">Active Challenge</span>
+              <h2 style="font-size: 32px; font-weight: 800; margin: 6px 0 10px 0; color: #FFF;">
+                ${active.title}
+              </h2>
+              <p style="color: #94A3B8; font-size: 15px; margin: 0; max-width: 650px; line-height: 1.6;">
+                ${active.description}
+              </p>
+            </div>
+            <div>
+              <div class="bounty-badge">
+                <span>🎁 Bounty:</span>
+                <span>${active.reward_description || 'Ziddi Pro Merch + 1000 Coins'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strict Rules Accordion -->
+          <div class="rules-card">
+            <h4>
+              <span>📋 Official Form &amp; Judging Rules</span>
+            </h4>
+            <p>${active.rules || 'Standard strict form required. Video must clearly show full range of motion without camera cuts.'}</p>
+          </div>
+
+          <!-- Top 3 Podium (Celebrating Top 3 Athletes & Proof Reels) -->
+          <div style="margin-top: 40px;">
+            <div style="text-align: center; margin-bottom: 28px;">
+              <h3 style="font-size: 26px; font-weight: 800; color: #FFF;">Live Podium Standings</h3>
+              <p style="color: #94A3B8; font-size: 14px;">Top 3 verified athletes holding the podium for this challenge</p>
+            </div>
+            ${ZiddiChallenges.renderPodiumHtml(leaderboard, active.unit)}
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div style="display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap;">
+            <button onclick="ZiddiChallenges.openClaimModal()" class="btn-challenges-primary">
+              <span>Claim Your Instagram Attempts ⚡</span>
+            </button>
+            ${active.instagram_post_url ? `
+              <a href="${active.instagram_post_url}" target="_blank" rel="noopener noreferrer" class="btn-challenges-secondary">
+                <span>View Instagram Challenge Reel ↗</span>
+              </a>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadChallengesPage('ACTIVE');
+    });
+  </script>
+</body>
+</html>
