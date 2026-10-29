@@ -142,12 +142,12 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="/assets/style.css?v=4.0">
-  <script src="/assets/auth.js?v=4.0"></script>
-  <script src="/assets/store.js?v=4.0"></script>
-  <script src="/assets/subscription-modal.js?v=4.0"></script>
-  <script src="/assets/launch-timer.js?v=4.0"></script>
-  <script src="/assets/challenges.js?v=4.0"></script>
+  <link rel="stylesheet" href="/assets/style.css?v=4.1">
+  <script src="/assets/auth.js?v=4.1"></script>
+  <script src="/assets/store.js?v=4.1"></script>
+  <script src="/assets/subscription-modal.js?v=4.1"></script>
+  <script src="/assets/launch-timer.js?v=4.1"></script>
+  <script src="/assets/challenges.js?v=4.1"></script>
   <style>
     /* Home-specific Premium Styles */
     .hero-container {
@@ -1654,8 +1654,22 @@
           <span>🤖 Google Play Store</span>
         </a>
       </div>
+
+      <!-- 5-Second Auto-Dismiss Slider Progress Bar -->
+      <div class="launch-slider-wrapper" style="margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 11.5px; color: #94A3B8; display: flex; align-items: center; gap: 6px;">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: #10B981; display: inline-block; box-shadow: 0 0 8px #10B981;"></span>
+            Auto-closing banner in <strong id="launchSliderSecs" style="color: #34D399; font-weight: 800; font-variant-numeric: tabular-nums;">5s</strong>
+          </span>
+          <button id="launchSliderPauseBtn" onclick="window.toggleLaunchSliderPause()" style="background: none; border: none; color: #64748B; font-size: 11px; cursor: pointer; text-decoration: underline; padding: 0;">Pause ⏸</button>
+        </div>
+        <div style="width: 100%; height: 5px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; position: relative;">
+          <div id="launchSliderTrack" style="width: 100%; height: 100%; background: linear-gradient(90deg, #10B981 0%, #34D399 50%, #3B82F6 100%); border-radius: 999px; transition: width 0.05s linear; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);"></div>
+        </div>
+      </div>
       
-      <div class="launch-modal-dismiss-wrapper">
+      <div class="launch-modal-dismiss-wrapper" style="margin-top: 12px;">
         <button class="launch-dismiss-btn" id="dismissLaunchModal">Explore Ziddi Website →</button>
       </div>
     </div>

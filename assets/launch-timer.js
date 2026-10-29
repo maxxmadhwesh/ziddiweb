@@ -1,19 +1,76 @@
 /**
  * Ziddi Official App Release Announcement Modal
  * Live on Apple App Store & Google Play Store
+ * Features: 5-second auto-close with animated countdown slider, pause-on-hover.
  */
 
 (function () {
+  let autoCloseTimerId = null;
+  let remainingMs = 5000;
+  const TOTAL_MS = 5000;
+  let isPaused = false;
+
+  function updateSliderUI() {
+    const track = document.getElementById('launchSliderTrack');
+    const secs = document.getElementById('launchSliderSecs');
+    if (track) {
+      const pct = Math.max(0, Math.min(100, (remainingMs / TOTAL_MS) * 100));
+      track.style.width = pct + '%';
+    }
+    if (secs) {
+      const s = Math.max(0, Math.ceil(remainingMs / 1000));
+      secs.textContent = s + 's';
+    }
+  }
+
+  function startAutoCloseTimer() {
+    clearAutoCloseTimer();
+    remainingMs = TOTAL_MS;
+    isPaused = false;
+    updateSliderUI();
+
+    const stepMs = 50; // Smooth 50ms interval updates
+    autoCloseTimerId = setInterval(() => {
+      if (isPaused) return;
+
+      remainingMs -= stepMs;
+      updateSliderUI();
+
+      if (remainingMs <= 0) {
+        clearAutoCloseTimer();
+        window.closeLaunchModal();
+      }
+    }, stepMs);
+  }
+
+  function clearAutoCloseTimer() {
+    if (autoCloseTimerId) {
+      clearInterval(autoCloseTimerId);
+      autoCloseTimerId = null;
+    }
+  }
+
+  window.toggleLaunchSliderPause = function () {
+    isPaused = !isPaused;
+    const pauseBtn = document.getElementById('launchSliderPauseBtn');
+    if (pauseBtn) {
+      pauseBtn.textContent = isPaused ? 'Resume ▶' : 'Pause ⏸';
+      pauseBtn.style.color = isPaused ? '#34D399' : '#64748B';
+    }
+  };
+
   // Modal Control Functions
   window.openLaunchModal = function () {
     const backdrop = document.getElementById('launchModalBackdrop');
     if (backdrop) {
       backdrop.classList.add('active');
       document.body.style.overflow = 'hidden';
+      startAutoCloseTimer();
     }
   };
 
   window.closeLaunchModal = function () {
+    clearAutoCloseTimer();
     const backdrop = document.getElementById('launchModalBackdrop');
     if (backdrop) {
       backdrop.classList.remove('active');
@@ -45,7 +102,7 @@
       </p>
       
       <!-- Feature Highlights -->
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 22px 0; text-align: center;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; text-align: center;">
         <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 8px;">
           <div style="font-size: 22px; margin-bottom: 4px;">🤖</div>
           <div style="font-size: 12px; font-weight: 700; color: #FFF;">AI Coach</div>
@@ -72,8 +129,22 @@
           <span>🤖 Google Play Store</span>
         </a>
       </div>
+
+      <!-- 5-Second Auto-Dismiss Slider Progress Bar -->
+      <div class="launch-slider-wrapper" style="margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 11.5px; color: #94A3B8; display: flex; align-items: center; gap: 6px;">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: #10B981; display: inline-block; box-shadow: 0 0 8px #10B981;"></span>
+            Auto-closing banner in <strong id="launchSliderSecs" style="color: #34D399; font-weight: 800; font-variant-numeric: tabular-nums;">5s</strong>
+          </span>
+          <button id="launchSliderPauseBtn" onclick="window.toggleLaunchSliderPause()" style="background: none; border: none; color: #64748B; font-size: 11px; cursor: pointer; text-decoration: underline; padding: 0;">Pause ⏸</button>
+        </div>
+        <div style="width: 100%; height: 5px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; position: relative;">
+          <div id="launchSliderTrack" style="width: 100%; height: 100%; background: linear-gradient(90deg, #10B981 0%, #34D399 50%, #3B82F6 100%); border-radius: 999px; transition: width 0.05s linear; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);"></div>
+        </div>
+      </div>
       
-      <div class="launch-modal-dismiss-wrapper">
+      <div class="launch-modal-dismiss-wrapper" style="margin-top: 12px;">
         <button class="launch-dismiss-btn" id="dismissLaunchModal">Explore Ziddi Website →</button>
       </div>
     </div>`;
@@ -87,6 +158,47 @@
     } else {
       backdrop.innerHTML = modalHtml;
     }
+
+    attachModalEvents();
+  }
+
+  function attachModalEvents() {
+    const backdrop = document.getElementById('launchModalBackdrop');
+    const modal = document.getElementById('launchModal');
+    if (!backdrop) return;
+
+    // Pause on hover so reading/clicking isn't interrupted
+    if (modal) {
+      modal.onmouseenter = function () {
+        isPaused = true;
+        const pauseBtn = document.getElementById('launchSliderPauseBtn');
+        if (pauseBtn) pauseBtn.textContent = 'Paused (reading)';
+      };
+      modal.onmouseleave = function () {
+        isPaused = false;
+        const pauseBtn = document.getElementById('launchSliderPauseBtn');
+        if (pauseBtn) pauseBtn.textContent = 'Pause ⏸';
+      };
+    }
+
+    // Close button
+    const closeBtn = document.getElementById('closeLaunchModalBtn');
+    if (closeBtn) {
+      closeBtn.onclick = window.closeLaunchModal;
+    }
+
+    // Dismiss button
+    const dismissBtn = document.getElementById('dismissLaunchModal');
+    if (dismissBtn) {
+      dismissBtn.onclick = window.closeLaunchModal;
+    }
+
+    // Click outside modal
+    backdrop.onclick = function (e) {
+      if (e.target === backdrop) {
+        window.closeLaunchModal();
+      }
+    };
   }
 
   function initLaunchModal() {
@@ -94,7 +206,7 @@
     const backdrop = document.getElementById('launchModalBackdrop');
     if (!backdrop) return;
 
-    // Auto-open if not already dismissed in this session
+    // Auto-open on pageload
     try {
       const isDismissed = sessionStorage.getItem('ziddi_app_live_popup_dismissed');
       if (!isDismissed) {
@@ -107,25 +219,6 @@
         window.openLaunchModal();
       }, 400);
     }
-
-    // Close button
-    const closeBtn = document.getElementById('closeLaunchModalBtn');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', window.closeLaunchModal);
-    }
-
-    // Dismiss button
-    const dismissBtn = document.getElementById('dismissLaunchModal');
-    if (dismissBtn) {
-      dismissBtn.addEventListener('click', window.closeLaunchModal);
-    }
-
-    // Click outside modal
-    backdrop.addEventListener('click', function (e) {
-      if (e.target === backdrop) {
-        window.closeLaunchModal();
-      }
-    });
 
     // ESC key close
     document.addEventListener('keydown', function (e) {
@@ -140,7 +233,6 @@
       trigger.style.cursor = 'pointer';
       trigger.setAttribute('title', 'Click to view app store links');
       trigger.addEventListener('click', function (e) {
-        // Only open modal if not clicking directly on one of the action buttons
         if (e.target.closest('.banner-actions a')) return;
         window.openLaunchModal();
       });

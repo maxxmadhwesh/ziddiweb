@@ -293,6 +293,31 @@ const ZiddiAuth = {
         console.warn("AI Chat render warning:", e);
       }
     }
+    if (typeof ZiddiStore !== "undefined" && typeof ZiddiStore.onAuthChanged === "function") {
+      try {
+        ZiddiStore.onAuthChanged();
+      } catch (e) {
+        console.warn("Store auth render warning:", e);
+      }
+    }
+    const aiAuth = document.getElementById("aiHeaderAuthContainer");
+    if (aiAuth) {
+      const user = this.getUser();
+      if (user) {
+        const name = (user.name || user.first_name || user.username || "Athlete").split(" ")[0];
+        aiAuth.innerHTML = `
+          <button onclick="if(confirm('Sign out?')) ZiddiAuth.logout();" class="header-founders-btn" style="border-color: rgba(155, 92, 255, 0.4); color: #C4B5FD; cursor: pointer;">
+            👤 ${name} (Logout)
+          </button>
+        `;
+      } else {
+        aiAuth.innerHTML = `
+          <button onclick="ZiddiAuth.openModal()" class="header-founders-btn" style="background: linear-gradient(135deg, #9B5CFF 0%, #7C3AED 100%); color: #FFF; border: none; cursor: pointer; font-weight: 700;">
+            🔐 Sign In
+          </button>
+        `;
+      }
+    }
   },
 
   renderSidebar() {
