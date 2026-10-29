@@ -127,10 +127,10 @@
       },
       {
         "@type": "Question",
-        "name": "Is Ziddi live right now and how can I get early access?",
+        "name": "Where can I download the official Ziddi app?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! Ziddi is currently live in Open Beta on both Android (via Google Play Store) and iPhone (via Apple TestFlight). You can download and test it right now for free before our full official v1.0 launch on 29th October 2026."
+          "text": "Ziddi is officially live! You can download the app right now from the Apple App Store for iPhone (iOS) and the Google Play Store for Android."
         }
       }
     ]
@@ -142,12 +142,12 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="/assets/style.css?v=3.2">
-  <script src="/assets/auth.js?v=3.2"></script>
-  <script src="/assets/store.js?v=3.2"></script>
-  <script src="/assets/subscription-modal.js?v=3.2"></script>
-  <script src="/assets/launch-timer.js?v=3.2"></script>
-  <script src="/assets/challenges.js?v=3.2"></script>
+  <link rel="stylesheet" href="/assets/style.css?v=4.0">
+  <script src="/assets/auth.js?v=4.0"></script>
+  <script src="/assets/store.js?v=4.0"></script>
+  <script src="/assets/subscription-modal.js?v=4.0"></script>
+  <script src="/assets/launch-timer.js?v=4.0"></script>
+  <script src="/assets/challenges.js?v=4.0"></script>
   <style>
     /* Home-specific Premium Styles */
     .hero-container {
@@ -680,24 +680,15 @@
   <!-- Top Announcement Banner -->
   <div class="top-announcement-banner">
     <div class="banner-content">
-      <span class="banner-badge">🚀 LAUNCHING 29TH OCT</span>
-      <span class="banner-text">Ziddi goes live on <strong>29th October 2026</strong>!</span>
-      <div class="banner-timer" id="topBannerTimer">
-        <div class="timer-box"><span class="t-val" id="topDays">00</span><span class="t-lbl">d</span></div>
-        <span class="timer-colon">:</span>
-        <div class="timer-box"><span class="t-val" id="topHours">00</span><span class="t-lbl">h</span></div>
-        <span class="timer-colon">:</span>
-        <div class="timer-box"><span class="t-val" id="topMins">00</span><span class="t-lbl">m</span></div>
-        <span class="timer-colon">:</span>
-        <div class="timer-box"><span class="t-val" id="topSecs">00</span><span class="t-lbl">s</span></div>
-      </div>
+      <span class="banner-badge">🎉 APP IS LIVE</span>
+      <span class="banner-text">Ziddi is now officially live on <strong>App Store</strong> &amp; <strong>Google Play</strong>!</span>
     </div>
     <div class="banner-actions">
-      <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="banner-cta android-cta">
-        🤖 Google Play
+      <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" class="banner-cta ios-cta">
+        🍏 App Store
       </a>
-      <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer" class="banner-cta ios-cta">
-        🍏 iOS TestFlight
+      <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" class="banner-cta android-cta">
+        🤖 Google Play
       </a>
     </div>
   </div>
@@ -743,8 +734,8 @@
     <a href="/terms">Terms & Conditions</a>
     <a href="/data-deletion">Data Deletion</a>
     <a href="/feedback">Contact Us</a>
-    <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); margin-bottom: 6px;">🤖 Android Open Beta</a>
-    <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);">🍏 iPhone TestFlight</a>
+    <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); margin-bottom: 6px;">🍏 Apple App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" class="drawer-login-btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">🤖 Google Play Store</a>
   </div>
 
   <main>
@@ -752,8 +743,8 @@
     <div class="hero-container">
       <div id="heroLeftContainer" class="hero-content">
         <div class="launch-announcement-highlight" onclick="window.openLaunchModal && window.openLaunchModal()">
-          <span class="live-pulse-dot"></span>
-          <span>🚀 Official Launch Date: <strong>29th October 2026</strong> • Stay Tuned!</span>
+          <span class="live-pulse-dot" style="background: #10B981; box-shadow: 0 0 12px #10B981;"></span>
+          <span>🎉 Official Store Release: <strong>Ziddi App is Now Live!</strong> • Get Started</span>
         </div>
         <br>
         <span class="hero-tagline">AI-Native Human Performance Platform</span>
@@ -761,15 +752,15 @@
         <p style="font-size: 16px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 24px;">Ziddi bridges the execution gap between setting long-term fitness goals and taking daily, actionable steps — for beginners, athletes, professionals, and injury-recovery users alike.</p>
         
         <div class="hero-download-buttons">
-          <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store (TestFlight)" class="store-badge">
+          <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="store-badge">
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
+          <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge">
           </a>
         </div>
-        <div style="display:inline-flex; align-items:center; gap:8px; padding: 7px 16px; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--primary); border-radius: 20px; color: #C4B5FD; font-weight: 700; font-size: 13.5px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);">
-          <span>🚀</span> App Launching on 29th October 2026 • Stay Tuned!
+        <div style="display:inline-flex; align-items:center; gap:8px; padding: 7px 16px; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; border-radius: 20px; color: #34D399; font-weight: 700; font-size: 13.5px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);">
+          <span>🚀</span> Available Now Worldwide on iOS &amp; Android
         </div>
         
         <p style="font-size: 14px; color: var(--text-muted);">
@@ -1269,12 +1260,12 @@
         <!-- FAQ 5 -->
         <div class="faq-item" style="background: rgba(18, 18, 22, 0.75); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.3s ease;">
           <button class="faq-header" onclick="toggleFaq(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; background: none; border: none; color: #FFF; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; font-family: var(--font);">
-            <span>5. Is Ziddi live right now and how can I get early access?</span>
+            <span>5. Where can I download the official Ziddi app?</span>
             <span class="faq-icon" style="font-size: 14px; transition: transform 0.3s ease; color: #A78BFA;">▼</span>
           </button>
           <div class="faq-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 28px;">
             <p style="color: var(--text-secondary); line-height: 1.7; font-size: 15px; padding-bottom: 22px;">
-              Yes! Ziddi is currently live in <strong>Open Beta</strong>. Android users can download the app directly from the Google Play Store, and iOS users can join via Apple TestFlight. Our full public v1.0 release is officially scheduled for <strong>29th October 2026</strong>. All Open Beta users keep their earned Ziddi Coins, streak ranks, and workout history upon official launch! Stay tuned!
+              Yes! Ziddi is now officially live for everyone worldwide! You can download it directly from the <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" style="color: #60A5FA; font-weight: 700;">Apple App Store</a> for iPhone and the <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" style="color: #34D399; font-weight: 700;">Google Play Store</a> for Android. Start tracking workouts, claiming challenges, and earning Ziddi Coins today!
             </p>
           </div>
         </div>
@@ -1306,16 +1297,16 @@
       <div class="download-banner">
         <div class="download-banner-content">
           <h2>Ready to lock it in?</h2>
-          <p>Ziddi is NOW LIVE on Open Beta! Download today on Android &amp; iPhone TestFlight. <strong>Full official launch on 29th October 2026. Stay tuned!</strong></p>
-          <div style="display:inline-flex; align-items:center; gap:8px; padding: 8px 16px; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--primary); border-radius: 20px; color: #A78BFA; font-weight: 700; font-size: 14px; margin-bottom: 16px;">
-            <span>🚀</span> Launching 29th October 2026 • Stay Tuned!
+          <p>Ziddi is officially LIVE! Download today on iPhone and Android to experience AI coaching, 3D workout tracking, and live community challenges.</p>
+          <div style="display:inline-flex; align-items:center; gap:8px; padding: 8px 16px; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; border-radius: 20px; color: #34D399; font-weight: 700; font-size: 14px; margin-bottom: 16px;">
+            <span>🎉</span> App Now Live on iOS &amp; Android!
           </div>
           <div class="hero-download-buttons" style="margin-top: 10px;">
-            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
+            <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="store-badge">
             </a>
-            <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store (TestFlight)" class="store-badge">
+            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge">
             </a>
           </div>
         </div>
@@ -1351,8 +1342,8 @@
             </svg>
           </div>
           <div class="qr-text">
-            <strong>Open Beta Live Now</strong><br>
-            Ziddi is available for iOS &amp; Android. Direct download links above!
+            <strong>App Now Live!</strong><br>
+            Scan or click the direct links to download Ziddi on iOS &amp; Android.
           </div>
         </div>
       </div>
@@ -1469,15 +1460,15 @@
           <p style="font-size: 16px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 24px;">Ziddi bridges the execution gap between setting long-term fitness goals and taking daily, actionable steps — for beginners, athletes, professionals, and injury-recovery users alike.</p>
           
           <div class="hero-download-buttons">
-            <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store" class="store-badge">
+            <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="store-badge">
             </a>
-            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" class="store-badge">
+            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge">
             </a>
           </div>
-          <div style="display:inline-flex; align-items:center; gap:8px; padding: 7px 16px; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--primary); border-radius: 20px; color: #C4B5FD; font-weight: 700; font-size: 13.5px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);">
-            <span>🚀</span> App Launching on 29th October 2026 • Stay Tuned!
+          <div style="display:inline-flex; align-items:center; gap:8px; padding: 7px 16px; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; border-radius: 20px; color: #34D399; font-weight: 700; font-size: 13.5px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);">
+            <span>🚀</span> Available Now Worldwide on iOS &amp; Android
           </div>
           
           <p style="font-size: 14px; color: var(--text-muted);">
@@ -1621,59 +1612,46 @@
     <div class="launch-modal" id="launchModal" role="dialog" aria-modal="true" aria-labelledby="launchModalTitle">
       <button class="launch-modal-close" id="closeLaunchModalBtn" aria-label="Close Announcement">&times;</button>
       
-      <div class="launch-modal-pill">
-        <span class="pill-dot"></span>
-        <span>Official Launch Announcement</span>
+      <div class="launch-modal-pill" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399;">
+        <span class="pill-dot" style="background: #10B981; box-shadow: 0 0 10px #10B981;"></span>
+        <span>Official Store Release</span>
       </div>
       
       <h2 class="launch-modal-title" id="launchModalTitle">
-        Ziddi Goes Live On<br>
-        <span class="launch-highlight-date">29th October 2026</span>
+        Ziddi is Officially<br>
+        <span class="launch-highlight-date" style="background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #6EE7B7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NOW LIVE! 🚀</span>
       </h2>
       
       <p class="launch-modal-subtitle">
-        The countdown is officially on! India’s premier AI-Native Human Performance, 3D Workout Tracking &amp; Preventive Health super-app is launching everywhere on iOS &amp; Android. Stay tuned!
+        India’s premier AI-Native Human Performance, 3D Workout Tracking &amp; Preventive Health super-app is now live on iOS &amp; Android. Download today and start your journey!
       </p>
       
-      <!-- Big Countdown Timer Display -->
-      <div class="launch-countdown-grid">
-        <div class="countdown-card">
-          <span class="countdown-num" id="popupDays">00</span>
-          <span class="countdown-label">Days</span>
+      <!-- Feature Highlights -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 22px 0; text-align: center;">
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 8px;">
+          <div style="font-size: 22px; margin-bottom: 4px;">🤖</div>
+          <div style="font-size: 12px; font-weight: 700; color: #FFF;">AI Coach</div>
+          <div style="font-size: 10.5px; color: #94A3B8;">Context Grounded</div>
         </div>
-        <span class="countdown-divider">:</span>
-        <div class="countdown-card">
-          <span class="countdown-num" id="popupHours">00</span>
-          <span class="countdown-label">Hours</span>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 8px;">
+          <div style="font-size: 22px; margin-bottom: 4px;">🏆</div>
+          <div style="font-size: 12px; font-weight: 700; color: #FFF;">Challenges</div>
+          <div style="font-size: 10.5px; color: #94A3B8;">Reel Proof &amp; Podium</div>
         </div>
-        <span class="countdown-divider">:</span>
-        <div class="countdown-card">
-          <span class="countdown-num" id="popupMins">00</span>
-          <span class="countdown-label">Mins</span>
-        </div>
-        <span class="countdown-divider">:</span>
-        <div class="countdown-card">
-          <span class="countdown-num" id="popupSecs">00</span>
-          <span class="countdown-label">Secs</span>
-        </div>
-      </div>
-      
-      <!-- Early Access Open Beta Callout -->
-      <div class="launch-info-box">
-        <div class="info-icon">⚡</div>
-        <div class="info-text">
-          <strong>Can’t wait until 29th October?</strong><br>
-          You don’t have to! You can test-drive the full platform on Open Beta right now:
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 8px;">
+          <div style="font-size: 22px; margin-bottom: 4px;">⚡</div>
+          <div style="font-size: 12px; font-weight: 700; color: #FFF;">3D Anatomy</div>
+          <div style="font-size: 10.5px; color: #94A3B8;">Precision Tracking</div>
         </div>
       </div>
       
       <!-- Modal Download Actions -->
       <div class="launch-modal-actions">
-        <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en_IN" target="_blank" rel="noopener noreferrer" class="launch-btn btn-android">
-          <span>🤖 Android Beta</span>
+        <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" class="launch-btn btn-ios" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);">
+          <span>🍏 Apple App Store</span>
         </a>
-        <a href="https://testflight.apple.com/join/rsDB4vJc" target="_blank" rel="noopener noreferrer" class="launch-btn btn-ios">
-          <span>🍏 iOS TestFlight</span>
+        <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" class="launch-btn btn-android" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+          <span>🤖 Google Play Store</span>
         </a>
       </div>
       
