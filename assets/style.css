@@ -1597,6 +1597,160 @@ h1, h2, h3, .section-title, .hero-content h1, .features-header h2, .founders-her
   transform: translateY(-2px);
 }
 
+/* ── Leaderboard Contenders (Rank 4+) ── */
+.podium-contenders-section {
+  margin-top: 36px;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.podium-contenders-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #C084FC;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+}
+
+.podium-contenders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contender-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 14px 20px;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.contender-row:hover {
+  background: rgba(26, 26, 38, 0.95);
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.contender-rank {
+  font-size: 16px;
+  font-weight: 900;
+  color: #94A3B8;
+  min-width: 32px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.contender-avatar-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #A855F7 0%, #6366F1 100%);
+  flex-shrink: 0;
+}
+
+.contender-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #1E1B2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.contender-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contender-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contender-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contender-verified-icon {
+  font-size: 13px;
+}
+
+.contender-ziddi-id {
+  margin-bottom: 0 !important;
+  padding: 2px 8px !important;
+  font-size: 10.5px !important;
+  align-self: flex-start;
+}
+
+.contender-score {
+  text-align: right;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.contender-score-val {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFF;
+}
+
+.contender-score-unit {
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 3px;
+}
+
+.contender-reel-btn {
+  width: auto !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .contender-row {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .contender-action {
+    width: 100%;
+    margin-top: 4px;
+  }
+  .contender-reel-btn {
+    width: 100% !important;
+  }
+}
+
 /* ── In-Page Instagram Reel Video Modal ── */
 .reel-modal-backdrop {
   position: fixed;

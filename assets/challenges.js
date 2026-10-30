@@ -19,6 +19,10 @@ const ZiddiChallenges = {
     "uttam": "uttamkg1612_k7p1",
     "gputtam": "uttamkg1612_k7p1",
     "uttamkg1612_k7p1": "uttamkg1612_k7p1",
+    "rahul": "rthakur8083_pwqq",
+    "rahul thakur": "rthakur8083_pwqq",
+    "rthakur8083": "rthakur8083_pwqq",
+    "rthakur8083_pwqq": "rthakur8083_pwqq",
     "madhwesh anand": "madhwesh",
     "madhwesh": "madhwesh",
     "m_a_x_x.7": "madhwesh"
@@ -130,6 +134,16 @@ const ZiddiChallenges = {
         attempt_number: 1,
         proof_url: "https://www.instagram.com/reel/De6saZ0pwWJ/",
         verification_status: "APPROVED"
+      },
+      {
+        rank: 4,
+        participant_name: "Rahul Thakur",
+        ziddi_id: "rthakur8083_pwqq",
+        score: 32.00,
+        unit: "reps",
+        attempt_number: 1,
+        proof_url: "https://www.instagram.com/p/DfH_sazB281/",
+        verification_status: "APPROVED"
       }
     ];
     return this.leaderboard;
@@ -204,12 +218,67 @@ const ZiddiChallenges = {
       `;
     };
 
+    const contenders = entries.filter(e => e.rank > 3);
+
     return `
       <div class="podium-grid">
         ${makeCard(rank2, 2, '🥈', '2nd Place')}
         ${makeCard(rank1, 1, '🥇', '1st Place')}
         ${makeCard(rank3, 3, '🥉', '3rd Place')}
       </div>
+
+      ${contenders.length > 0 ? `
+        <div class="podium-contenders-section">
+          <div class="podium-contenders-title">
+            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #A855F7; box-shadow: 0 0 10px #A855F7;"></span>
+            <span>Community Leaderboard Contenders</span>
+          </div>
+          <div class="podium-contenders-list">
+            ${contenders.map(item => {
+              const initials = item.participant_name 
+                ? item.participant_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+                : 'ZD';
+              const scoreFormatted = Number(item.score).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 });
+              const displayUnit = item.unit || unit;
+              const proofUrl = item.proof_url || 'https://www.instagram.com/reel/De6saZ0pwWJ/';
+              const ziddiId = item.ziddi_id || this.getZiddiId(item);
+
+              return `
+                <div class="contender-row">
+                  <div class="contender-rank">#${item.rank}</div>
+                  <div class="contender-avatar-wrapper">
+                    ${item.avatar_url 
+                      ? `<img src="${item.avatar_url}" alt="${item.participant_name}" class="contender-avatar">`
+                      : `<div class="contender-avatar">${initials}</div>`
+                    }
+                  </div>
+                  <div class="contender-info">
+                    <div class="contender-name-row">
+                      <span class="contender-name">${item.participant_name || 'Verified Athlete'}</span>
+                      <span class="contender-verified-icon" title="Verified Entry">✅</span>
+                    </div>
+                    ${ziddiId ? `
+                      <div class="podium-ziddi-id contender-ziddi-id" title="Ziddi Athlete ID: ${ziddiId}">
+                        <span class="ziddi-id-icon">⚡</span>
+                        <span class="ziddi-id-tag">ID: @${ziddiId}</span>
+                      </div>
+                    ` : ''}
+                  </div>
+                  <div class="contender-score">
+                    <span class="contender-score-val">${scoreFormatted}</span>
+                    <span class="contender-score-unit">${displayUnit}</span>
+                  </div>
+                  <div class="contender-action">
+                    <button class="podium-reel-btn contender-reel-btn" onclick="ZiddiChallenges.openReelModal('${proofUrl}', '${encodeURIComponent(item.participant_name || '')}', '${scoreFormatted}', '${displayUnit}', '${encodeURIComponent(ziddiId || '')}')">
+                      <span>🎬 Watch Reel</span>
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      ` : ''}
     `;
   },
 
