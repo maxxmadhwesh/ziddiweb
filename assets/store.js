@@ -534,24 +534,8 @@ const ZiddiStore = {
 
   // ── Checkout & Razorpay Payment Integration ────────────────────────────────
   async checkout() {
-    const user = ZiddiAuth.getUser();
-    if (!user || !user.id) {
-      this.closeCart();
-      alert("🔐 Please sign in with your Ziddi account to proceed with checkout.");
-      ZiddiAuth.openModal();
-      return;
-    }
-
-    if (this.cart.length === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
-
-    const payBtn = document.getElementById("checkoutPayBtn");
-    if (payBtn) {
-      payBtn.disabled = true;
-      payBtn.innerHTML = `<span>⏳ Initializing Secure Gateway...</span>`;
-    }
+    alert("🔒 The Ziddi Store checkout is temporarily undergoing scheduled maintenance & payment gateway upgrades. Please check back shortly.");
+    return;
 
     const itemsMap = new Map(this.items.map(i => [i.id, i]));
     let subtotal = 0;
