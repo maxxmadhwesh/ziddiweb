@@ -22,10 +22,10 @@
   <link rel="shortcut icon" href="assets/favicon.png">
   <link rel="stylesheet" href="/assets/style.css?v=4.4">
 
-  <script src="/assets/auth.js?v=4.4"></script>
-  <script src="/assets/store.js?v=4.4"></script>
-  <script src="/assets/subscription-modal.js?v=4.4"></script>
-  <script src="/assets/launch-timer.js?v=4.4"></script>
+  <script src="/assets/auth.js?v=4.5"></script>
+  <script src="/assets/store.js?v=4.5"></script>
+  <script src="/assets/subscription-modal.js?v=4.5"></script>
+  <script src="/assets/launch-timer.js?v=4.5"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
@@ -258,42 +258,6 @@
 
     <!-- Product Grid -->
     <div id="storeGrid" class="product-grid"></div>
-  </div>
-
-  <!-- Locked Store Overlay (Store Temporarily Closed for Maintenance) -->
-  <div id="storeLockOverlay" style="
-    display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(8, 8, 10, 0.96); backdrop-filter: blur(18px); z-index: 99999;
-    align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
-  ">
-    <div style="
-      background: #12111D; border: 1px solid rgba(236, 72, 153, 0.4); border-radius: 24px;
-      padding: 44px 36px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: #FFF;
-    ">
-      <div style="font-size: 56px; margin-bottom: 12px;">🔒</div>
-      <h2 style="font-size: 24px; font-weight: 800; color: #FFF; margin: 0 0 10px 0;">Ziddi Store Temporarily Closed</h2>
-      
-      <div style="
-        background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.3);
-        border-radius: 14px; padding: 16px; font-size: 14px; color: #F472B6; font-weight: 600;
-        line-height: 1.5; margin-bottom: 24px; text-align: center;
-      ">
-        🛠️ <strong>Store checkout is currently undergoing scheduled maintenance &amp; payment gateway upgrades.</strong><br>
-        We will be back online shortly. Thank you for your patience!
-      </div>
-
-      <div style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
-        <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; color: #60A5FA; text-decoration: none; border-radius: 12px; padding: 10px 14px; font-weight: 700; font-size: 13px;">🍏 App Store</a>
-        <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #34D399; text-decoration: none; border-radius: 12px; padding: 10px 14px; font-weight: 700; font-size: 13px;">🤖 Google Play</a>
-      </div>
-
-      <a href="index.html" style="
-        display: block; width: 100%; background: linear-gradient(135deg, #EC4899 0%, #E11D48 100%);
-        color: #FFF; text-decoration: none; border-radius: 14px; padding: 14px; font-weight: 700;
-        font-size: 15px; box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4); box-sizing: border-box;
-      ">← Return to Home</a>
-    </div>
   </div>
 
   <script>
