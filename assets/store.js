@@ -409,14 +409,24 @@ const ZiddiStore = {
       });
     }
 
+    this.editingAddressId = null;
     this.addressModalMode = (startInAddMode || this.addresses.length === 0) ? "form" : "list";
     this.renderAddressModalContent();
     modal.style.display = "flex";
   },
 
   closeAddressModal() {
+    this.editingAddressId = null;
     const modal = document.getElementById("ziddiAddressModal");
     if (modal) modal.style.display = "none";
+  },
+
+  editAddress(addressId) {
+    const addr = this.addresses.find(a => a.id === addressId);
+    if (!addr) return;
+    this.editingAddressId = addressId;
+    this.addressModalMode = "form";
+    this.renderAddressModalContent();
   },
 
   renderAddressModalContent() {
@@ -425,6 +435,17 @@ const ZiddiStore = {
 
     const user = ZiddiAuth.getUser();
     const isForm = this.addressModalMode === "form";
+    const editingAddr = this.editingAddressId ? this.addresses.find(a => a.id === this.editingAddressId) : null;
+    const isEdit = !!editingAddr;
+
+    const defaultName = isEdit ? (editingAddr.recipient_name || editingAddr.recipientName || '') : (user.name || '');
+    const defaultPhone = isEdit ? (editingAddr.phone_number || editingAddr.phoneNumber || '').replace(/\D/g, '').slice(-10) : '';
+    const defaultLine1 = isEdit ? (editingAddr.address_line1 || editingAddr.addressLine1 || '') : '';
+    const defaultLine2 = isEdit ? (editingAddr.address_line2 || editingAddr.addressLine2 || '') : '';
+    const defaultCity = isEdit ? (editingAddr.city || '') : '';
+    const defaultState = isEdit ? (editingAddr.state || '') : '';
+    const defaultPin = isEdit ? (editingAddr.postal_code || editingAddr.postalCode || '') : '';
+    const isDefaultChecked = isEdit ? !!(editingAddr.is_default || editingAddr.isDefault) : (this.addresses.length === 0);
 
     modal.innerHTML = `
       <div style="
@@ -435,10 +456,10 @@ const ZiddiStore = {
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;">
           <div style="display: flex; align-items: center; gap: 8px;">
             ${isForm && this.addresses.length > 0 ? `
-              <button onclick="ZiddiStore.addressModalMode='list'; ZiddiStore.renderAddressModalContent();" style="background: none; border: none; color: #9CA3AF; font-size: 18px; cursor: pointer; padding: 0 6px 0 0;">←</button>
+              <button onclick="ZiddiStore.editingAddressId=null; ZiddiStore.addressModalMode='list'; ZiddiStore.renderAddressModalContent();" style="background: none; border: none; color: #9CA3AF; font-size: 18px; cursor: pointer; padding: 0 6px 0 0;" title="Back to address list">←</button>
             ` : ""}
             <h3 style="font-size: 18px; font-weight: 800; color: #FFF; margin: 0;">
-              ${isForm ? "Add New Shipping Address" : "Select Delivery Address"}
+              ${isEdit ? "Modify Delivery Address" : (isForm ? "Add New Shipping Address" : "Select Delivery Address")}
             </h3>
           </div>
           <button onclick="ZiddiStore.closeAddressModal()" style="background: none; border: none; color: #9CA3AF; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
@@ -448,7 +469,7 @@ const ZiddiStore = {
           <form onsubmit="ZiddiStore.saveAddress(event)" style="display: flex; flex-direction: column; gap: 14px;">
             <div>
               <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">Recipient Full Name *</label>
-              <input type="text" id="addrRecipientName" required value="${user.name || ''}" placeholder="e.g. Rahul Sharma" style="
+              <input type="text" id="addrRecipientName" required value="${defaultName}" placeholder="e.g. Rahul Sharma" style="
                 width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                 border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
               ">
@@ -458,7 +479,7 @@ const ZiddiStore = {
               <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">10-Digit Mobile Number (for delivery OTP/updates) *</label>
               <div style="display: flex; gap: 8px;">
                 <span style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 11px 12px; color: #9CA3AF; font-size: 13.5px; font-weight: 600;">+91</span>
-                <input type="tel" id="addrPhone" required maxlength="10" placeholder="9876543210" style="
+                <input type="tel" id="addrPhone" required maxlength="10" value="${defaultPhone}" placeholder="9876543210" style="
                   flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                   border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
                 ">
@@ -467,7 +488,7 @@ const ZiddiStore = {
 
             <div>
               <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">Flat, House No., Building, Street (Line 1) *</label>
-              <input type="text" id="addrLine1" required placeholder="e.g. Flat 402, Sunshine Residency, 1st Cross" style="
+              <input type="text" id="addrLine1" required value="${defaultLine1}" placeholder="e.g. Flat 402, Sunshine Residency, 1st Cross" style="
                 width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                 border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
               ">
@@ -475,7 +496,7 @@ const ZiddiStore = {
 
             <div>
               <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">Area, Colony, Landmark (Line 2 - Optional)</label>
-              <input type="text" id="addrLine2" placeholder="e.g. Near Metro Station, Indiranagar" style="
+              <input type="text" id="addrLine2" value="${defaultLine2}" placeholder="e.g. Near Metro Station, Indiranagar" style="
                 width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                 border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
               ">
@@ -484,14 +505,14 @@ const ZiddiStore = {
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
               <div>
                 <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">City *</label>
-                <input type="text" id="addrCity" required placeholder="e.g. Bengaluru" style="
+                <input type="text" id="addrCity" required value="${defaultCity}" placeholder="e.g. Bengaluru" style="
                   width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                   border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
                 ">
               </div>
               <div>
                 <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">State *</label>
-                <input type="text" id="addrState" required placeholder="e.g. Karnataka" style="
+                <input type="text" id="addrState" required value="${defaultState}" placeholder="e.g. Karnataka" style="
                   width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                   border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
                 ">
@@ -500,14 +521,14 @@ const ZiddiStore = {
 
             <div>
               <label style="display: block; font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 6px;">6-Digit Pincode *</label>
-              <input type="text" id="addrPincode" required maxlength="6" placeholder="560038" style="
+              <input type="text" id="addrPincode" required maxlength="6" value="${defaultPin}" placeholder="560038" style="
                 width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
                 border-radius: 10px; padding: 11px 14px; color: #FFF; font-size: 13.5px; box-sizing: border-box; outline: none;
               ">
             </div>
 
             <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-              <input type="checkbox" id="addrIsDefault" checked style="accent-color: #EC4899; width: 17px; height: 17px; cursor: pointer;">
+              <input type="checkbox" id="addrIsDefault" ${isDefaultChecked ? 'checked' : ''} style="accent-color: #EC4899; width: 17px; height: 17px; cursor: pointer;">
               <label for="addrIsDefault" style="font-size: 13px; color: #D1D5DB; cursor: pointer;">Make this my default shipping address</label>
             </div>
 
@@ -516,7 +537,7 @@ const ZiddiStore = {
               color: #FFF; border: none; border-radius: 12px; padding: 14px; font-weight: 800; font-size: 14.5px;
               cursor: pointer; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
             ">
-              <span>💾 Save Address to Database</span>
+              <span>${isEdit ? "💾 Update Address in Database" : "💾 Save Address to Database"}</span>
             </button>
           </form>
         ` : `
@@ -536,7 +557,10 @@ const ZiddiStore = {
                       <strong style="color: #FFF; font-size: 14px;">${addr.recipient_name || addr.recipientName}</strong>
                       ${isDefault ? `<span style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #34D399; font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 999px;">DEFAULT</span>` : ''}
                     </div>
-                    <button onclick="event.stopPropagation(); ZiddiStore.deleteAddress('${addr.id}')" style="background: none; border: none; color: #EF4444; font-size: 12px; cursor: pointer; opacity: 0.8;">Delete</button>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <button onclick="event.stopPropagation(); ZiddiStore.editAddress('${addr.id}')" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60A5FA; font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; cursor: pointer;" title="Modify Address">✏️ Edit</button>
+                      <button onclick="event.stopPropagation(); ZiddiStore.deleteAddress('${addr.id}')" style="background: none; border: none; color: #EF4444; font-size: 12px; cursor: pointer; opacity: 0.8;" title="Delete Address">Delete</button>
+                    </div>
                   </div>
                   <div style="font-size: 12.5px; color: #9CA3AF; margin-bottom: 4px;">
                     📱 ${addr.phone_number || addr.phoneNumber}
@@ -549,7 +573,7 @@ const ZiddiStore = {
             }).join("")}
           </div>
 
-          <button onclick="ZiddiStore.addressModalMode='form'; ZiddiStore.renderAddressModalContent();" style="
+          <button onclick="ZiddiStore.editingAddressId=null; ZiddiStore.addressModalMode='form'; ZiddiStore.renderAddressModalContent();" style="
             width: 100%; background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.25);
             color: #EC4899; border-radius: 14px; padding: 14px; font-weight: 700; font-size: 14px; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -612,10 +636,13 @@ const ZiddiStore = {
       return;
     }
 
+    const isEdit = !!this.editingAddressId;
     const btn = document.getElementById("saveAddrSubmitBtn");
     if (btn) {
       btn.disabled = true;
-      btn.innerHTML = `<span>⏳ Saving Address to Database...</span>`;
+      btn.innerHTML = isEdit
+        ? `<span>⏳ Updating Address in Database...</span>`
+        : `<span>⏳ Saving Address to Database...</span>`;
     }
 
     try {
@@ -632,8 +659,13 @@ const ZiddiStore = {
         is_default: isDefault
       };
 
-      const res = await fetch(`${ZIDDI_API_BASE}/api/v1/user-addresses`, {
-        method: "POST",
+      const url = isEdit
+        ? `${ZIDDI_API_BASE}/api/v1/user-addresses/${this.editingAddressId}`
+        : `${ZIDDI_API_BASE}/api/v1/user-addresses`;
+      const method = isEdit ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method: method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
@@ -641,14 +673,18 @@ const ZiddiStore = {
       if (res.ok) {
         const json = await res.json();
         const savedAddr = json.data;
+        const previousEditId = this.editingAddressId;
+        this.editingAddressId = null;
         await this.fetchAddresses(user.id);
         if (savedAddr) {
           this.selectedAddress = savedAddr;
+        } else if (previousEditId) {
+          this.selectedAddress = this.addresses.find(a => a.id === previousEditId) || this.selectedAddress;
         }
         this.renderAddressBar();
         this.renderCartDrawer();
         this.closeAddressModal();
-        alert("🎉 Address successfully saved to your Ziddi account!");
+        alert(isEdit ? "🎉 Address successfully updated in your Ziddi account!" : "🎉 Address successfully saved to your Ziddi account!");
       } else {
         const errJson = await res.json().catch(() => ({}));
         alert("Error saving address: " + (errJson.message || "Please check all fields and try again."));
@@ -659,7 +695,9 @@ const ZiddiStore = {
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = `<span>💾 Save Address to Database</span>`;
+        btn.innerHTML = isEdit
+          ? `<span>💾 Update Address in Database</span>`
+          : `<span>💾 Save Address to Database</span>`;
       }
     }
   },
