@@ -20,12 +20,12 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="/assets/style.css?v=4.7">
+  <link rel="stylesheet" href="/assets/style.css?v=4.8">
 
-  <script src="/assets/auth.js?v=4.7"></script>
-  <script src="/assets/store.js?v=4.7"></script>
-  <script src="/assets/subscription-modal.js?v=4.7"></script>
-  <script src="/assets/launch-timer.js?v=4.7"></script>
+  <script src="/assets/auth.js?v=4.8"></script>
+  <script src="/assets/store.js?v=4.8"></script>
+  <script src="/assets/subscription-modal.js?v=4.8"></script>
+  <script src="/assets/launch-timer.js?v=4.8"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
@@ -44,8 +44,19 @@
       padding: 24px 20px 80px 20px;
     }
 
-    /* Store Header Topbar */
+    body.has-top-banner .store-container {
+      padding-top: 60px !important;
+    }
+
+    /* Store Header Topbar - Explicitly In-Flow */
+    header.store-header,
     .store-header {
+      position: relative !important;
+      top: 0 !important;
+      left: auto !important;
+      width: 100% !important;
+      height: auto !important;
+      z-index: 10 !important;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -170,8 +181,12 @@
 
     /* Mobile responsiveness */
     @media (max-width: 600px) {
+      body.has-top-banner .store-container,
       .store-container {
-        padding: 16px 12px 60px 12px;
+        padding-top: 50px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        padding-bottom: 60px !important;
       }
       .store-header {
         padding: 12px 14px;
@@ -242,7 +257,7 @@
     </div>
 
     <!-- Festive Diwali Coin & App Savings Strip -->
-    <div class="store-coin-strip" style="
+    <div id="storeCoinStrip" class="store-coin-strip" style="
       background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
       border: 1.5px solid rgba(245, 158, 11, 0.4); justify-content: space-between; flex-wrap: wrap; gap: 12px;
       padding: 12px 18px; margin-bottom: 24px;
@@ -289,6 +304,34 @@
       if (activeBtn) activeBtn.classList.add('active');
       ZiddiStore.renderCatalog(cat);
     }
+
+    // Auto-revert all Diwali sale banners on 16th Nov 23:59:59 PM IST
+    (function checkDiwaliSaleExpiry() {
+      const DIWALI_EXPIRY = new Date('2026-11-16T23:59:59+05:30').getTime();
+      if (Date.now() > DIWALI_EXPIRY) {
+        const banner = document.querySelector('.top-announcement-banner');
+        if (banner) {
+          banner.style.background = '';
+          const badge = banner.querySelector('.banner-badge');
+          if (badge) {
+            badge.innerHTML = '🎉 APP IS LIVE';
+            badge.style.background = '';
+            badge.style.color = '';
+            badge.style.boxShadow = '';
+          }
+          const text = banner.querySelector('.banner-text');
+          if (text) {
+            text.innerHTML = 'Ziddi is now officially live on App Store &amp; Google Play!';
+          }
+        }
+        const coinStrip = document.getElementById('storeCoinStrip');
+        if (coinStrip) {
+          coinStrip.style = '';
+          coinStrip.className = 'store-coin-strip';
+          coinStrip.innerHTML = '<span>🪙</span><span><strong>Redeem Ziddi Coins:</strong> Use up to 25 Ziddi Coins at checkout to get ₹25 flat discount!</span>';
+        }
+      }
+    })();
   </script>
 </body>
 </html>

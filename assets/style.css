@@ -45,7 +45,7 @@ body {
 }
 
 /* Header & Navigation */
-header {
+header:not(.store-header) {
   position: fixed;
   top: 0;
   left: 0;
@@ -61,6 +61,20 @@ header {
   align-items: center;
   padding: 0 40px;
   transition: var(--transition);
+}
+
+/* Store Header In-Flow Override (Never Fixed) */
+header.store-header {
+  position: relative !important;
+  top: 0 !important;
+  left: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  z-index: 10 !important;
+}
+
+body.has-top-banner .store-container {
+  padding-top: 60px !important;
 }
 
 header.scrolled {
@@ -693,9 +707,9 @@ footer {
 }
 
 /* Header offset rule - supports both class and CSS :has */
-body.has-top-banner header,
-body:has(.top-announcement-banner) header,
-header.has-banner {
+body.has-top-banner header:not(.store-header),
+body:has(.top-announcement-banner) header:not(.store-header),
+header.has-banner:not(.store-header) {
   top: 40px !important;
 }
 
@@ -752,18 +766,20 @@ body:has(.top-announcement-banner) .ai-wrapper {
   .top-announcement-banner .banner-timer .t-lbl {
     font-size: 9px !important;
   }
-  body.has-top-banner header,
-  body:has(.top-announcement-banner) header,
-  header.has-banner {
+  body.has-top-banner header:not(.store-header),
+  body:has(.top-announcement-banner) header:not(.store-header),
+  header.has-banner:not(.store-header) {
     top: 38px !important;
   }
   body.has-top-banner .hero-container,
   body.has-top-banner .challenges-page-hero,
   body.has-top-banner .founders-hero,
   body.has-top-banner .feedback-hero,
-  body.has-top-banner .legal-container,
-  body.has-top-banner .store-container {
+  body.has-top-banner .legal-container {
     padding-top: 120px !important;
+  }
+  body.has-top-banner .store-container {
+    padding-top: 50px !important;
   }
 }
 
@@ -922,6 +938,52 @@ h1, h2, h3, .section-title, .hero-content h1, .features-header h2, .founders-her
 
 .launch-modal-backdrop.active .launch-modal {
   transform: translateY(0) scale(1);
+}
+
+/* Diwali Sale Modal (Responsive Desktop Enlarge) */
+.launch-modal.diwali-modal {
+  background: #100F1A !important;
+  border: 1.5px solid rgba(245, 158, 11, 0.45) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(245, 158, 11, 0.25) !important;
+  max-width: 540px;
+  width: 94%;
+  padding: 30px 22px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .launch-modal.diwali-modal {
+    max-width: 740px !important;
+    padding: 42px 38px !important;
+  }
+  .launch-modal.diwali-modal .diwali-modal-title {
+    font-size: 34px !important;
+  }
+  .launch-modal.diwali-modal .diwali-coin-box {
+    padding: 20px 22px !important;
+  }
+  .launch-modal.diwali-modal .diwali-perk-card {
+    padding: 16px 18px !important;
+  }
+  .launch-modal.diwali-modal .diwali-perk-val {
+    font-size: 18px !important;
+  }
+  .launch-modal.diwali-modal .diwali-deal-card {
+    padding: 16px 18px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .launch-modal.diwali-modal {
+    padding: 24px 16px !important;
+    border-radius: 22px !important;
+  }
+  .launch-modal.diwali-modal .diwali-modal-title {
+    font-size: 24px !important;
+  }
 }
 
 .launch-modal::before {

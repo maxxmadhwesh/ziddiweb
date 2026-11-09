@@ -21,11 +21,11 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon.png">
   <link rel="shortcut icon" href="/assets/favicon.png">
 
-  <!-- Stylesheets & Scripts with Cache Busting v=4.4 -->
-  <link rel="stylesheet" href="/assets/style.css?v=4.4">
-  <script src="/assets/auth.js?v=4.4"></script>
-  <script src="/assets/launch-timer.js?v=4.7"></script>
-  <script src="/assets/challenges.js?v=4.4"></script>
+  <!-- Stylesheets & Scripts with Cache Busting v=4.8 -->
+  <link rel="stylesheet" href="/assets/style.css?v=4.8">
+  <script src="/assets/auth.js?v=4.8"></script>
+  <script src="/assets/launch-timer.js?v=4.8"></script>
+  <script src="/assets/challenges.js?v=4.8"></script>
 
   <style>
     .challenges-page-hero {
@@ -803,14 +803,33 @@
 
       const active = challenges[0];
       const leaderboard = await ZiddiChallenges.fetchLeaderboard(active.id);
+      const isClosed = active.status === 'COMPLETED' || active.is_closed;
 
       mount.innerHTML = `
+        ${isClosed ? `
+          <!-- Concluded Banner Notice -->
+          <div style="max-width: 1000px; margin: 0 auto 24px auto; background: rgba(239, 68, 68, 0.12); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 18px; padding: 16px 22px; text-align: center;">
+            <div style="color: #F87171; font-weight: 800; font-size: 13.5px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>🔒</span> <span>Ziddi Pushup Challenge Officially Concluded!</span>
+            </div>
+            <p style="color: #CBD5E1; font-size: 13.5px; margin: 6px 0 0 0; line-height: 1.5;">
+              Submissions are closed and the podium standings are locked. You can watch all verified athlete proof reels below! Stay tuned on our Instagram for the next challenge drop.
+            </p>
+          </div>
+        ` : ''}
+
         <div class="challenge-detail-box">
           <div class="challenge-meta-row">
             <div>
-              <span class="badge-live-pulse" style="margin-bottom: 8px;">Active Challenge</span>
+              ${isClosed ? `
+                <span class="badge-live-pulse" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.6); color: #F87171; box-shadow: 0 0 12px rgba(239, 68, 68, 0.3); margin-bottom: 8px;">
+                  🔒 CHALLENGE CLOSED • FINAL PODIUM LOCKED
+                </span>
+              ` : `
+                <span class="badge-live-pulse" style="margin-bottom: 8px;">Active Challenge</span>
+              `}
               <h2 style="font-size: 32px; font-weight: 800; margin: 6px 0 10px 0; color: #FFF;">
-                ${active.title}
+                ${active.title} ${isClosed ? '<span style="color: #F87171; font-size: 22px;">(Concluded)</span>' : ''}
               </h2>
               <p style="color: #94A3B8; font-size: 15px; margin: 0; max-width: 650px; line-height: 1.6;">
                 ${active.description}
@@ -835,22 +854,31 @@
           <!-- Top 3 Podium (Celebrating Top 3 Athletes & Proof Reels) -->
           <div style="margin-top: 40px;">
             <div style="text-align: center; margin-bottom: 28px;">
-              <h3 style="font-size: 26px; font-weight: 800; color: #FFF;">Live Podium Standings</h3>
-              <p style="color: #94A3B8; font-size: 14px;">Top 3 verified athletes holding the podium for this challenge</p>
+              <h3 style="font-size: 26px; font-weight: 800; color: #FFF;">${isClosed ? 'Official Final Podium Standings 🏆' : 'Live Podium Standings'}</h3>
+              <p style="color: #94A3B8; font-size: 14px;">${isClosed ? 'Official verified winners of the 1-Minute Pushup Challenge' : 'Top 3 verified athletes holding the podium for this challenge'}</p>
             </div>
             ${ZiddiChallenges.renderPodiumHtml(leaderboard, active.unit)}
           </div>
 
           <!-- Bottom Action Buttons -->
           <div style="display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap;">
-            <button onclick="ZiddiChallenges.openClaimModal()" class="btn-challenges-primary">
-              <span>Claim Your Instagram Attempts ⚡</span>
-            </button>
+            ${isClosed ? `
+              <button class="btn-challenges-secondary" style="cursor: default; opacity: 0.9;" disabled>
+                <span>🔒 Challenge Closed (Podium Locked)</span>
+              </button>
+            ` : `
+              <button onclick="ZiddiChallenges.openClaimModal()" class="btn-challenges-primary">
+                <span>Claim Your Instagram Attempts ⚡</span>
+              </button>
+            `}
             ${active.instagram_post_url ? `
               <a href="${active.instagram_post_url}" target="_blank" rel="noopener noreferrer" class="btn-challenges-secondary">
                 <span>View Instagram Challenge Reel ↗</span>
               </a>
             ` : ''}
+            <a href="https://www.instagram.com/ziddiapp/" target="_blank" rel="noopener noreferrer" class="btn-challenges-primary">
+              <span>Follow @ziddiapp for Next Challenge ⚡</span>
+            </a>
           </div>
         </div>
       `;

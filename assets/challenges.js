@@ -59,6 +59,22 @@ const ZiddiChallenges = {
     return null;
   },
 
+  // ── Default / Fallback Challenge Data (Marked as Closed / Completed) ──────
+  fallbackPushupChallenge: {
+    id: "e7b1a001-0000-4000-8000-000000000001",
+    title: "Ziddi Pushup Challenge",
+    slug: "ziddi-pushup-challenge",
+    description: "Do as many pushups as you can in 1 minute. Official challenge has officially concluded and final podium standings are locked!",
+    rules: "Chest must touch the floor, elbows locked out at the top. Full body must be visible on camera.",
+    reward_description: "Ziddi Pro Merch + Founder Shoutout (Awarded to Top 3)",
+    status: "COMPLETED",
+    is_closed: true,
+    activity_type: "EXERCISE",
+    metric_type: "REPS",
+    unit: "reps",
+    instagram_post_url: "https://www.instagram.com/reel/De6saZ0pwWJ/"
+  },
+
   // ── Fetch Challenges directly from live API ─────────────────────────────────
   async fetchChallenges(status = "ACTIVE") {
     try {
@@ -68,17 +84,25 @@ const ZiddiChallenges = {
       if (res.ok) {
         const json = await res.json();
         if (json && json.data && json.data.length > 0) {
-          this.allChallenges = json.data;
-          this.activeChallenge = json.data.find(c => c.is_featured) || json.data[0];
-          return json.data;
+          // Mark pushup challenge as closed if returned from live backend
+          const enriched = json.data.map(c => {
+            if (c.slug === 'ziddi-pushup-challenge' || c.id === 'e7b1a001-0000-4000-8000-000000000001' || (c.title && c.title.toLowerCase().includes('pushup'))) {
+              return { ...c, status: 'COMPLETED', is_closed: true };
+            }
+            return c;
+          });
+          this.allChallenges = enriched;
+          this.activeChallenge = enriched.find(c => c.is_featured) || enriched[0];
+          return enriched;
         }
       }
     } catch (e) {
       console.error("Live challenges API request failed:", e);
     }
-    this.allChallenges = [];
-    this.activeChallenge = null;
-    return [];
+    // Resilient fallback with the officially completed Pushup Challenge
+    this.allChallenges = [this.fallbackPushupChallenge];
+    this.activeChallenge = this.fallbackPushupChallenge;
+    return [this.fallbackPushupChallenge];
   },
 
   // ── Fetch Leaderboard directly from live API ────────────────────────────────
@@ -496,29 +520,38 @@ const ZiddiChallenges = {
     if (!active) return;
 
     const leaderboard = await this.fetchLeaderboard(active.id);
+    const isClosed = active.status === 'COMPLETED' || active.is_closed;
 
     container.innerHTML = `
       <!-- Homepage Challenge Highlight Banner -->
       <div class="challenges-home-banner">
         <div class="challenges-banner-card">
           <div class="challenges-banner-content">
-            <div class="challenges-banner-tag">
-              <span class="live-pulse-dot" style="background: #C084FC;"></span>
-              <span>Community Fitness Challenge • Live Now</span>
+            <div class="challenges-banner-tag" style="${isClosed ? 'background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #F87171;' : ''}">
+              <span class="live-pulse-dot" style="${isClosed ? 'background: #EF4444; box-shadow: 0 0 10px #EF4444;' : 'background: #C084FC;'}"></span>
+              <span>${isClosed ? 'Community Fitness Challenge • Concluded 🔒' : 'Community Fitness Challenge • Live Now'}</span>
             </div>
             <h2 class="challenges-banner-title">
-              ${active.title}
+              ${active.title} ${isClosed ? '<span style="font-size: 20px; color: #F87171; font-weight: 700; display: block; margin-top: 4px;">(Official Podium Locked 🔒)</span>' : ''}
             </h2>
             <p class="challenges-banner-desc">
-              ${active.description} Compete with India’s fiercest athletes on Instagram or directly in-app. Top submissions win official Ziddi Pro Merch & Coins!
+              ${isClosed 
+                ? 'The 1-Minute Pushup Challenge has officially concluded and final athlete standings are locked! Watch the verified reels of our winning community athletes below.' 
+                : active.description + ' Compete with India’s fiercest athletes on Instagram or directly in-app. Top submissions win official Ziddi Pro Merch & Coins!'}
             </p>
             <div class="challenges-banner-actions">
               <a href="challenges.html" class="btn-challenges-primary">
-                <span>View Full Leaderboards & Compete 🏆</span>
+                <span>View Final Leaderboard Podium 🏆</span>
               </a>
-              <button onclick="ZiddiChallenges.openClaimModal()" class="btn-challenges-secondary">
-                <span>Claim Instagram Attempts ⚡</span>
-              </button>
+              ${isClosed ? `
+                <button class="btn-challenges-secondary" style="opacity: 0.85; cursor: default;">
+                  <span>🔒 Closed • Podium Locked</span>
+                </button>
+              ` : `
+                <button onclick="ZiddiChallenges.openClaimModal()" class="btn-challenges-secondary">
+                  <span>Claim Instagram Attempts ⚡</span>
+                </button>
+              `}
             </div>
           </div>
           <div class="challenges-banner-visual">
@@ -527,15 +560,17 @@ const ZiddiChallenges = {
         </div>
       </div>
 
-      <!-- Top 3 Podium Showcase Section (Celebrating Top 3 & Reels, no total count) -->
+      <!-- Top 3 Podium Showcase Section (Celebrating Top 3 & Reels) -->
       <section class="podium-section">
         <div class="podium-header">
-          <span style="color: #A855F7; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">
-            Current Standings ⚡
+          <span style="color: ${isClosed ? '#F87171' : '#A855F7'}; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">
+            ${isClosed ? 'Official Final Podium 🔒' : 'Current Standings ⚡'}
           </span>
-          <h3>Top 3 Leaderboard Podium</h3>
+          <h3>${isClosed ? 'Top 3 Leaderboard Winners' : 'Top 3 Leaderboard Podium'}</h3>
           <p>
-            Real athletes. Real sweat. Watch verified proof reels and see who holds the podium!
+            ${isClosed 
+              ? 'Real athletes. Real sweat. Verified proof reels and locked podium standings for the 1-Minute Pushup Challenge!' 
+              : 'Real athletes. Real sweat. Watch verified proof reels and see who holds the podium!'}
           </p>
         </div>
         ${this.renderPodiumHtml(leaderboard, active.unit)}
