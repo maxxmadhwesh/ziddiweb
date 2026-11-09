@@ -876,8 +876,12 @@ const ZiddiStore = {
           <div style="display: flex; align-items: center; gap: 8px;">
             <img src="assets/ziddi_coin.png" style="height: 20px; width: 20px;">
             <div>
-              <div style="font-size: 13px; font-weight: 700; color: #FFF;">Redeem 25 Ziddi Coins</div>
-              <div style="font-size: 11px; color: #9CA3AF;">${userCoins.toLocaleString()} coins available · saves ₹25</div>
+              <div style="font-size: 13px; font-weight: 700; color: #FFF;">Redeem 25 Ziddi Coins (₹25 OFF)</div>
+              <div style="font-size: 11px; color: #9CA3AF;">${userCoins.toLocaleString()} coins available · saves ₹25 on web</div>
+              <div style="font-size: 11px; color: #FBBF24; font-weight: 700; margin-top: 3px; display: flex; align-items: center; gap: 4px;">
+                <span>📱</span>
+                <span>Diwali Offer: Redeem 50 ZC (₹50 OFF) in Ziddi Mobile App!</span>
+              </div>
             </div>
           </div>
           <input type="checkbox" ${this.useCoins ? 'checked' : ''} style="accent-color: #EC4899; width: 18px; height: 18px; cursor: pointer;">

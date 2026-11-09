@@ -931,7 +931,7 @@ h1, h2, h3, .section-title, .hero-content h1, .features-header h2, .founders-her
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #7C3AED 0%, #EC4899 50%, #3B82F6 100%);
+  background: linear-gradient(90deg, #F59E0B 0%, #EC4899 50%, #7C3AED 100%);
 }
 
 .launch-modal-close {
