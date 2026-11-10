@@ -464,9 +464,38 @@
 
         <!-- Dynamic User Auth & Claim Controller Mount -->
         <div id="claimControllerMount">
-          <div style="padding: 30px; text-align: center; color: #94A3B8;">
-            <div style="font-size: 32px; animation: pulse-badge 1s infinite;">⚡</div>
-            <p style="margin-top: 10px; font-size: 14px;">Checking athlete eligibility...</p>
+          <div style="max-width: 480px; margin: 0 auto; text-align: left;">
+            <form id="emailClaimForm" onsubmit="handleEmailClaimSubmit(event)">
+              <label for="claimEmailInput" style="display: block; font-size: 13.5px; font-weight: 700; color: #E2E8F0; margin-bottom: 8px;">
+                Enter your Ziddi registered email
+              </label>
+
+              <div style="position: relative; margin-bottom: 8px;">
+                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; pointer-events: none; opacity: 0.85;">
+                  ✉️
+                </div>
+                <input 
+                  type="email" 
+                  id="claimEmailInput" 
+                  required 
+                  placeholder="athlete@example.com" 
+                  autocomplete="email"
+                  style="width: 100%; box-sizing: border-box; background: rgba(0, 0, 0, 0.55); border: 1.5px solid rgba(168, 85, 247, 0.4); border-radius: 16px; padding: 16px 18px 16px 48px; color: #FFF; font-size: 15px; font-weight: 600; outline: none; transition: all 0.2s ease;"
+                  onfocus="this.style.borderColor='#EC4899'; this.style.boxShadow='0 0 20px rgba(236,72,153,0.35)';"
+                  onblur="this.style.borderColor='rgba(168, 85, 247, 0.4)'; this.style.boxShadow='none';"
+                />
+              </div>
+
+              <div style="font-size: 12px; color: #94A3B8; margin-bottom: 20px; line-height: 1.4;">
+                💡 No password needed. Enter the email address linked to your Ziddi app account to immediately unlock your 7 days.
+              </div>
+
+              <div id="claimErrorBox" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; color: #FCA5A5; border-radius: 14px; padding: 14px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 18px;"></div>
+
+              <button type="submit" id="claimSubmitBtn" class="btn-claim-primary" style="width: 100%; max-width: none;">
+                <span>Claim 7 Days Free Premium 🚀</span>
+              </button>
+            </form>
           </div>
         </div>
 
@@ -607,28 +636,6 @@
     </footer>
   </div>
 
-  <!-- Inline Email Auth Modal / Drawer if user prefers email/password -->
-  <div id="emailAuthModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 10000; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;">
-    <div style="background: #12111D; border: 1.5px solid rgba(168, 85, 247, 0.4); border-radius: 24px; padding: 32px 28px; max-width: 420px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.9);">
-      <button onclick="closeEmailAuthModal()" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #94A3B8; font-size: 20px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;">&times;</button>
-      <h3 id="emailAuthTitle" style="font-size: 22px; font-weight: 800; margin: 0 0 8px 0; color: #FFF;">Sign In to Claim</h3>
-      <p style="font-size: 13px; color: #94A3B8; margin: 0 0 20px 0;">Enter your Ziddi email and password</p>
-
-      <form id="inlineEmailForm" onsubmit="handleInlineEmailAuth(event)">
-        <div style="margin-bottom: 14px; text-align: left;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: #CBD5E1; margin-bottom: 6px;">Email Address</label>
-          <input type="email" id="authEmailInput" required style="width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; color: #FFF; font-size: 14px; box-sizing: border-box;" placeholder="your.email@example.com">
-        </div>
-        <div style="margin-bottom: 20px; text-align: left;">
-          <label style="display: block; font-size: 12px; font-weight: 700; color: #CBD5E1; margin-bottom: 6px;">Password</label>
-          <input type="password" id="authPasswordInput" required style="width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; color: #FFF; font-size: 14px; box-sizing: border-box;" placeholder="••••••••">
-        </div>
-        <div id="emailAuthError" style="color: #EF4444; font-size: 12.5px; margin-bottom: 14px; display: none;"></div>
-        <button type="submit" id="emailAuthSubmitBtn" class="btn-claim-primary" style="width: 100%; padding: 14px; font-size: 15px;">Sign In &amp; Continue →</button>
-      </form>
-    </div>
-  </div>
-
   <script>
     const PROMO_CODE = "LAUNCH7";
 
@@ -639,6 +646,16 @@
       } catch (e) {
         return null;
       }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     function formatDateTime(dateStr) {
@@ -657,231 +674,245 @@
       }
     }
 
-    // Render header user button
-    function renderVipHeaderAuth(user) {
+    // Render header user button / status
+    function renderVipHeaderAuth() {
       const container = document.getElementById('vipHeaderAuth');
       if (!container) return;
 
+      const user = (typeof window.ZiddiAuth !== 'undefined') ? ZiddiAuth.getUser() : null;
       if (user) {
         const name = (user.name || user.first_name || user.username || "Athlete").split(" ")[0];
         container.innerHTML = `
-          <button onclick="if(confirm('Log out from Ziddi?')) ZiddiAuth.logout();" class="btn-claim-secondary" style="padding: 7px 12px; font-size: 12px; border-color: rgba(236, 72, 153, 0.4); color: #F472B6;">
-            👤 ${name} (Sign Out)
+          <button onclick="if(confirm('Log out from Ziddi?')) { ZiddiAuth.logout(); renderEmailClaimForm(); }" class="btn-claim-secondary" style="padding: 7px 12px; font-size: 12px; border-color: rgba(236, 72, 153, 0.4); color: #F472B6;">
+            👤 ${escapeHtml(name)} (Sign Out)
           </button>
         `;
       } else {
         container.innerHTML = `
-          <button onclick="triggerSignIn()" class="btn-claim-primary" style="padding: 7px 14px; font-size: 12px; max-width: none; width: auto; box-shadow: none;">
-            Sign In ⚡
-          </button>
+          <span style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.35); padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; color: #D8B4FE; text-transform: uppercase; letter-spacing: 0.5px;">
+            ⚡ Code Active
+          </span>
         `;
       }
     }
 
-    async function fetchFreshUser(userId) {
-      try {
-        const res = await fetch(`${ZIDDI_API_BASE}/api/v1/users/${userId}`);
-        if (res.ok) {
-          const json = await res.json();
-          const fresh = json.data || json;
-          if (fresh && fresh.id) {
-            ZiddiAuth.saveUser(fresh);
-            return fresh;
-          }
-        }
-      } catch (e) {
-        console.warn("Could not fetch fresh user from backend:", e);
-      }
-      return ZiddiAuth.getUser();
-    }
-
-    // Main claim view router
-    async function renderClaimState() {
+    // Direct Email Claim Form (No login required)
+    function renderEmailClaimForm() {
       const mount = document.getElementById('claimControllerMount');
       if (!mount) return;
 
-      let user = ZiddiAuth.getUser();
-      renderVipHeaderAuth(user);
+      renderVipHeaderAuth();
 
-      // State 1: User is not logged in
-      if (!user) {
-        const emailParam = getParam('email') || '';
-        mount.innerHTML = `
-          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 32px 24px; max-width: 520px; margin: 0 auto;">
-            <div style="font-size: 14.5px; font-weight: 700; color: #FFF; margin-bottom: 6px;">
-              Step 1: Sign in with your Ziddi Account
-            </div>
-            <p style="font-size: 13.5px; color: #94A3B8; margin: 0 0 24px 0; line-height: 1.5;">
-              Use the Google or Email account you use for Ziddi to immediately activate your 7-day all-access trial.
-            </p>
+      // Check if email was provided in URL query (?email=...) or logged-in storage
+      const emailParam = (getParam('email') || '').trim();
+      const loggedUser = (typeof window.ZiddiAuth !== 'undefined') ? ZiddiAuth.getUser() : null;
+      const initialEmail = emailParam || (loggedUser ? (loggedUser.email || '') : '');
 
-            <button onclick="ZiddiAuth.loginWithGoogle()" class="btn-google-sign" style="margin-bottom: 14px;">
-              <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.9c2.27-2.09 3.645-5.17 3.645-9.15z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.9-3.05c-1.08.72-2.45 1.16-4.03 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.92 0 12s.45 3.85 1.24 5.42l4.04-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
-              <span>Sign in with Google to Claim ⚡</span>
-            </button>
-
-            <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0; max-width: 440px; margin-left: auto; margin-right: auto;">
-              <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
-              <span style="font-size: 11px; color: #64748B; font-weight: 700; text-transform: uppercase;">or</span>
-              <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
-            </div>
-
-            <button onclick="openEmailAuthModal('${emailParam}')" class="btn-claim-secondary" style="width: 100%; max-width: 440px; box-sizing: border-box; padding: 13px;">
-              <span>Sign in with Email / Password →</span>
-            </button>
-          </div>
-        `;
+      const existingInput = document.getElementById('claimEmailInput');
+      if (existingInput) {
+        if (initialEmail && !existingInput.value) {
+          existingInput.value = initialEmail;
+        }
         return;
       }
-
-      // If user is logged in, fetch freshest profile from DB to check referred_by_code
-      user = await fetchFreshUser(user.id);
-      const name = user.first_name || user.name || user.username || "Athlete";
-      const email = user.email || "";
-      const avatarUrl = user.profile_picture_url || user.profilePictureUrl || null;
-      const initials = name.substring(0, 2).toUpperCase();
-      const codeApplied = (user.referred_by_code || user.referredByCode || "").trim();
-
-      // State 2: User has ALREADY applied a referral code
-      if (codeApplied) {
-        const isPremium = !!user.is_premium;
-        const expiresAt = user.premium_expires_at || user.premiumExpiresAt;
-        const isStillActive = isPremium && expiresAt && new Date(expiresAt).getTime() > Date.now();
-
-        mount.innerHTML = `
-          <div class="status-alert warning">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-              <span style="font-size: 26px;">⚠️</span>
-              <div>
-                <strong style="color: #F59E0B; font-size: 16px;">Promotional Code Already Claimed</strong>
-                <div style="font-size: 12px; color: #CBD5E1;">Single-redemption policy</div>
-              </div>
-            </div>
-
-            <p style="font-size: 14px; margin: 0 0 14px 0; color: #E2E8F0;">
-              Hi <strong>${name}</strong> (${email}), our database indicates that this account has already redeemed a promotional trial (Code: <strong style="color: #FBBF24;">${codeApplied}</strong>).
-            </p>
-
-            ${isStillActive ? `
-              <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; color: #6EE7B7; font-size: 13.5px;">
-                🎉 <strong>Your Premium access is currently ACTIVE!</strong><br>
-                Valid until: <strong style="color: #FFF;">${formatDateTime(expiresAt)}</strong>. Enjoy all premium benefits in the app!
-              </div>
-            ` : `
-              <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; color: #FDE68A; font-size: 13px;">
-                ⏳ Your previous promotional trial period has concluded. The launch offer can only be applied once per athlete account.
-              </div>
-            `}
-
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" class="btn-claim-secondary" style="flex: 1; min-width: 160px;">
-                🍏 Open iOS App
-              </a>
-              <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" class="btn-claim-secondary" style="flex: 1; min-width: 160px;">
-                🤖 Open Android App
-              </a>
-              <button onclick="ZiddiAuth.logout()" class="btn-claim-secondary" style="border-color: rgba(239, 68, 68, 0.4); color: #F87171;">
-                Switch Account 👤
-              </button>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      // State 3: User is Logged In and ELIGIBLE to claim LAUNCH7!
-      const isCurrentlyPremium = !!user.is_premium && user.premium_expires_at && new Date(user.premium_expires_at).getTime() > Date.now();
-      const currentExpiryFormatted = isCurrentlyPremium ? formatDateTime(user.premium_expires_at) : null;
 
       mount.innerHTML = `
-        <div style="max-width: 520px; margin: 0 auto;">
-          <!-- User Profile Chip -->
-          <div class="user-profile-chip">
-            <div class="user-chip-avatar">
-              ${avatarUrl ? `<img src="${avatarUrl}" alt="${name}">` : initials}
-            </div>
-            <div style="text-align: left;">
-              <div style="font-size: 13px; font-weight: 800; color: #FFF;">${name}</div>
-              <div style="font-size: 11px; color: #9CA3AF;">${email}</div>
-            </div>
-            <button onclick="ZiddiAuth.logout()" style="background: none; border: none; color: #64748B; font-size: 11px; cursor: pointer; text-decoration: underline; margin-left: 8px;">Change</button>
-          </div>
+        <div style="max-width: 480px; margin: 0 auto; text-align: left;">
+          <form id="emailClaimForm" onsubmit="handleEmailClaimSubmit(event)">
+            <label for="claimEmailInput" style="display: block; font-size: 13.5px; font-weight: 700; color: #E2E8F0; margin-bottom: 8px;">
+              Enter your Ziddi registered email
+            </label>
 
-          ${isCurrentlyPremium ? `
-            <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 14px; padding: 12px 16px; margin-bottom: 20px; color: #6EE7B7; font-size: 13px; text-align: left;">
-              ✨ <strong>Active Premium Member:</strong> Your current access is valid until <strong>${currentExpiryFormatted}</strong>. Applying code LAUNCH7 will extend your subscription date by <strong>+7 additional days</strong>!
+            <div style="position: relative; margin-bottom: 8px;">
+              <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; pointer-events: none; opacity: 0.85;">
+                ✉️
+              </div>
+              <input 
+                type="email" 
+                id="claimEmailInput" 
+                required 
+                placeholder="athlete@example.com" 
+                value="${escapeHtml(initialEmail)}"
+                autocomplete="email"
+                style="width: 100%; box-sizing: border-box; background: rgba(0, 0, 0, 0.55); border: 1.5px solid rgba(168, 85, 247, 0.4); border-radius: 16px; padding: 16px 18px 16px 48px; color: #FFF; font-size: 15px; font-weight: 600; outline: none; transition: all 0.2s ease;"
+                onfocus="this.style.borderColor='#EC4899'; this.style.boxShadow='0 0 20px rgba(236,72,153,0.35)';"
+                onblur="this.style.borderColor='rgba(168, 85, 247, 0.4)'; this.style.boxShadow='none';"
+              />
             </div>
-          ` : ''}
 
-          <div style="margin-bottom: 24px;">
-            <button id="activateClaimBtn" onclick="activateTrial('${user.id}')" class="btn-claim-primary">
-              <span>${isCurrentlyPremium ? 'Extend Subscription by +7 Days 🚀' : 'Activate My 7 Days Free Premium 🚀'}</span>
+            <div style="font-size: 12px; color: #94A3B8; margin-bottom: 20px; line-height: 1.4;">
+              💡 No password needed. Enter the email address linked to your Ziddi app account to immediately unlock your 7 days.
+            </div>
+
+            <div id="claimErrorBox" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1.5px solid #EF4444; color: #FCA5A5; border-radius: 14px; padding: 14px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 18px;"></div>
+
+            <button type="submit" id="claimSubmitBtn" class="btn-claim-primary" style="width: 100%; max-width: none;">
+              <span>Claim 7 Days Free Premium 🚀</span>
             </button>
-          </div>
-
-          <div id="claimErrorBox" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #FCA5A5; border-radius: 14px; padding: 12px; font-size: 13px; margin-bottom: 16px;"></div>
-
-          <p style="font-size: 12.5px; color: #64748B; margin: 0; line-height: 1.5;">
-            By clicking activate, code <strong>LAUNCH7</strong> will be applied to your Ziddi ID.<br>
-            ${isCurrentlyPremium ? 'Your active subscription date moves forward by 7 full days.' : 'Your 7 days start immediately and sync with your mobile app.'}
-          </p>
+          </form>
         </div>
       `;
     }
 
-    // Call backend apply-referral
-    async function activateTrial(userId) {
-      const btn = document.getElementById('activateClaimBtn');
+    // Handle email submission & referral redemption
+    async function handleEmailClaimSubmit(e) {
+      if (e) e.preventDefault();
+
+      const emailInput = document.getElementById('claimEmailInput');
       const errBox = document.getElementById('claimErrorBox');
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = `<span>Activating VIP Pass... ⚡</span>`;
+      const btn = document.getElementById('claimSubmitBtn');
+      if (!emailInput || !btn) return;
+
+      const email = emailInput.value.trim().toLowerCase();
+      if (!email || !email.includes('@')) {
+        if (errBox) {
+          errBox.style.display = 'block';
+          errBox.textContent = "Please enter a valid email address.";
+        }
+        return;
       }
+
+      // 1. Loading state: Searching athlete in database
+      btn.disabled = true;
+      btn.innerHTML = `<span>Checking Athlete Account... ⚡</span>`;
       if (errBox) errBox.style.display = 'none';
 
       try {
-        const res = await fetch(`${ZIDDI_API_BASE}/api/v1/users/${userId}/apply-referral`, {
+        // Look up user by email in backend
+        const lookupRes = await fetch(`${ZIDDI_API_BASE}/api/v1/users/email/${encodeURIComponent(email)}`);
+
+        if (lookupRes.status === 404) {
+          if (errBox) {
+            errBox.style.display = 'block';
+            errBox.innerHTML = `
+              ⚠️ <strong>Account Not Found:</strong> No Ziddi account registered under <strong>${escapeHtml(email)}</strong>.<br><br>
+              Please verify your email address, or download the Ziddi app to create an account first:
+              <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" style="color: #F472B6; font-weight: 700; text-decoration: underline;">🍏 App Store (iOS)</a>
+                <span style="color: rgba(255,255,255,0.2);">|</span>
+                <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" style="color: #34D399; font-weight: 700; text-decoration: underline;">🤖 Google Play (Android)</a>
+              </div>
+            `;
+          }
+          btn.disabled = false;
+          btn.innerHTML = `<span>Claim 7 Days Free Premium 🚀</span>`;
+          return;
+        }
+
+        if (!lookupRes.ok) {
+          const errData = await lookupRes.json().catch(() => ({}));
+          throw new Error(errData.message || "Failed to locate account. Please try again.");
+        }
+
+        const lookupJson = await lookupRes.json();
+        const user = lookupJson.data || lookupJson;
+
+        if (!user || !user.id) {
+          throw new Error("Invalid athlete account record received.");
+        }
+
+        // Check if referral code was already used
+        const codeApplied = (user.referred_by_code || user.referredByCode || "").trim();
+        if (codeApplied) {
+          renderAlreadyClaimedScreen(user, codeApplied);
+          return;
+        }
+
+        // 2. Account found and eligible! Apply LAUNCH7 code
+        btn.innerHTML = `<span>Activating 7-Day VIP Pass... 🚀</span>`;
+
+        const applyRes = await fetch(`${ZIDDI_API_BASE}/api/v1/users/${user.id}/apply-referral`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ code: PROMO_CODE })
         });
 
-        const json = await res.json().catch(() => ({}));
+        const applyJson = await applyRes.json().catch(() => ({}));
 
-        if (!res.ok || json.status === "error") {
-          const errMsg = json.message || "Failed to activate promo code. It may have already been used on this account.";
+        if (!applyRes.ok || applyJson.status === "error") {
+          const errMsg = applyJson.message || "Failed to activate promo code. It may have already been used on this account.";
           if (errBox) {
             errBox.style.display = 'block';
-            errBox.textContent = `Notice: ${errMsg}`;
+            errBox.innerHTML = `⚠️ <strong>Notice:</strong> ${escapeHtml(errMsg)}`;
           }
-          if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = `<span>Try Again</span>`;
-          }
+          btn.disabled = false;
+          btn.innerHTML = `<span>Claim 7 Days Free Premium 🚀</span>`;
           return;
         }
 
         // Success! User updated in backend
-        const updatedUser = json.data || json;
-        if (updatedUser && updatedUser.id) {
+        const updatedUser = applyJson.data || applyJson;
+        if (typeof window.ZiddiAuth !== 'undefined' && ZiddiAuth.getUser() && ZiddiAuth.getUser().id === updatedUser.id) {
           ZiddiAuth.saveUser(updatedUser);
         }
 
-        // Render Celebration Screen
         renderSuccessScreen(updatedUser);
       } catch (err) {
-        console.error("Activation failed:", err);
+        console.error("Claim error:", err);
         if (errBox) {
           errBox.style.display = 'block';
-          errBox.textContent = "Network error. Please check your connection and try again.";
+          errBox.textContent = err.message || "Network error. Please check your connection and try again.";
         }
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = `<span>Try Again</span>`;
-        }
+        btn.disabled = false;
+        btn.innerHTML = `<span>Claim 7 Days Free Premium 🚀</span>`;
       }
     }
 
+    // Render Already Claimed warning screen
+    function renderAlreadyClaimedScreen(user, codeApplied) {
+      const mount = document.getElementById('claimControllerMount');
+      if (!mount) return;
+
+      const name = user.first_name || user.name || user.username || "Athlete";
+      const email = user.email || "";
+      const isPremium = !!user.is_premium;
+      const expiresAt = user.premium_expires_at || user.premiumExpiresAt;
+      const isStillActive = isPremium && expiresAt && new Date(expiresAt).getTime() > Date.now();
+
+      mount.innerHTML = `
+        <div class="status-alert warning">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span style="font-size: 26px;">⚠️</span>
+            <div>
+              <strong style="color: #F59E0B; font-size: 16px;">Promotional Code Already Claimed</strong>
+              <div style="font-size: 12px; color: #CBD5E1;">Single-redemption policy</div>
+            </div>
+          </div>
+
+          <p style="font-size: 14px; margin: 0 0 14px 0; color: #E2E8F0;">
+            Hi <strong>${escapeHtml(name)}</strong> (${escapeHtml(email)}), our records show this account has already redeemed a promotional trial (Code: <strong style="color: #FBBF24;">${escapeHtml(codeApplied)}</strong>).
+          </p>
+
+          ${isStillActive ? `
+            <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; color: #6EE7B7; font-size: 13.5px;">
+              🎉 <strong>Your Premium access is currently ACTIVE!</strong><br>
+              Valid until: <strong style="color: #FFF;">${formatDateTime(expiresAt)}</strong>. Enjoy all premium features in the app!
+            </div>
+          ` : `
+            <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; color: #FDE68A; font-size: 13px;">
+              ⏳ Your previous promotional trial period has ended. The launch offer can only be applied once per athlete account.
+            </div>
+          `}
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+            <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" class="btn-claim-secondary" style="flex: 1; min-width: 140px;">
+              🍏 Open iOS App
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" class="btn-claim-secondary" style="flex: 1; min-width: 140px;">
+              🤖 Open Android App
+            </a>
+          </div>
+
+          <div style="text-align: center;">
+            <button onclick="renderEmailClaimForm()" style="background: none; border: none; color: #94A3B8; text-decoration: underline; font-size: 12.5px; cursor: pointer;">
+              ← Enter a different email address
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render Success celebration screen
     function renderSuccessScreen(user) {
       const mount = document.getElementById('claimControllerMount');
       if (!mount) return;
@@ -894,92 +925,45 @@
         <div class="status-alert success" style="animation: pulse-badge 1s ease;">
           <div style="font-size: 52px; margin-bottom: 10px;">🎉🏆</div>
           <h2 style="font-size: 26px; font-weight: 900; color: #FFF; margin: 0 0 8px 0;">
-            VIP Premium Trial Activated!
+            VIP Premium Pass Activated!
           </h2>
           <p style="font-size: 15px; color: #E2E8F0; margin: 0 0 16px 0;">
-            Congratulations <strong>${name}</strong>! Your 7-day all-access trial is now officially ACTIVE.
+            Congratulations <strong>${escapeHtml(name)}</strong>! Your 7-day all-access trial is now officially ACTIVE.
           </p>
 
-          <div style="background: rgba(0, 0, 0, 0.4); border: 1.5px solid #10B981; border-radius: 16px; padding: 14px 20px; max-width: 440px; margin: 0 auto 24px auto;">
+          <div style="background: rgba(0, 0, 0, 0.4); border: 1.5px solid #10B981; border-radius: 16px; padding: 14px 20px; max-width: 440px; margin: 0 auto 20px auto;">
             <div style="font-size: 11px; font-weight: 800; color: #34D399; text-transform: uppercase; letter-spacing: 0.5px;">Active Trial Duration</div>
-            <div style="font-size: 17px; font-weight: 900; color: #FFF; margin-top: 4px;">Valid Until ${expiryFormatted}</div>
+            <div style="font-size: 18px; font-weight: 900; color: #FFF; margin-top: 4px;">Valid Until ${expiryFormatted}</div>
           </div>
 
           <p style="font-size: 13.5px; color: #94A3B8; max-width: 480px; margin: 0 auto 24px auto; line-height: 1.5;">
             All 5 pillars are unlocked. Open the Ziddi Mobile App to begin your AI workout tracking and personalized coaching!
           </p>
 
-          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" class="btn-claim-primary" style="flex: 1; min-width: 180px; padding: 14px 20px; font-size: 14.5px;">
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+            <a href="https://apps.apple.com/in/app/ziddi/id6809047218" target="_blank" rel="noopener noreferrer" class="btn-claim-primary" style="flex: 1; min-width: 170px; padding: 14px 20px; font-size: 14.5px;">
               🍏 Open on iPhone
             </a>
-            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" class="btn-claim-primary" style="flex: 1; min-width: 180px; padding: 14px 20px; font-size: 14.5px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);">
+            <a href="https://play.google.com/store/apps/details?id=com.ziddi.app&hl=en" target="_blank" rel="noopener noreferrer" class="btn-claim-primary" style="flex: 1; min-width: 170px; padding: 14px 20px; font-size: 14.5px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);">
               🤖 Open on Android
             </a>
             <a href="/store" class="btn-claim-secondary" style="flex: 1; min-width: 140px; padding: 14px 20px;">
               🛍️ Visit Store
             </a>
           </div>
+
+          <div style="text-align: center;">
+            <button onclick="renderEmailClaimForm()" style="background: none; border: none; color: #94A3B8; text-decoration: underline; font-size: 12.5px; cursor: pointer;">
+              Activate for another email address
+            </button>
+          </div>
         </div>
       `;
     }
 
-    // Modal Email Auth Helpers
-    function triggerSignIn() {
-      ZiddiAuth.openModal();
-    }
-
-    function openEmailAuthModal(prefillEmail = "") {
-      const modal = document.getElementById('emailAuthModal');
-      const emailInput = document.getElementById('authEmailInput');
-      const errBox = document.getElementById('emailAuthError');
-      if (emailInput && prefillEmail) emailInput.value = prefillEmail;
-      if (errBox) errBox.style.display = 'none';
-      if (modal) modal.style.display = 'flex';
-    }
-
-    function closeEmailAuthModal() {
-      const modal = document.getElementById('emailAuthModal');
-      if (modal) modal.style.display = 'none';
-    }
-
-    async function handleInlineEmailAuth(e) {
-      if (e) e.preventDefault();
-      const emailInput = document.getElementById('authEmailInput');
-      const passInput = document.getElementById('authPasswordInput');
-      const errBox = document.getElementById('emailAuthError');
-      const submitBtn = document.getElementById('emailAuthSubmitBtn');
-
-      if (!emailInput || !passInput) return;
-      const email = emailInput.value.trim();
-      const password = passInput.value;
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Signing in...";
-      if (errBox) errBox.style.display = 'none';
-
-      try {
-        await ZiddiAuth.login(email, password);
-        closeEmailAuthModal();
-        renderClaimState();
-      } catch (err) {
-        if (errBox) {
-          errBox.style.display = 'block';
-          errBox.textContent = err.message || "Invalid credentials. Please try again.";
-        }
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Sign In & Continue →";
-      }
-    }
-
-    // Listen for global auth changes (Google login or modal sign in)
-    window.addEventListener('ziddi_auth_changed', () => {
-      renderClaimState();
-    });
-
     // Auto-initialize on load
     document.addEventListener('DOMContentLoaded', () => {
-      renderClaimState();
+      renderEmailClaimForm();
     });
   </script>
 </body>
