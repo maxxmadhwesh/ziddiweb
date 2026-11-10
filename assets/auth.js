@@ -84,12 +84,18 @@ const ZiddiAuth = {
     localStorage.setItem("ziddi_user", JSON.stringify(userData));
     this.setCookie("ziddi_user", JSON.stringify(userData), 30);
     this.updateUI();
+    try {
+      window.dispatchEvent(new CustomEvent("ziddi_auth_changed", { detail: userData }));
+    } catch (e) {}
   },
 
   logout() {
     localStorage.removeItem("ziddi_user");
     this.deleteCookie("ziddi_user");
     this.updateUI();
+    try {
+      window.dispatchEvent(new CustomEvent("ziddi_auth_changed", { detail: null }));
+    } catch (e) {}
   },
 
   async login(identifier, password) {
